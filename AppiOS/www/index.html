@@ -15,7 +15,7 @@
     <!-- Home Page Template -->
     <script type="text/template" id="home" >
 	        <div data-role="header">
-	     		<a href="#" data-role="button" data-inline="true" data-icon="delete" data-iconpos="notext">Close</a>	
+	     		<a href="#" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext">Info</a>	
 	            <h1>Agent Home</h1>
 	            <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
 	        </div>
@@ -25,6 +25,25 @@
                     <a href="#scan" data-role="button" data-iconpos="right" data-icon="arrow-r">Scan Login QR Code</a>
                     <a href="#authz" data-role="button" data-iconpos="right" data-icon="arrow-r">Review Authorizations</a>
                 </ul>
+	      	</div>
+    </script>
+    
+    <!-- Settings Page Template -->
+    <script type="text/template" id="settings" >
+	        <div data-role="header">
+	     		<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>	
+	            <h1>Settings</h1>
+	        </div>
+	        <div data-role="content">
+	      		Device Name:
+	      		<input type="text" id="name" value="<%= Name %>" />
+	      		Device Id:
+	      		<input type="text" id="id" value="<%= DeviceId %>" />
+	      		Authentication Server URL:
+	      		<input type="text" id="authenticationServerURL" value="<%= AuthenticationServerURL %>" />
+	      	</div>
+	      	<div data-role="footer">
+	      		<a id="reset" data-role"button" data-icon="refresh">Reset</a>
 	      	</div>
     </script>
     
@@ -81,18 +100,21 @@
 
     <!-- All the Scripts -->
     <script src="lib/jqm/jquery-1.8.2.min.js"></script>
+    <script src="js/util/common.js"></script>
     <script src="js/init.js"></script>
     <script src="lib/jqm/jquery.mobile-1.2.0.min.js"></script>
+    <script src="lib/jstorage/jstorage.min.js"></script>
     <script src="lib/backbone/underscore-min.js"></script>
     <script src="lib/backbone/backbone-min.js"></script>
     <script src="lib/barcodescanner/barcodescanner.js"></script>
     <script src="lib/pushnotification/PushNotification.js"></script>
-    <script src="js/models/Session.js"></script>
+    <script src="js/models/Settings.js"></script>
     <script src="js/views/DemoView.js"></script>
     <script src="js/views/ScanView.js"></script>
     <script src="js/views/AuthzView.js"></script>
     <script src="js/views/A2P3AgentRequestView.js"></script>
     <script src="js/views/HomeView.js"></script>
+    <script src="js/views/SettingsView.js"></script>
 	<script src="js/routers/AppRouter.js"></script>
 	
     <script src="js/main.js"></script>

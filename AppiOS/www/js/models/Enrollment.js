@@ -6,31 +6,28 @@
 	'use strict';
 
 	// ----------
-	// A2P3AgentSession Model
+	// Enrollment Model
 	// ----------
 
-	window.Agent.AgentRequestSession = Backbone.Model.extend({
+	window.Agent.Enrollment = Backbone.Model.extend({
 
 		// Default attributes
 		defaults: {
 			Id: '',
-           	AgentRequestUrl: '', 
-           	isSync: true,
+			authenticationServerURL: '',
+			passcode: '',
+			name: '',
+			deviceId: '',
+			isSync: true,
 		},
 		
-		urlRoot: window.Agent.Context.BaseUrl + '/api/AgentRequestSession',
+		urlRoot: window.Agent.Context.BaseUrl + '/enroll',
 		
 		// set id to API identifier which has capital I
 		idAttribute: 'Id',
 		
-		// Remove this from *localStorage* and delete its view.
-		clear: function() {
-			// remove the item from localstorage
-			$.jStorage.deleteKey(this.get("Id"));
-			this.destroy();
-		},
-		
 		initialize: function() {
+			// Get AS URL, name and deviceId from config
 			
 		},
 
@@ -43,6 +40,14 @@
 			}
 			
 		},
+		
+		// Registers the Agent with the Authentication Server
+		// API: https://github.com/dickhardt/A2P3/tree/master/app/as
+		registerAgent: function () {
+			// use $.ajax
+		}
+		
+		
 	});
 
 })();

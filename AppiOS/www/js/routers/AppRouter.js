@@ -1,3 +1,7 @@
+/* 
+* Copyright (C) Province of British Columbia, 2013
+*/
+
 (function() {
 	'use strict';
 
@@ -5,6 +9,7 @@
 	
 	    routes:{
 	        "" : "home",
+	        "settings" : "settings",
 	        "demo" : "demo",
 	        "scan" : "scan",
 	        "authz" : "authz",
@@ -25,6 +30,14 @@
 		 */
 		home:function () {
 	        this.changePage(new window.Agent.HomeView());
+	    },
+
+		/*
+		 * Settings page, send in the global instance of settings
+		 */
+		settings:function () {
+			
+	        this.changePage(new window.Agent.SettingsView({model: settings}));
 	    },
 
 	     /*

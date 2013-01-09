@@ -1,3 +1,7 @@
+/* 
+* Copyright (C) Province of British Columbia, 2013
+*/
+
 window.Agent = window.Agent || {};
 
 (function() {

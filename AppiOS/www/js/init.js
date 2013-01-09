@@ -1,3 +1,7 @@
+/* 
+* Copyright (C) Province of British Columbia, 2013
+*/
+
 $(document).bind("mobileinit", function () {
 	//disable JQM router
     $.mobile.ajaxEnabled = false;
@@ -19,6 +23,7 @@ $(document).bind("mobileinit", function () {
 window.Agent = window.Agent || {};
 window.Agent.Context = { BaseUrl: 'http://localhost' };
 
+/* TODO
 // Register device for push notifications
 var pushNotification = window.plugins.pushNotification;
 pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
@@ -31,6 +36,7 @@ var pushNotification = window.plugins.pushNotification;
 pushNotification.getRemoteNotificationStatus(function(status) {
     console.log(JSON.stringify(['Registration check - getRemoteNotificationStatus', status])+"\n");
 });
+*/
 
 /*
  * Global notification system. Function will use PhoneGap notification if

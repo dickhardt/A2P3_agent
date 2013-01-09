@@ -22,6 +22,8 @@
 			DeviceId : '',
 			Name: '',
 			AuthenticationServerURL: '',
+			DemoAppsURL: '',
+			RegistrarToken: '',
 		},
 
 		urlRoot: window.Agent.Context.BaseUrl + '/api/settings',
@@ -35,7 +37,6 @@
 				// set defaults to what is found in localstorage
 				this.set($.jStorage.get('settings'));
 				console.log('Settings retrieved from storage');
-	        	console.log($.jStorage.get('settings'));
 			}
 			else
 			{	    	
@@ -49,7 +50,9 @@
     				"DeviceId": window.device.uuid}); 	   
 	        	}
 	        	
-				this.set({"AuthenticationServerURL": "http://as.a2p3.net/register/agent"});
+	        	// Set bootstrap defaults here, could move this to somewhere more obvious
+				this.set({"AuthenticationServerURL": "https://as.a2p3.net/",
+					"DemoAppsURL": "https://a2p3.ca/#demo"});
 	        	
 	        	// store empty session in localstorage
 	        	$.jStorage.set('settings', this);

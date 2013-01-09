@@ -25,6 +25,10 @@
                     <a href="#scan" data-role="button" data-iconpos="right" data-icon="arrow-r">Scan Login QR Code</a>
                     <a href="#authz" data-role="button" data-iconpos="right" data-icon="arrow-r">Review Authorizations</a>
                 </ul>
+                
+                 <div data-role="content" class="fullarea">
+            	
+           	</div>
 	      	</div>
     </script>
     
@@ -41,6 +45,8 @@
 	      		<input type="text" id="id" value="<%= DeviceId %>" />
 	      		Authentication Server URL:
 	      		<input type="text" id="authenticationServerURL" value="<%= AuthenticationServerURL %>" />
+	      		Demonstration Apps URL:
+	      		<input type="text" id="demoAppsURL" value="<%= DemoAppsURL %>" />
 	      	</div>
 	      	<div data-role="footer">
 	      		<a id="reset" data-role"button" data-icon="refresh">Reset</a>
@@ -97,10 +103,28 @@
             </div>
     </script>
 
+    <!-- Enrollment Page Template -->
+    <script type="text/template" id="enroll" >
+            <div data-role="header">
+                <h1>Enrollment</h1>
+                	
+            </div>
+            <div data-role="content" class="fullarea">
+            	<div data-role="fieldcontain">
+            		
+		           	<input type="password" name="passcode1" id="passcode1" class="passcode" maxlength="1" />
+		           	<input type="password" name="passcode2" id="passcode2" class="passcode" maxlength="1" />
+		           	<input type="password" name="passcode3" id="passcode3" class="passcode" maxlength="1" />
+		           	<input type="password" name="passcode4" id="passcode4" class="passcode" maxlength="1" />
+	         
+	           	</div>
+           	</div>
+    </script>
 
     <!-- All the Scripts -->
     <script src="lib/jqm/jquery-1.8.2.min.js"></script>
     <script src="js/util/common.js"></script>
+    <script src="js/util/ui.js"></script>
     <script src="js/init.js"></script>
     <script src="lib/jqm/jquery.mobile-1.2.0.min.js"></script>
     <script src="lib/jstorage/jstorage.min.js"></script>
@@ -108,13 +132,17 @@
     <script src="lib/backbone/backbone-min.js"></script>
     <script src="lib/barcodescanner/barcodescanner.js"></script>
     <script src="lib/pushnotification/PushNotification.js"></script>
+    <script src="lib/uri/parseuri.js"></script>
     <script src="js/models/Settings.js"></script>
+    <script src="js/models/Enrollment.js"></script>
+    <script src="js/collections/EnrollmentSessions.js"></script>
     <script src="js/views/DemoView.js"></script>
     <script src="js/views/ScanView.js"></script>
     <script src="js/views/AuthzView.js"></script>
     <script src="js/views/A2P3AgentRequestView.js"></script>
     <script src="js/views/HomeView.js"></script>
     <script src="js/views/SettingsView.js"></script>
+    <script src="js/views/EnrollmentView.js"></script>
 	<script src="js/routers/AppRouter.js"></script>
 	
     <script src="js/main.js"></script>

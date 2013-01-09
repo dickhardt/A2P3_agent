@@ -13,7 +13,8 @@
 	        "demo" : "demo",
 	        "scan" : "scan",
 	        "authz" : "authz",
-	        "agentrequest/:id" : "agentrequest"
+	        "agentrequest/:id" : "agentrequest",
+	        "enroll/:id" : "enroll",
 	    },
 	
 	    initialize:function () {
@@ -72,6 +73,25 @@
 			this.changePage(new window.Agent.A2P3AgentRequestView({A2P3AgentRequest: request}));
 		},
 		
+		/* 
+		 * Enroll, handles both the a2p3.net://enroll? and QR code scan
+		 */
+		enroll: function (cid) {
+			console.log("Enroll starting, cid = " + cid);
+			var enrollment = enrollmentSessions.getByCid(cid);
+			this.changePage(new window.Agent.EnrollmentView({model: enrollment}));
+		},
+		
+		/*
+		 * AgentRequest, handles inbound a2p3.net://token? requests
+		 */
+		token: function (request, state, notificationUrl) {
+			
+			
+		},
+		
+		
+		
 		/*
 		 * Common function to load page
 		 */
@@ -90,7 +110,33 @@
 	            this.firstPage = false;
 	        }
 	        $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
-	    }
+	    },
+	
+	
+		/*
+		 * Handles incoming URL from mobile device invoke
+		 */
+		mobileUrlInvokeHandler: function (url) {
+			
+			// parse URI and drop schema (we only support ONE IX) and drive into router
+			var parsedUrl = parseUri(url);
+			var path = parsedUrl.relative.replace("//", "");
+	
+			// Safe gaurd my AppRouter
+			var justPath = rtrim(path, "?");
+			
+			if (jQuery.inArray(justPath, new Array("enroll", "token")) < 0) {
+				console.log("Unsupported API call: " + url);
+				return;
+			}
+			
+			// TODO handle more than just enroll
+			var enrollment = new window.Agent.Enrollment({SourceUrl: url});
+			enrollmentSessions.add(enrollment);
+			
+			// Invoke app router
+			app.navigate(justPath + "/" + enrollment.cid, true)
+		},
 	
 	});
 

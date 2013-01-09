@@ -13,40 +13,36 @@
 
 		// Default attributes
 		defaults: {
-			Id: '',
-			authenticationServerURL: '',
-			passcode: '',
-			name: '',
-			deviceId: '',
-			isSync: true,
+			AuthenticationServerURL: '',
+			Passcode: '',
+			Name: '',
+			DeviceId: '',
+			Code: '',
+			SourceUrl: '',
+			IsSync: true,
 		},
-		
-		urlRoot: window.Agent.Context.BaseUrl + '/enroll',
-		
-		// set id to API identifier which has capital I
-		idAttribute: 'Id',
-		
+	
 		initialize: function() {
+			
+			// Parse the source url for the Code
+			var parsedUrl = parseUri(this.get("SourceUrl"));
+			var enrollmentCode = parsedUrl.queryKey.code;
+			
 			// Get AS URL, name and deviceId from config
-			
-		},
-
-		sync: function(method, model, options) {
-			if (method === 'create') {
-				return $.ajax(options);
-			}
-			else {
-				Backbone.sync(method, model, options);
-			}
-			
+			this.set({"AuthenticationServerURL": settings.AuthenticationServerURL, 
+				"Name": settings.Name,
+				"DeviceId": settings.DeviceId,
+				"Code": enrollmentCode,});
 		},
 		
-		// Registers the Agent with the Authentication Server
-		// API: https://github.com/dickhardt/A2P3/tree/master/app/as
-		registerAgent: function () {
-			// use $.ajax
+		register: function (passcode) {
+			console.log("Begin register");
+			// Set passcode
+			this.set({"Passcode": passcode});
+			
+			// Call AS 
+			
 		}
-		
 		
 	});
 

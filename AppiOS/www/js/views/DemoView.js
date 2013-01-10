@@ -20,7 +20,7 @@ $(function($) {
 	    
 	    demoApps: function () {
 	    	console.log("demo apps func");
-	    	window.location.replace(settings.get("DemoAppsURL"));
+	    	window.location.href(settings.get("DemoAppsURL"));
 	    }
 	    
 	});

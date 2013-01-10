@@ -6,6 +6,7 @@ $(function($) {
 	    template:_.template($('#demo').html()),
 	
 		initialize: function(Opts) {
+			
 		},
 		
 	    render:function (eventName) {
@@ -14,6 +15,13 @@ $(function($) {
 	    },
 	
 		events: {
+			"click a[id=demoApps] ": "demoApps"
 	    },
+	    
+	    demoApps: function () {
+	    	console.log("demo apps func");
+	    	window.location.replace(settings.get("DemoAppsURL"));
+	    }
+	    
 	});
 });

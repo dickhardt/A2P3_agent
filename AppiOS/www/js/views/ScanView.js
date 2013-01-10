@@ -6,11 +6,11 @@ $(function($) {
 	    template:_.template($('#scan').html()),
 	
 		initialize: function(Opts) {
+			
 		},
 		
 	    render:function (eventName) {
 	        $(this.el).html(this.template());
-	        
 	        return this;
 	    },
 	

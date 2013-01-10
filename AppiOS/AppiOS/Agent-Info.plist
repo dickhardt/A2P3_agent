@@ -48,7 +48,7 @@
 			<string>net.a2p3</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ix.a2p3.net</string>
+				<string>a2p3.net</string>
 			</array>
 		</dict>
 	</array>

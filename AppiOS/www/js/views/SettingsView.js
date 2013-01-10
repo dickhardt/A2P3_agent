@@ -20,7 +20,8 @@ $(function($) {
 	    },
 	
 		events: {
-			"click a[id=reset]": "reset"
+			"click a[id=reset]": "reset",
+			"click a[id=save]": "save",
 		},
 		
 		reset: function() {
@@ -38,7 +39,20 @@ $(function($) {
 			   
 			}
 			
-		}
+		},
+		
+		/*
+		 * Save the model and go back home
+		 */
+		save: function () {
+			this.model.set({"Name" : $("#name").val(), 
+				"DeviceId" : $("#id").val(),
+				"AuthenticationServerURL" : $("#authenticationServerURL").val(),
+				"DemoAppsURL" : $("#demoAppsURL").val(),
+				})
+			this.model.save();
+			app.navigate("", true);
+		},
 	    
 	});
 });

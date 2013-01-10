@@ -40,7 +40,7 @@
 	        </div>
 	        <div data-role="content">
 	      		Device Name:
-	      		<input type="text" id="name" value="<%= Name %>" />
+	      		<input type="text" id="name" name="name" value="<%= Name %>" />
 	      		Device Id:
 	      		<input type="text" id="id" value="<%= DeviceId %>" />
 	      		Authentication Server URL:
@@ -49,7 +49,14 @@
 	      		<input type="text" id="demoAppsURL" value="<%= DemoAppsURL %>" />
 	      	</div>
 	      	<div data-role="footer">
-	      		<a id="reset" data-role"button" data-icon="refresh">Reset</a>
+	      		<div class="ui-grid-a">
+		      		<div class="ui-block-a">
+	      				<a id="reset" data-role="button" data-inline="true" data-icon="refresh">Reset</a>
+	      			</div>
+		      		<div class="ui-block-b" style="text-align: right">
+		      			<a id="save" data-role="button" data-inline="true" data-icon="check">Save</a>
+		      		</div>
+		      	</div>
 	      	</div>
     </script>
     

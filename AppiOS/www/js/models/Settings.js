@@ -67,15 +67,10 @@
 			this.initialize();
 		},
 
-		sync: function(method, model, options) {
-			if (method === 'create') {
-				return $.ajax(options);
-			}
-			else {
-				Backbone.sync(method, model, options);
-			}
-			
-		},
+		save: function () {
+			$.jStorage.set('settings', this);
+		}
+		
 	});
 
 })();

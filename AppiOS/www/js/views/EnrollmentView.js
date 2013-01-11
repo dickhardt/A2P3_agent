@@ -14,7 +14,7 @@ $(function($) {
 		},
 		
 		events: {
-	      "click a[id=start]"   : "submitPasscode",
+	      "click a[id=enrollButton]"   : "submitPasscode",
 	    },
 	    
 	    render:function (eventName) {
@@ -25,6 +25,16 @@ $(function($) {
 	    },
 	    
 	    submitPasscode: function () {
+	    	// Assemble the passcode
+	    	var passcode = $("#passcode1").val() + $("#passcode2").val() 
+	    		+ $("#passcode3").val() + $("#passcode4").val();
+	    	
+	    	// Validate - should be in model code	
+	    	if (passcode.length < 4) {
+	    		// TODO: notify user
+	    		return;
+	    	}
+	    	
 	    	this.model.register("1234")	
 	    }
 	});

@@ -35,15 +35,41 @@
 				"Code": enrollmentCode,});
 		},
 		
+		
+		/*
+		 * Makes AJAX POST to AS server
+		 */
 		register: function (passcode) {
 			console.log("Begin register");
-			// Set passcode
-			this.set({"Passcode": passcode});
+			
+			// Generate POST data string
+			var data = "passcode=" + encodeURI(passcode) +
+				"&name=" + encodeURI(this.get("Name")) + 
+				"&code=" + encodeURI(this.get("Code")) +
+				"&device=" + encodeURI(this.get("DeviceId"));
+
+			// Get rid of passcode asap
+			passcode = "";
 			
 			// Call AS 
+			$.ajax({
+			  type: "POST",
+			  url: settings.get("AuthenticationServerURL") + "/register/agent",
+			  data: data,
+			  success: this.registerSuccess
+			});
 			
-		}
+		},
 		
+		/*
+		 * AJAX callback for register
+		 */
+		registerSuccess: function (data, textStatus, jqXHR) {
+			
+			if (textStatus == "success") {
+				console.log(data);
+			}
+		},
 	});
 
 })();

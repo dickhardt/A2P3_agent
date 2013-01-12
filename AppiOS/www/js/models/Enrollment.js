@@ -14,11 +14,12 @@
 		// Default attributes
 		defaults: {
 			AuthenticationServerURL: '',
-			Passcode: '',
+			//Passcode: '', should not need to persistent this in the model
 			Name: '',
 			DeviceId: '',
 			Code: '',
 			SourceUrl: '',
+			Status: '',
 			IsSync: true,
 		},
 	
@@ -29,9 +30,9 @@
 			var enrollmentCode = parsedUrl.queryKey.code;
 			
 			// Get AS URL, name and deviceId from config
-			this.set({"AuthenticationServerURL": settings.AuthenticationServerURL, 
-				"Name": settings.Name,
-				"DeviceId": settings.DeviceId,
+			this.set({"AuthenticationServerURL": settings.get("AuthenticationServerURL"), 
+				"Name": settings.get("Name"),
+				"DeviceId": settings.get("DeviceId"),
 				"Code": enrollmentCode,});
 		},
 		
@@ -40,10 +41,14 @@
 		 * Makes AJAX POST to AS server
 		 */
 		register: function (passcode) {
+			
 			console.log("Begin register");
 			
+			// Update our status
+			this.set({"Status": "Inprogress"});
+			
 			// Generate POST data string
-			var data = "passcode=" + encodeURI(passcode) +
+			var data1 = "passcode=" + encodeURI(passcode) +
 				"&name=" + encodeURI(this.get("Name")) + 
 				"&code=" + encodeURI(this.get("Code")) +
 				"&device=" + encodeURI(this.get("DeviceId"));
@@ -51,13 +56,13 @@
 			// Get rid of passcode asap
 			passcode = "";
 			
+			// Make URL
+			var url1 = this.get("AuthenticationServerURL") + "/register/agent";
+			
+			console.log("Calling URL: " + url1);
+			
 			// Call AS 
-			$.ajax({
-			  type: "POST",
-			  url: settings.get("AuthenticationServerURL") + "/register/agent",
-			  data: data,
-			  success: this.registerSuccess
-			});
+			$.post(url1, data1, this.registerSuccess);
 			
 		},
 		
@@ -67,7 +72,18 @@
 		registerSuccess: function (data, textStatus, jqXHR) {
 			
 			if (textStatus == "success") {
-				console.log(data);
+				
+				// Save the token in settings
+				settings.set({"RegistrarToken": data.result.token});	
+				settings.save();
+				
+				// Update our status
+				this.set({"Status": "Complete"});
+				
+			} else {
+				
+				// Update our status
+				this.set({"Status": "Failed"});
 			}
 		},
 	});

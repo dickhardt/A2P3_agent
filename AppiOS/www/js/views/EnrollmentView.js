@@ -10,7 +10,7 @@ $(function($) {
 	    template:_.template($('#enroll').html()),
 	
 		initialize: function() {
-			this.model.bind('register', this.render, this);
+			this.model.bind("change", this.render, this);
 		},
 		
 		events: {
@@ -18,8 +18,14 @@ $(function($) {
 	    },
 	    
 	    render:function (eventName) {
-	    	console.log("render");
-	       	this.$el.html(this.template(this.model.toJSON()));
+	    	this.$el.html(this.template(this.model.toJSON()));
+	        
+	        // Show/hide containers based on model state
+	        var status = this.model.get("Status");
+	        
+	        if (status == "Complete") {
+	        	$("#passcodeContainer").hide();
+	        }
 	        
 	        return this;
 	    },
@@ -35,7 +41,7 @@ $(function($) {
 	    		return;
 	    	}
 	    	
-	    	this.model.register("1234")	
+	    	this.model.register(passcode);	
 	    }
 	});
 });

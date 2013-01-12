@@ -49,6 +49,7 @@ $(function($) {
 				"DeviceId" : $("#id").val(),
 				"AuthenticationServerURL" : $("#authenticationServerURL").val(),
 				"DemoAppsURL" : $("#demoAppsURL").val(),
+				"RegistrarToken" : $("#registrarToken").val(),
 				})
 			this.model.save();
 			app.navigate("", true);

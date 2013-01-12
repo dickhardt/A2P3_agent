@@ -47,6 +47,8 @@
 	      		<input type="text" id="authenticationServerURL" value="<%= AuthenticationServerURL %>" />
 	      		Demonstration Apps URL:
 	      		<input type="text" id="demoAppsURL" value="<%= DemoAppsURL %>" />
+	      		Registrar Token:
+	      		<input type="text" id="registrarToken" value="<%= RegistrarToken %>" />
 	      	</div>
 	      	<div data-role="footer">
 	      		<div class="ui-grid-a">
@@ -118,9 +120,9 @@
                 <h1>Enrollment</h1>
                 	
             </div>
-            <div data-role="content" class="fullarea">
+            <div id="passcodeContainer" data-role="content" class="fullarea">
+            	Enter your passcode:
             	<div data-role="fieldcontain">
-            		
 		           	<input type="password" name="passcode1" id="passcode1" class="passcode" maxlength="1" />
 		           	<input type="password" name="passcode2" id="passcode2" class="passcode" maxlength="1" />
 		           	<input type="password" name="passcode3" id="passcode3" class="passcode" maxlength="1" />

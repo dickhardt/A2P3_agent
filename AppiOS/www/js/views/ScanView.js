@@ -26,10 +26,12 @@ $(function($) {
 	        window.plugins.barcodeScanner.scan(
                 function(result) {
                 	console.log("Scan success callback");
-                    if (result.cancelled)
-                        navigator.notification.alert("the user cancelled the scan")
-                    else
+                    if (result.cancelled) {
+                        navigator.notification.alert("the user cancelled the scan");
+                    }
+                    else {
                         navigator.notification.alert("we got a barcode: " + result.text)
+                    }
                 },
                 function(error) {
                 	console.log("Scan failed callback");

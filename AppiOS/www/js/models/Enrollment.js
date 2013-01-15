@@ -70,6 +70,7 @@
 		 * AJAX callback for register
 		 */
 		registerSuccess: function (data, textStatus, jqXHR) {
+			console.log("Response data: " + data);
 			
 			if (textStatus == "success") {
 				
@@ -84,6 +85,8 @@
 				
 				// Update our status
 				this.set({"Status": "Failed"});
+				
+				navigator.notification.alert(data, null, "Unhandled error");
 			}
 		},
 	});

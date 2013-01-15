@@ -15,6 +15,7 @@
 	        "authz" : "authz",
 	        "agentrequest/:id" : "agentrequest",
 	        "enroll/:id" : "enroll",
+	        "token/:id" : "token",
 	    },
 	
 	    initialize:function () {
@@ -85,12 +86,11 @@
 		/*
 		 * AgentRequest, handles inbound a2p3.net://token? requests
 		 */
-		token: function (request, state, notificationUrl) {
-			
-			
+		token: function (cid) {
+			console.log("Agent request starting, cid = " + cid);
+			var agentRequest = agentRequestSessions.getByCid(cid);
+			this.changePage(new window.Agent.AgentRequestView({model: agentRequest}));
 		},
-		
-		
 		
 		/*
 		 * Common function to load page
@@ -130,12 +130,28 @@
 				return;
 			}
 			
-			// TODO handle more than just enroll
-			var enrollment = new window.Agent.Enrollment({SourceUrl: url});
-			enrollmentSessions.add(enrollment);
+			// Switch on path (aka operation type)
+			switch (justPath) {
+				case "enroll":
+					var enrollment = new window.Agent.Enrollment({SourceUrl: url});
+					enrollmentSessions.add(enrollment);
 			
-			// Invoke app router
-			app.navigate(justPath + "/" + enrollment.cid, true)
+					// Invoke app router
+					app.navigate(justPath + "/" + enrollment.cid, true)
+			
+					break;
+				case "token":
+					//request, state, notificationUrl
+					var agentRequest = new window.Agent.AgentRequest({SourceUrl: url});
+					agentRequestSessions.add(agentRequest);
+					
+					// Invoke app router
+					app.navigate(justPath + "/" + agentRequest.cid, true)
+			
+					break;
+			}
+
+		
 		},
 	
 	});

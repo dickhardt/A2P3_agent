@@ -27,8 +27,8 @@
                 </ul>
                 
                  <div data-role="content" class="fullarea">
-            	
-           	</div>
+            	<a href="javascript:handleOpenURL('ix.a2p3.net://token?request=eyJ0eXAiOiJKV1MiLCJhbGciOiJIUzUxMiIsImtpZCI6InAxZjJfR3VfY2hER1lVd1AifQ.eyJpc3MiOiJhcHAuZXhhbXBsZS5jb20iLCJhdWQiOiJpeC5sb2NhbC5hMnAzLm5ldCIsInJlcWV1ZXN0LmEycDMub3JnIjp7InJldHVyblVSTCI6Imh0dHBzOi8vYXBwLmV4YW1wbGUuY29tL3JldHVyblVSTCIsInJlc291cmNlcyI6WyJodHRwczovL2hlYWx0aC5hMnAzLm5ldC9zY29wZS9wcm92X251bWJlciIsImh0dHBzOi8vcGVvcGxlLmEycDMubmV0L3Njb3BlL2RldGFpbHMiXSwiYXV0aCI6eyJwYXNzY29kZSI6dHJ1ZSwiYXV0aG9yaXphdGlvbiI6dHJ1ZX19LCJpYXQiOjEzNTU3ODY4NDB9.OcijfMJ_m_97nj-DQLX_VGoYXUyJaWzjzELoORiLSrRBC1WW8UCuFEC12dnflIEajj3AHUgGz9LRnBipeq0AlQ');">Token link</a>
+           		</div>
 	      	</div>
     </script>
     
@@ -103,14 +103,23 @@
     </script>
 
     <!-- AR Template -->
-    <script type="text/template" id="a2p3agentrequest" >
+    <script type="text/template" id="agentrequest" >
             <div data-role="header">
-                <h1>A2P3 Agent Request</h1>
-                
+                <h1>Agent Request</h1>
             </div>
             <div data-role="content" class="fullarea">
-                    URL: 
-                    
+                <div id="passcodeContainer" data-role="content" class="fullarea">
+	            	Enter your passcode:
+	            	<div data-role="fieldcontain">
+			           	<input type="password" name="passcode" id="passcode" class="passcode" maxlength="4" />
+		           	</div>
+		           	<a id="enrollButton" data-role="button" data-icon="">Login</a>
+	           	</div>
+	           	 <div id="authZContainer" data-role="content" class="fullarea">
+	            	TODO: add in all authZ text from registrar
+	            	
+		           	<a id="authZButton" data-role="button" data-icon="">OK</a>
+	           	</div>
             </div>
     </script>
 
@@ -147,14 +156,16 @@
     <script src="lib/uri/parseuri.js"></script>
     <script src="js/models/Settings.js"></script>
     <script src="js/models/Enrollment.js"></script>
+    <script src="js/models/AgentRequest.js"></script>
     <script src="js/collections/EnrollmentSessions.js"></script>
+    <script src="js/collections/AgentRequestSessions.js"></script>
     <script src="js/views/DemoView.js"></script>
     <script src="js/views/ScanView.js"></script>
     <script src="js/views/AuthzView.js"></script>
-    <script src="js/views/A2P3AgentRequestView.js"></script>
     <script src="js/views/HomeView.js"></script>
     <script src="js/views/SettingsView.js"></script>
     <script src="js/views/EnrollmentView.js"></script>
+    <script src="js/views/AgentRequestView.js"></script>
 	<script src="js/routers/AppRouter.js"></script>
 	
     <script src="js/main.js"></script>

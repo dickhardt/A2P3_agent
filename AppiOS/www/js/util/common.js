@@ -32,3 +32,13 @@ function rtrim(str, ch)
     return str;
 }
 
+/* 
+ * Where any unhandled errors go to die.
+ * Log console and display to user.
+ */
+function UnhandledError (message) {
+	console.log("Unhandled error: " + message);
+	window.Agent.Notify(message);
+}
+
+

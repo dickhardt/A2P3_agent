@@ -5,9 +5,9 @@
 $(function($) {
 	'use strict';
 	
-	window.Agent.EnrollmentView = Backbone.View.extend({
+	window.Agent.AgentRequestView = Backbone.View.extend({
 	
-	    template:_.template($('#enroll').html()),
+	    template:_.template($('#agentrequest').html()),
 	
 		initialize: function() {
 			this.model.bind("change", this.render, this);
@@ -15,6 +15,7 @@ $(function($) {
 		
 		events: {
 	      "click a[id=enrollButton]"   : "submitPasscode",
+	      "click a[id=authZButton]" : "authZOK",
 	    },
 	    
 	    render:function (eventName) {
@@ -22,18 +23,13 @@ $(function($) {
 	        
 	        // Show/hide containers based on model state
 	        var status = this.model.get("Status");
-	        
-	        if (status == "Complete") {
-	        	$("#passcodeContainer").hide();
-	        }
-	        
+	     
 	        return this;
 	    },
 	    
 	    submitPasscode: function () {
 	    	// Assemble the passcode
-	    	var passcode = $("#passcode1").val() + $("#passcode2").val() 
-	    		+ $("#passcode3").val() + $("#passcode4").val();
+	    	var passcode = $("#passcode").val();
 	    	
 	    	// Validate - should be in model code	
 	    	if (passcode.length < 4) {
@@ -41,9 +37,7 @@ $(function($) {
 	    		return;
 	    	}
 	    	
-	    	this.model.register(passcode);	
-	    	
-	    	
+	    	this.model.logon(passcode);  	
 	    }
 	});
 });

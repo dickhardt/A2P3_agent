@@ -47,11 +47,14 @@
 			// Update our status
 			this.set({"Status": "Inprogress"});
 			
-			// Generate POST data string
-			var data1 = "passcode=" + encodeURI(passcode) +
-				"&name=" + encodeURI(this.get("Name")) + 
-				"&code=" + encodeURI(this.get("Code")) +
-				"&device=" + encodeURI(this.get("DeviceId"));
+			// Generate POST data
+			var jsData1 = {"passcode": passcode,
+				"name": this.get("Name"), 
+				"code": this.get("Code"),
+				"device": this.get("DeviceId")};
+
+			// Convert to JSON
+			var data1 = JSON.stringify(jsData1);
 
 			// Get rid of passcode asap
 			passcode = "";
@@ -62,17 +65,28 @@
 			console.log("Calling URL: " + url1);
 			
 			// Call AS 
-			$.post(url1, data1, this.registerSuccess);
-			
+			$.ajax({url: url1, 
+				type: "POST",
+				data: data1, 
+				contentType: "application/json;", 
+				dataType: "json",
+				context: this,
+				success: this.registerSuccess});
 		},
 		
 		/*
 		 * AJAX callback for register
 		 */
 		registerSuccess: function (data, textStatus, jqXHR) {
-			console.log("Response data: " + data);
+			console.log("Response data: " + JSON.stringify(data));
 			
 			if (textStatus == "success") {
+				// Look for logical errors
+				if (data.error) {
+					//TODO: passcode err handling
+					UnhandledError(JSON.stringify(data.error));
+					return;
+				}
 				
 				// Save the token in settings
 				settings.set({"RegistrarToken": data.result.token});	
@@ -86,7 +100,7 @@
 				// Update our status
 				this.set({"Status": "Failed"});
 				
-				navigator.notification.alert(data, null, "Unhandled error");
+				UnhandledError(JSON.stringify(data));
 			}
 		},
 	});

@@ -46,15 +46,16 @@
     				"DeviceId": GUID()}); 	 
 				}
 				else {
+					// Don't use device UUID
 			      	this.set({"Name": device.name, 
-    				"DeviceId": window.device.uuid}); 	   
+    				"DeviceId": GUID()}); 	   
 	        	}
 	        	
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
 				this.set({"AuthenticationServerURL": "https://as.a2p3.net",
 					"DemoAppsURL": "https://a2p3.ca/#demo"});
 	        	
-	        	// store empty session in localstorage
+	        	// store in localstorage
 	        	$.jStorage.set('settings', this);
 	        	console.log('First time settings initialized');
 	        	console.log($.jStorage.get('settings'));

@@ -23,9 +23,9 @@ $(function($) {
 	        // Show/hide containers based on model state
 	        var status = this.model.get("Status");
 	        
-	        if (status == "Complete") {
-	        	$("#passcodeContainer").hide();
-	        }
+	        //if (status == "Complete") {
+	        //	$("#passcodeContainer").hide();
+	        //}
 	        
 	        return this;
 	    },

@@ -130,9 +130,10 @@
 				return;
 			}
 			
-			// Switch on path (aka operation type)
+			// Switch on path (aka operation type), TODO: could make this a factory pattern
 			switch (justPath) {
 				case "enroll":
+					//TODO: cancel all previous sessions
 					var enrollment = new window.Agent.Enrollment({SourceUrl: url});
 					enrollmentSessions.add(enrollment);
 			
@@ -141,6 +142,8 @@
 			
 					break;
 				case "token":
+					//TODO: cancel all previous sessions
+					
 					//request, state, notificationUrl
 					var agentRequest = new window.Agent.AgentRequest({SourceUrl: url});
 					agentRequestSessions.add(agentRequest);

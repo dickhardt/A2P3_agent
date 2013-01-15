@@ -19,6 +19,12 @@
 			// Where the Client App wants responses
 			ReturnURL: '',
 			
+			// State - an optional parameter for the Client APp to preserve state
+			State: '',
+			
+			// Notification URL - an optiona parameter for the Client to be notified
+			NotificationURL: '', 
+			
 			// An array of resource authZ URL
 			Resources: null,
 			
@@ -59,7 +65,19 @@
 		parseIncomingAgentRequest: function(url) {
 			// Get the request portion
 			var parsedUrl = parseUri(url);
+			
+			// Requireds'
 			var requestParam = parsedUrl.queryKey.request;
+			
+			// Optionals'
+			if (parsedUrl.queryKey.state) {
+				var state = parsedUrl.queryKey.state;
+				this.set({"State:" : state});
+			}
+			if (parsedUrl.queryKey.notificationURL) {
+				var notificationURL = parsedUrl.queryKey.notificationURL;
+				this.set({"NotificationURL:" : notificationURL});
+			}
 			
 			console.log("Request Param: " + requestParam);
 			

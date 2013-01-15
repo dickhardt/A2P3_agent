@@ -27,15 +27,16 @@ $(function($) {
                 function(result) {
                 	console.log("Scan success callback");
                     if (result.cancelled) {
-                        navigator.notification.alert("the user cancelled the scan");
+                        navigator.notification.alert("Scan Cancelled");
                     }
                     else {
-                        navigator.notification.alert("we got a barcode: " + result.text)
+                    	// Two flavours, enroll QR and logon QR
+                        navigator.notification.alert("we got a barcode: " + result.text);
                     }
                 },
                 function(error) {
                 	console.log("Scan failed callback");
-                    navigator.notification.alert("scanning failed: " + error)
+                    navigator.notification.alert("scanning failed: " + error);
                 }
 	   		)
 	        

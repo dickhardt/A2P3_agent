@@ -53,10 +53,11 @@
 	        	
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
 				this.set({"AuthenticationServerURL": "https://as.a2p3.net",
-					"DemoAppsURL": "https://a2p3.ca/#demo"});
+					"DemoAppsURL": "https://a2p3.ca/#demo",
+					"RegistrarToken": ""});
 	        	
 	        	// store in localstorage
-	        	$.jStorage.set('settings', this);
+	        	this.save();
 	        	console.log('First time settings initialized');
 	        	console.log($.jStorage.get('settings'));
 			}
@@ -65,11 +66,23 @@
 		// Reset to factory settings
 		reset: function () {
 			$.jStorage.deleteKey('settings');
+			$.jStorage.flush();
 			this.initialize();
 		},
 
+		// Save to local stroage
 		save: function () {
 			$.jStorage.set('settings', this);
+		},
+		
+		// Query enrollment state, if I have a registrar token then I am
+		isEnrolled: function () {
+			if (this.get("RegistrarToken")) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 		
 	});

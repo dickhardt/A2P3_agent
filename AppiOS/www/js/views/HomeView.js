@@ -6,10 +6,24 @@ $(function($) {
 	    template:_.template($('#home').html()),
 	
 		initialize: function(Opts) {
+			
 		},
 		
-	    render:function (eventName) {
+	    render:function () {
 	        $(this.el).html(this.template());
+	        
+	        // init
+	        this.$("#enrolled").hide();
+	        this.$("#unenrolled").hide();
+	        
+	        // Switch on enrollment state
+	        if (settings.isEnrolled()) {
+	        	this.$("#enrolled").show();
+	        }
+	        else {
+	        	 this.$("#unenrolled").show();
+	        }
+	        
 	        return this;
 	    },
 	

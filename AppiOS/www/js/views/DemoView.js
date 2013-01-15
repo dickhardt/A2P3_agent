@@ -19,8 +19,7 @@ $(function($) {
 	    },
 	    
 	    demoApps: function () {
-	    	console.log("demo apps func");
-	    	window.location.href(settings.get("DemoAppsURL"));
+	    	window.location.href = settings.get("DemoAppsURL");
 	    }
 	    
 	});

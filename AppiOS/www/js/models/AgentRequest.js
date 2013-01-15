@@ -254,6 +254,8 @@
 			
 			console.log("Client App response URL: " + url1);
 			
+			window.location.href = url1;
+			
 		}
 	});
 

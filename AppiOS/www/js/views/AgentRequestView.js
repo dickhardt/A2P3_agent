@@ -25,12 +25,15 @@ $(function($) {
 	        // init 
 	        this.$("#passcodeContainer").hide();
 	        this.$("#authZContainer").hide();
+	        this.$("#messageBar").hide();
+	        this.$("#messageBar").text("");
 	        
 	        // Show/hide containers based on model state
 	        var state = this.model.getState();
-	   console.log(state);
+console.log(state);
 	   		switch (state) {
 	   			case "GetPasscode":
+	   				
 	   				this.$("#passcodeContainer").show();
 	   				break;
 	   			case "GetAuthorization":
@@ -45,6 +48,12 @@ $(function($) {
 	   				break;
 	   		}
 	   		
+	   		// If the model has any errors, show them
+	   		if (this.model.get("ErrorMessage")) {
+	   			this.$("#messageBar").text(this.model.get("ErrorMessage"));
+	        	this.$("#messageBar").show();
+	   		}
+	   		
 	     	// force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
 	        
@@ -56,8 +65,10 @@ $(function($) {
 	    	var passcode = $("#passcode").val();
 	    	
 	    	// Validate - should be in model code	
-	    	if (passcode.length != 4) {
-	    		UnhandledError("Passcode not 4 characters.");
+	    	if (passcode.length != 4 ||
+	    		isNaN(passcode) ) {
+	    		this.$("#messageBar").text("Passcode must be 4 numbers");
+	        	this.$("#messageBar").show();
 	    		return;
 	    	}
 	    	

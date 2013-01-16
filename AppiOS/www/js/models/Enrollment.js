@@ -20,6 +20,7 @@
 			Code: '',
 			SourceUrl: '',
 			Status: '',
+			ErrorMessage: '',
 			IsSync: true,
 		},
 	
@@ -81,10 +82,12 @@
 			console.log("Response data: " + JSON.stringify(data));
 			
 			if (textStatus == "success") {
+				
 				// Look for logical errors
 				if (data.error) {
-					//TODO: passcode err handling
-					UnhandledError(JSON.stringify(data.error));
+					// Update our status and set the message
+					this.set({"Status": "Error", 
+						"ErrorMessage": data.error.message});
 					return;
 				}
 				

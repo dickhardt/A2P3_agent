@@ -126,8 +126,9 @@
 		 * “INVALID_DEVICEID”: Invalid device ID
 		 */
 		startGetIXToken: function () {
-			// Update status
-			this.set({"Status": "GettingIXToken"});
+			// Update status and reset error message
+			this.set({"Status": "GettingIXToken",
+				"ErrorMessage": ""});
 			
 			// Make JS POST data
 			var jsData1 = {"device": this.get("DeviceId"),
@@ -165,9 +166,8 @@
 				
 				// Look for logical errors
 				if (data.error) {
-					//TODO: passcode err handling
-					UnhandledError(JSON.stringify(data.error));
-					this.set({"Status": "GetPasscode"});
+					this.set({"Status": "GetPasscode",
+						"ErrorMessage": data.error.message});
 					return;
 				}
 				

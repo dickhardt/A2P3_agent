@@ -10,6 +10,8 @@
 	// ----------
 
 	window.Agent.Enrollment = Backbone.Model.extend({
+		
+		urlRoot: window.Agent.Context.BaseUrl + '/api/Enrollment',
 
 		// Default attributes
 		defaults: {

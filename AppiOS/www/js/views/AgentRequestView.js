@@ -14,7 +14,7 @@ $(function($) {
 		},
 		
 		events: {
-	      "click a[id=login]"   : "submitPasscode",
+	      "click a[id=login]"   : "login",
 	      "click a[id=allowButton]" : "allow",
 	      "click a[id=dontAllowButton]": "dontAllow",
 	    },
@@ -29,23 +29,29 @@ $(function($) {
 	        this.$("#messageBar").text("");
 	        
 	        // Show/hide containers based on model state
-	        var state = this.model.getState();
-console.log(state);
-	   		switch (state) {
-	   			case "GetPasscode":
-	   				
-	   				this.$("#passcodeContainer").show();
-	   				break;
-	   			case "GetAuthorization":
-	   				this.$("#authZContainer").show();
+	        var status = this.model.get("Status");
+	   		switch (status) {
+	   			case "Cancelled":
+	   				// all done, back home
+	   				app.home();
 	   				break;
 	   			case "Processing":
 	   				// TODO: show spinner
 	   				break;
-	   			case "GotIXToken":
+	   			case "Complete":
 	   				// all done, back home
 	   				app.home();
 	   				break;
+	   		}
+	   		
+	   		if (this.model.get("PasscodeFlag") == true &&
+	   			this.model.get("Passcode").length < 1) {
+	   			console.log("trying to show");
+	   			this.$("#passcodeContainer").show();
+	   		}
+	   		else if (this.model.get("AuthorizeFlag") == true &&
+	   			this.model.get("Authorized") == false) { 
+	   			this.$("#authZContainer").show();
 	   		}
 	   		
 	   		// If the model has any errors, show them
@@ -60,7 +66,7 @@ console.log(state);
 	        return this;
 	    },
 	    
-	    submitPasscode: function () {
+	    login: function () {
 	    	// Assemble the passcode
 	    	var passcode = $("#passcode").val();
 	    	
@@ -72,7 +78,13 @@ console.log(state);
 	    		return;
 	    	}
 	    	
-	    	this.model.set({"Passcode": passcode});  	
+	    	this.model.set({"Passcode": passcode});  
+	    	
+	    	// If already allowed or authZ not required start the process
+	    	if (this.model.get("AuthorizeFlag") == false ||
+	    		this.model.get("Authorized") == true) {
+	    		this.model.startGetIXToken();
+	    	}	
 	    },
 	    
 	    allow: function () {

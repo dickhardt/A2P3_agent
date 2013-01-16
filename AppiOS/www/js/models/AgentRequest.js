@@ -11,6 +11,8 @@
 
 	window.Agent.AgentRequest = Backbone.Model.extend({
 
+		urlRoot: window.Agent.Context.BaseUrl + '/api/AgentRequest',
+
 		// Default attributes
 		defaults: {
 			// AS URL
@@ -68,7 +70,7 @@
 			// Error Message - a natural language description of the error
 			ErrorMessage: '',
 			
-			// State of the request
+			// Status of the request
 			Status: '',
 			
 			// Backbone state management
@@ -82,30 +84,6 @@
 			
 			// parse URL
 			this.setAgentRequest(this.get("SourceUrl"));
-			
-		},
-		
-		/* 
-		 * Get State - a function that evaluates the request and what data we've collected
-		 * used by the UI to determine that to display to the user.  Not sure about the pattern... 
-		 * but it should work.
-		 */
-		getState: function () {
-			// If we have an IX token were done
-			if (this.get("IXToken")) {
-				return "GotIXToken";
-			}
-			// If agent wanted a passcode and we don't have it yet
-			if (this.get("PasscodeFlag") == true &&
-				this.get("Passcode").length < 1) {
-				return "GetPasscode";
-			}
-			
-			// If agent wanted authZ and we don't have it yet
-			if (this.get("AuthorizeFlag") == true &&
-				this.get("Authorized") == false) {
-				return "GetAuthorization";
-			}
 			
 		},
 		
@@ -127,7 +105,7 @@
 		 */
 		startGetIXToken: function () {
 			// Update status and reset error message
-			this.set({"Status": "GettingIXToken",
+			this.set({"Status": "Processing",
 				"ErrorMessage": ""});
 			
 			// Make JS POST data
@@ -166,7 +144,8 @@
 				
 				// Look for logical errors
 				if (data.error) {
-					this.set({"Status": "GetPasscode",
+					this.set({"Passcode": "",
+						"Status": "Error",
 						"ErrorMessage": data.error.message});
 					return;
 				}
@@ -174,7 +153,7 @@
 				// Get the IX Token out of response
 				// update our model state
 				this.set({"IXToken": data.result.token,
-					"Status": "GotIXToken"});
+					"Status": "Complete"});
 				
 				// Now respond to the Client App
 				this.respondToClientApp();
@@ -250,7 +229,8 @@
 		 * Handles user cancellations
 		 */
 		cancel: function () {
-			this.set({"Error": "USER_CANCELLED",
+			this.set({"Status": "Cancelled",
+				"Error": "USER_CANCELLED",
 				"ErrorMessage": "The User cancelled the transaction."});
 			this.respondToClientApp();
 		},

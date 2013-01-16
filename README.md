@@ -17,7 +17,7 @@ This application makes use of the following libs/frameworks, most notably:
 - jstorage
 - various phonegap plugins
 
-To run locally in a web browser:
+To run Agent locally in a web browser:
 
 - Disable the cross domain policy in your browser, e.g.,   
 
@@ -35,6 +35,13 @@ Some device specific functions will not work including:
 - Push Notifications (TBD on how to do this manually)
 
 There is a .project file for the [Aptana software](http://www.aptana.com/ "Aptana").
+
+To run Agent on iPhone with using local IP addresses or if you need to sniff traffic:
+
+- Create an ad-hoc wireless network on computer
+- Configure iPhone to to use that wireless network
+- Install a HTTP proxy on computer such as Fiddler2
+- Edit wireless settings on iPhone to use that proxy
 
 ## For Designers: ##
 The Agent makes use of [jquery mobile controls](http://jquerymobile.com/test/).  Any application specific styles should use the [app.css](https://github.com/dickhardt/A2P3_agent/blob/master/AppiOS/www/css/app.css) to override or append styles.

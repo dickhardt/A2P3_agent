@@ -41,7 +41,10 @@
 			PasscodeFlag: true,
 			
 			// Indicates if the User must be prompted to authoze the txn
-			Authorize: true,
+			AuthorizeFlag: true,
+			
+			// True or false if hte user authorized this request
+			Authorized: false,
 			
 			// Indicates if the User must be prompted to use NFC enable card
 			// Unsupported in this Agent
@@ -76,8 +79,32 @@
 			
 		},
 		
+		/* 
+		 * Get State - a function that evaluates the request and what data we've collected
+		 * used by the UI to determine that to display to the user.  Not sure about the pattern... 
+		 * but it should work.
+		 */
+		getState: function () {
+			// If we have an IX token were done
+			if (this.get("IXToken")) {
+				return "GotIXToken";
+			}
+			// If agent wanted a passcode and we don't have it yet
+			if (this.get("PasscodeFlag") == true &&
+				this.get("Passcode") == false) {
+				return "GetPasscode";
+			}
+			
+			// If agent wanted authZ and we don't have it yet
+			if (this.get("AuthorizeFlag") &&
+				this.get("AuthorizeFlag") == false) {
+				return "GetAuthorization";
+			}
+			
+		},
+		
 		/*
-		 * Logon, user provides passcode
+		 * Get IX Token from AS
 		 *  we authN with the AS that inclues part of the inbound request
 		 * AS URL/token
 		 * Call method: POST of JSON object
@@ -92,14 +119,14 @@
 		 * Error codes:
 		 * “INVALID_DEVICEID”: Invalid device ID
 		 */
-		getIXToken: function (passcode) {
+		startGetIXToken: function () {
 			// Update status
 			this.set({"Status": "GettingIXToken"});
 			
 			// Make JS POST data
 			var jsData1 = {"device": this.get("DeviceId"),
 				"sar": this.get("Sar"),
-				"auth": {"passcode": passcode,
+				"auth": {"passcode": this.get("Passcode"),
 						 "authorization": this.get("Authorize")}};
 			
 			// Convert to JSON
@@ -211,7 +238,7 @@
 				"ReturnURL": request.returnURL,
 				"Resources": request.resources,
 				"PasscodeFlag": request.auth.passcode,
-				"Authorize": request.auth.Authorize});
+				"AuthorizeFlag": request.auth.Authorize});
 		},
 		
 		/*
@@ -257,6 +284,8 @@
 			window.location.href = url1;
 			
 		}
+		
+		
 	});
 
 })();

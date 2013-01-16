@@ -22,22 +22,17 @@ $(function($) {
 	        
 	        // Show/hide containers based on model state
 	        var status = this.model.get("Status");
-	        
-	        //if (status == "Complete") {
-	        //	$("#passcodeContainer").hide();
-	        //}
-	        
+	       
 	        return this;
 	    },
 	    
 	    submitPasscode: function () {
 	    	// Assemble the passcode
-	    	var passcode = $("#passcode1").val() + $("#passcode2").val() 
-	    		+ $("#passcode3").val() + $("#passcode4").val();
+	    	var passcode = $("#passcode").val();
 	    	
 	    	// Validate - should be in model code	
 	    	if (passcode.length < 4) {
-	    		// TODO: notify user
+	    		// TODO: notify user if too short
 	    		return;
 	    	}
 	    	

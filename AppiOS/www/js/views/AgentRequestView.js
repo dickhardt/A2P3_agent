@@ -14,7 +14,7 @@ $(function($) {
 		},
 		
 		events: {
-	      "click a[id=enrollButton]"   : "submitPasscode",
+	      "click a[id=login]"   : "submitPasscode",
 	      "click a[id=authZButton]" : "userAuthZ",
 	    },
 	    
@@ -22,20 +22,20 @@ $(function($) {
 	    	this.$el.html(this.template(this.model.toJSON()));
 	        
 	        // init 
-	        $("#passcodeContainer").hide();
-	        $("#authorizationContainer").hide();
+	       this.$("#passcodeContainer").hide();
+	       this.$("#authorizationContainer").hide();
 	        
 	        // Show/hide containers based on model state
-	        var status = this.model.get("Status");
+	        var status = this.model.getState();
 	   
 	   		switch (status) {
 	   			case "GetPasscode":
-	   				$("#passcodeContainer").show();
+	   				this.$("#passcodeContainer").show();
 	   				break;
 	   			case "GetAuthorization":
-	   				$("#authorizationContainer").show();
+	   				this.$("#authZContainer").show();
 	   				break;
-	   			case "GettingIXToken":
+	   			case "Processing":
 	   				// TODO: show spinner
 	   				break;
 	   			case "GotIXToken":
@@ -57,11 +57,12 @@ $(function($) {
 	    		return;
 	    	}
 	    	
-	    	this.model.getIXToken(passcode);  	
+	    	this.model.set({"Passcode": passcode});  	
 	    },
 	    
 	    userAuthZ: function () {
-	    	
+	    	this.model.set({"Authorized": true});
+	    	this.model.startGetIXToken();
 	    },
 	});
 });

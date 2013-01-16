@@ -15,20 +15,21 @@ $(function($) {
 		
 		events: {
 	      "click a[id=login]"   : "submitPasscode",
-	      "click a[id=authZButton]" : "userAuthZ",
+	      "click a[id=allowButton]" : "allow",
+	      "click a[id=dontAllowButton]": "dontAllow",
 	    },
 	    
 	    render:function (eventName) {
 	    	this.$el.html(this.template(this.model.toJSON()));
 	        
 	        // init 
-	       this.$("#passcodeContainer").hide();
-	       this.$("#authorizationContainer").hide();
+	        this.$("#passcodeContainer").hide();
+	        this.$("#authZContainer").hide();
 	        
 	        // Show/hide containers based on model state
-	        var status = this.model.getState();
-	   
-	   		switch (status) {
+	        var state = this.model.getState();
+	   console.log(state);
+	   		switch (state) {
 	   			case "GetPasscode":
 	   				this.$("#passcodeContainer").show();
 	   				break;
@@ -43,7 +44,10 @@ $(function($) {
 	   				app.home();
 	   				break;
 	   		}
-	     
+	   		
+	     	// force jquery to restyle
+	    	$(this.el).trigger("pagecreate");
+	        
 	        return this;
 	    },
 	    
@@ -52,17 +56,23 @@ $(function($) {
 	    	var passcode = $("#passcode").val();
 	    	
 	    	// Validate - should be in model code	
-	    	if (passcode.length < 4) {
-	    		// TODO: notify user
+	    	if (passcode.length != 4) {
+	    		UnhandledError("Passcode not 4 characters.");
 	    		return;
 	    	}
 	    	
 	    	this.model.set({"Passcode": passcode});  	
 	    },
 	    
-	    userAuthZ: function () {
+	    allow: function () {
 	    	this.model.set({"Authorized": true});
 	    	this.model.startGetIXToken();
+	    },
+	    
+	    dontAllow: function () {
+	    	this.model.set({"Authorized": false});
+	    	this.model.cancel();
+	    	app.home();
 	    },
 	});
 });

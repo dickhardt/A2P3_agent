@@ -31,6 +31,9 @@
 			// Sar - signature of the agent request
 			Sar: '',
 			
+			// Notification URL Flag - Indicates if the client app wants a notification URL
+			NotificationURLFlag: '', 
+			
 			// Notification URL - an optiona parameter for the Client to be notified
 			NotificationURL: '', 
 			
@@ -40,10 +43,13 @@
 			// Indicates if the User must enter the passcode
 			PasscodeFlag: true,
 			
+			// Passcode entered by user
+			Passcode: '',
+			
 			// Indicates if the User must be prompted to authoze the txn
 			AuthorizeFlag: true,
 			
-			// True or false if hte user authorized this request
+			// True or false if the user authorized this request
 			Authorized: false,
 			
 			// Indicates if the User must be prompted to use NFC enable card
@@ -91,13 +97,13 @@
 			}
 			// If agent wanted a passcode and we don't have it yet
 			if (this.get("PasscodeFlag") == true &&
-				this.get("Passcode") == false) {
+				this.get("Passcode").length < 1) {
 				return "GetPasscode";
 			}
 			
 			// If agent wanted authZ and we don't have it yet
-			if (this.get("AuthorizeFlag") &&
-				this.get("AuthorizeFlag") == false) {
+			if (this.get("AuthorizeFlag") == true &&
+				this.get("Authorized") == false) {
 				return "GetAuthorization";
 			}
 			
@@ -182,7 +188,6 @@
 			
 		},
 		
-		
 		/*
 		 * Internal function to "crack" the request into Agent useful parts
 		 * TODO: add error handling if request does not meet spec
@@ -210,7 +215,7 @@
 			}
 			if (parsedUrl.queryKey.notificationURL) {
 				var notificationURL = parsedUrl.queryKey.notificationURL;
-				this.set({"NotificationURL" : notificationURL});
+				this.set({"NotificationURLFlag" : notificationURL});
 			}
 			
 			console.log("Request Param: " + requestParam);
@@ -238,8 +243,18 @@
 				"ReturnURL": request.returnURL,
 				"Resources": request.resources,
 				"PasscodeFlag": request.auth.passcode,
-				"AuthorizeFlag": request.auth.Authorize});
+				"AuthorizeFlag": request.auth.authorization});
 		},
+		
+		/*
+		 * Handles user cancellations
+		 */
+		cancel: function () {
+			this.set({"Error": "USER_CANCELLED",
+				"ErrorMessage": "The User cancelled the transaction."});
+			this.respondToClientApp();
+		},
+		
 		
 		/*
 		 * Call back the Client App using their returnUrl with appended query parameters
@@ -252,7 +267,7 @@
 		respondToClientApp: function () {
 			
 			// Make required parts of the response URL
-			var url1 = this.get("ReturnURL") + 
+			var url1 = this.get("ReturnURL") +  
 				"?token=" + encodeURI(this.get("IXToken"));
 			
 			// Make optional part NotificationURL

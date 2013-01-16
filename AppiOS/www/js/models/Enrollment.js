@@ -58,6 +58,7 @@
 
 			// Convert to JSON
 			var data1 = JSON.stringify(jsData1);
+            console.log("Request data = " + data1);
 
 			// Get rid of passcode asap
 			passcode = "";

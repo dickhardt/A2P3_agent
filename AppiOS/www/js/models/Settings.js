@@ -52,7 +52,7 @@
 	        	}
 	        	
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
-				this.set({"AuthenticationServerURL": "https://as.a2p3.net",
+				this.set({"AuthenticationServerURL": "http://as.local.a2p3.net:8080",
 					"DemoAppsURL": "https://a2p3.ca/#demo",
 					"RegistrarToken": ""});
 	        	

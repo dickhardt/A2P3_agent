@@ -40,8 +40,6 @@ $(function($) {
                     		// TODO: It'd be nice if both QR came in as URLs, talk to Dick
                     		app.mobileUrlInvokeHandler("a2p3.net://enroll?code=" + result.text);
                     	}
-                   
-                        navigator.notification.alert("we got a barcode: " + result.text);
                     }
                 },
                 function(error) {

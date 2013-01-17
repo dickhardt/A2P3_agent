@@ -9,6 +9,7 @@
 	
 	    routes:{
 	        "" : "home",
+            "home" : "home",
 	        "settings" : "settings",
 	        "demo" : "demo",
 	        "scan" : "scan",

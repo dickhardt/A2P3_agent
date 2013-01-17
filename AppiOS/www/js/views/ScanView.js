@@ -11,23 +11,24 @@ $(function($) {
 		
 	    render:function (eventName) {
 	        $(this.el).html(this.template());
+            this.scan();
 	        return this;
 	    },
 	
 		events: {
-	    	"click a[id=add-scan]": "addScan"
-		},
+                                                 },
 	    
 	    /*
 	     * Event handler addScan(): 
 	     */
-	    addScan: function() {
+	    scan: function() {
 	    	console.log("Begin scan");
 	        window.plugins.barcodeScanner.scan(
                 function(result) {
                 	console.log("Scan success callback");
                     if (result.cancelled) {
                         navigator.notification.alert("Scan Cancelled");
+                        app.navigate("home");
                     }
                     else {
                     	// Two flavours, enroll QR and logon QR

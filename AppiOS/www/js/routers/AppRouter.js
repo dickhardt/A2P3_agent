@@ -12,7 +12,6 @@
             "home" : "home",
 	        "settings" : "settings",
 	        "demo" : "demo",
-	        "scan" : "scan",
 	        "authz" : "authz",
 	        "agentrequest/:id" : "agentrequest",
 	        "enroll/:id" : "enroll",
@@ -49,14 +48,6 @@
 	    demo:function () {
 	        this.changePage(new window.Agent.DemoView());
 	    },
-
-	     /*
-	     * Scan page
-	     */
-	    scan:function () {
-	        this.changePage(new window.Agent.ScanView());
-	    },
-	
 
 		 /*
 	     * Authz page

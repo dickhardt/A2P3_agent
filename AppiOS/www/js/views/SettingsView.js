@@ -26,7 +26,7 @@ $(function($) {
 		
 		reset: function() {
 			// prompt user to confirm and then destroy
-			var result = confirm("Are you sure to reset to default settings?")
+			var result = confirm("Are you sure to reset to default settings?", null, "Confirm", "Reset");
 			if (result == true) {
 			   // Reset model
 			   this.model.reset();

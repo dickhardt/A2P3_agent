@@ -113,17 +113,23 @@
 		           	<a id="login" data-role="button" data-icon="">Login</a>
 	           	</div>
 	           	<div id="authZContainer" data-role="content" class="fullarea">
-	            	TODO: add in RS responses
-	            	<div class="ui-grid-a">
-			      		<div class="ui-block-a">
-		      				<a id="dontAllowButton" data-role="button" data-inline="true"  data-icon="">Don't Allow</a>
-		      			</div>
-			      		<div class="ui-block-b" style="text-align: right">
-			      			<a id="allowButton" data-role="button" data-inline="true"  data-icon="">OK</a>
-			      		</div>
-			      	</div>
-	           	</div>
+	            	<ul data-role="listview" data-theme="c" class="resourceList">
+		        		<% _.each(Resources, function(resource) { %>  
+		        			<li><%= resource %></li> 
+						<% }); %>
+					</ul>
+			    </div>
             </div>
+          	<div id="authZFooter" data-role="footer">
+           		<div class="ui-grid-a">
+		      		<div class="ui-block-a">
+	      				<a id="dontAllowButton" data-role="button" data-inline="true"  data-icon="">Don't Allow</a>
+	      			</div>
+		      		<div class="ui-block-b" style="text-align: right">
+		      			<a id="allowButton" data-role="button" data-inline="true"  data-icon="">OK</a>
+		      		</div>
+		      	</div>
+		    </div>
     </script>
 
     <!-- Enrollment Page Template -->

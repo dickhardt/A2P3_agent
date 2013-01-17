@@ -39,8 +39,11 @@
 			// Notification URL - an optiona parameter for the Client to be notified
 			NotificationURL: '', 
 			
-			// An array of resource authZ URL
+			// An array of resource authZ URL as passed in from request
 			Resources: null,
+						
+			// An array of resource descriptions
+			ResourceDescriptions: null,
 			
 			// Indicates if the User must enter the passcode
 			PasscodeFlag: true,
@@ -84,6 +87,9 @@
 			
 			// parse URL
 			this.setAgentRequest(this.get("SourceUrl"));
+			
+			// Begin Async registrar and resource server calls
+			this.fetchResourceDescriptions();
 			
 		},
 		
@@ -165,6 +171,39 @@
 				UnhandledError(JSON.stringify(data));
 			}
 			
+		},
+		
+		/*
+		 * Fetch resource descriptions from the resources
+		 * named in the request.  These are all be done 
+		 * async while we collect the user's passcode.
+		 */
+		fetchResourceDescriptions: function() {
+			
+			// Loop through each resource url
+			var resourceUrls = this.get("Resources");
+			var i = 0;
+			for (i = 0; i < resourceUrls.length; i++) {
+				// Call RS 
+				$.ajax({url: resourceUrls[i], 
+					type: "GET",
+					context: this,
+					success: this.fetchResourceDescriptionCallback});
+			}
+		},
+		
+		/* 
+		 * Call back from each resource server, push into this resource description
+		 * and allow the view to update
+		 */
+		fetchResourceDescriptionCallback:  function (data, textStatus, jqXHR) {
+			console.log("Callback from fetch resource");
+			console.log("data: " + JSON.stringify(data));
+			
+			// success only means RS responsed
+			if (textStatus == "success") {
+				
+			}
 		},
 		
 		/*

@@ -11,6 +11,7 @@ $(function($) {
 	
 		initialize: function() {
 			this.model.bind("change", this.render, this);
+			console.log("resources: " + this.model.Resources);
 		},
 		
 		events: {
@@ -25,6 +26,7 @@ $(function($) {
 	        // init 
 	        this.$("#passcodeContainer").hide();
 	        this.$("#authZContainer").hide();
+	        this.$("#authZFooter").hide();
 	        this.$("#messageBar").hide();
 	        this.$("#messageBar").text("");
 	        
@@ -52,6 +54,7 @@ $(function($) {
 	   		else if (this.model.get("AuthorizeFlag") == true &&
 	   			this.model.get("Authorized") == false) { 
 	   			this.$("#authZContainer").show();
+	   			this.$("#authZFooter").show();
 	   		}
 	   		
 	   		// If the model has any errors, show them

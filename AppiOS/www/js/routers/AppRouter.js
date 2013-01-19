@@ -53,24 +53,14 @@
 	     * Authz page
 	     */
 	    authz:function () {
-	        this.changePage(new window.Agent.AuthzView());
+	    	var authorizations = new window.Agent.Authorizations();
+	        this.changePage(new window.Agent.AuthzView({model: authorizations}));
 	    },
 	
-		/*
-		 * Agent Request
-		 */
-	
-		agentrequest:function(id) 
-		{
-			var request = A2P3AgentRequest.get(id);
-			this.changePage(new window.Agent.A2P3AgentRequestView({A2P3AgentRequest: request}));
-		},
-		
 		/* 
 		 * Enroll, handles both the a2p3.net://enroll? and QR code scan
 		 */
 		enroll: function (cid) {
-			console.log("Enroll starting, cid = " + cid);
 			var enrollment = enrollmentSessions.getByCid(cid);
 			this.changePage(new window.Agent.EnrollmentView({model: enrollment}));
 		},

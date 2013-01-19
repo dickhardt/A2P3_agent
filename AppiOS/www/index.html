@@ -52,10 +52,20 @@
 	      		<input type="text" id="id" value="<%= DeviceId %>" />
 	      		Authentication Server URL:
 	      		<input type="text" id="authenticationServerURL" value="<%= AuthenticationServerURL %>" />
+	      		Registrar URL:
+	      		<input type="text" id="registrarURL" value="<%= RegistrarURL %>" />
 	      		Demonstration Apps URL:
 	      		<input type="text" id="demoAppsURL" value="<%= DemoAppsURL %>" />
 	      		Registrar Token:
 	      		<input type="text" id="registrarToken" value="<%= RegistrarToken %>" />
+	      		Resource Server Ids:
+	      		<div id="resourceServerIdContainer" data-role="content" class="fullarea">
+	      			<ul data-role="listview" data-theme="c">
+		        		<% _.each(ResourceServerIds, function(resourceServerId) { %>  
+		        			<li><%= resourceServerId %></li> 
+						<% }); %>
+					</ul>
+				</div>
 	      	</div>
 	      	<div data-role="footer">
 	      		<div class="ui-grid-a">
@@ -88,11 +98,26 @@
     <script type="text/template" id="authz" >
             <div data-role="header">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
-                <h1>Authorizations</h1>
+                <h1>Your Authorizations</h1>
                 <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
             </div>
             <div data-role="content" class="fullarea">
-                    authorizations
+            	<div data-role="collapsible-set" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	            	<% _.each(ResourceServerIds, function(resourceServerId) { %>  
+	                	<div data-role="collapsible" data-content-theme="c">
+	                		<h3><%= resourceServerId %></h3>
+	                		<div class="ui-grid-a">
+		      					<div class="ui-block-a">
+									<p>Last logon: todo</p>
+									<p>Accesses: todo</p>
+								</div>
+								<div class="ui-block-b" style="text-align: right;">
+									<a data-role="button" data-inline="true" data-icon="delete">Delete</a>
+								</div>		
+							</div>
+	                	</div>
+	               	<% }); %>
+	            </div>
             </div>
     </script>
 
@@ -165,6 +190,7 @@
     <script src="js/models/Settings.js"></script>
     <script src="js/models/Enrollment.js"></script>
     <script src="js/models/AgentRequest.js"></script>
+    <script src="js/models/Authorizations.js"></script>
     <script src="js/collections/EnrollmentSessions.js"></script>
     <script src="js/collections/AgentRequestSessions.js"></script>
     <script src="js/views/DemoView.js"></script>

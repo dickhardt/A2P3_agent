@@ -41,6 +41,9 @@
 			
 			// An array of resource authZ URL as passed in from request
 			Resources: null,
+			
+			// Array of resource ids parsed from Resources
+			ResourceIds: null,
 						
 			// An array of resource descriptions
 			ResourceDescriptions: null,
@@ -161,6 +164,9 @@
 				this.set({"IXToken": data.result.token,
 					"Status": "Complete"});
 				
+				// Save resource ids we've authorized
+				settings.addResourceIds(this.get("ResourceIds"));
+				
 				// Now respond to the Client App
 				this.respondToClientApp();
 				
@@ -218,6 +224,7 @@
 		 * base 64 URL decode the payload
 		 * JSON.parse the payload
 		 * You now have the resources that you can fetch, and the returnURL for sending results back to the App\
+		 * and we'll parse the resource ids while were at it
 		 */
 		setAgentRequest: function(url) {
 			// Get the request portion
@@ -256,10 +263,24 @@
 			// Pull out request.a2p3.org part
 			var request = jsSecondPart["request.a2p3.org"];
 			
+			// Parse each resource url for its id (aka hostname)
+			var i;
+			var resourceIds = [];
+			for (i = 0; i < request.resources.length; i++) {
+				// Parse URI
+				var parsedUrl = parseUri(request.resources[i]);
+				
+				// Save hostname
+				resourceIds[i] = parsedUrl.host;
+				console.log("Resource id = " + resourceIds[i]);
+			}
+			
+			
 			// Populate my model
 			this.set({"Sar": firstPart,
 				"ReturnURL": request.returnURL,
 				"Resources": request.resources,
+				"ResourceIds": resourceIds,
 				"PasscodeFlag": request.auth.passcode,
 				"AuthorizeFlag": request.auth.authorization});
 		},

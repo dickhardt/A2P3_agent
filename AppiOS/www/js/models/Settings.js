@@ -22,8 +22,12 @@
 			DeviceId : '',
 			Name: '',
 			AuthenticationServerURL: '',
+			RegistrarURL: '',
 			DemoAppsURL: '',
 			RegistrarToken: '',
+			
+			// Resource server we've authorized in the past and haven't revoked
+			ResourceServerIds: null,
 		},
 
 		urlRoot: window.Agent.Context.BaseUrl + '/api/settings',
@@ -53,14 +57,50 @@
 	        	
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
 				this.set({"AuthenticationServerURL": "http://as.local.a2p3.net:8080",
+					"RegistrarURL": "http://registrar.local.a2p3.net:8080",
 					"DemoAppsURL": "https://a2p3.ca/#demo",
-					"RegistrarToken": ""});
+					"RegistrarToken": "",
+					"ResourceServerIds": null});
 	        	
 	        	// store in localstorage
 	        	this.save();
 	        	console.log('First time settings initialized');
 	        	console.log($.jStorage.get('settings'));
 			}
+		},
+		
+		/* Adds resource ids to the resource array if it doesn't 
+		 * already exist.
+		 */
+		addResourceIds: function (resourceIds) {
+			
+			// init
+			var i
+			var k;
+			var found;
+			var existingResourceIds = this.get("ResourceServerIds");
+			if (!existingResourceIds) {
+				existingResourceIds = [];
+			}
+			
+			// For each given resource id find in our existing resource server ids
+			for (i = 0; i < resourceIds.length; i++) {
+				found = false;
+				for (k = 0; k < existingResourceIds.length; k++) {
+					if (existingResourceIds[k] == resourceIds[i]) {
+						found = true;
+						break;
+					}
+				}
+				// Not found, add it
+				if (!found) {
+					existingResourceIds.push(resourceIds[i]);
+				}
+			}
+			
+			// All done, add it back
+			this.set({"ResourceServerIds": existingResourceIds});
+			this.save();
 		},
 	
 		// Reset to factory settings

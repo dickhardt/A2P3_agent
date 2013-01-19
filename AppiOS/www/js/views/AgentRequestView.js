@@ -11,7 +11,6 @@ $(function($) {
 	
 		initialize: function() {
 			this.model.bind("change", this.render, this);
-			console.log("resources: " + this.model.Resources);
 		},
 		
 		events: {
@@ -87,18 +86,20 @@ $(function($) {
 	    	if (this.model.get("AuthorizeFlag") == false ||
 	    		this.model.get("Authorized") == true) {
 	    		this.model.startGetIXToken();
+	    		app.navigate("", true);
 	    	}	
 	    },
 	    
 	    allow: function () {
 	    	this.model.set({"Authorized": true});
 	    	this.model.startGetIXToken();
+	    	app.navigate("", true);
 	    },
 	    
 	    dontAllow: function () {
 	    	this.model.set({"Authorized": false});
 	    	this.model.cancel();
-	    	app.home();
+	    	app.navigate("", true);
 	    },
 	});
 });

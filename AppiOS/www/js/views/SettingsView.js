@@ -48,6 +48,7 @@ $(function($) {
 			this.model.set({"Name" : $("#name").val(), 
 				"DeviceId" : $("#id").val(),
 				"AuthenticationServerURL" : $("#authenticationServerURL").val(),
+				"RegistrarURL": $("#registrarURL").val(),
 				"DemoAppsURL" : $("#demoAppsURL").val(),
 				"RegistrarToken" : $("#registrarToken").val(),
 				})

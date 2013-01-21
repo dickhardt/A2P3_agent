@@ -32,7 +32,7 @@ $(function($) {
 			   this.model.reset();
 			   
 			   // Notify user
-			   window.Agent.Notify("Agent has been reset to default settings.");
+			   window.Agent.Notify("Agent has been reset to default settings.", null, "Notice");
 			   
 			   // Route back to this page
 			   app.settings();
@@ -51,6 +51,8 @@ $(function($) {
 				"RegistrarURL": $("#registrarURL").val(),
 				"DemoAppsURL" : $("#demoAppsURL").val(),
 				"RegistrarToken" : $("#registrarToken").val(),
+				"ResourceServerProtocol": $("#resourceServerProtocol").val(),
+				"ResourceServerPort": $("#resourceServerPort").val(),
 				})
 			this.model.save();
 			app.navigate("", true);

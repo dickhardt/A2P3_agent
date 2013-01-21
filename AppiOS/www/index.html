@@ -58,6 +58,10 @@
 	      		<input type="text" id="demoAppsURL" value="<%= DemoAppsURL %>" />
 	      		Registrar Token:
 	      		<input type="text" id="registrarToken" value="<%= RegistrarToken %>" />
+	      		Resource Server Protocol
+	      		<input type="text" id="resourceServerProtocol" value="<%= ResourceServerProtocol %>" />
+	      		Resource Server Port
+	      		<input type="text" id="resourceServerPort" value="<%= ResourceServerPort %>" />
 	      		Resource Server Ids:
 	      		<div id="resourceServerIdContainer" data-role="content" class="fullarea">
 	      			<ul data-role="listview" data-theme="c">
@@ -150,8 +154,8 @@
 	           	</div>
 	           	<div id="authZContainer" data-role="content" class="fullarea">
 	            	<ul data-role="listview" data-theme="c" class="resourceList">
-		        		<% _.each(Resources, function(resource) { %>  
-		        			<li><%= resource %></li> 
+		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
+		        			<li><%= resourceDescriptions %></li> 
 						<% }); %>
 					</ul>
 			    </div>

@@ -25,7 +25,8 @@
 			RegistrarURL: '',
 			DemoAppsURL: '',
 			RegistrarToken: '',
-			
+			ResourceServerProtocol: '',
+			ResourceServerPort: '',
 			// Resource server we've authorized in the past and haven't revoked
 			ResourceServerIds: null,
 		},
@@ -60,7 +61,9 @@
 					"RegistrarURL": "http://registrar.local.a2p3.net:8080",
 					"DemoAppsURL": "https://a2p3.ca/#demo",
 					"RegistrarToken": "",
-					"ResourceServerIds": null});
+					"ResourceServerIds": null,
+					"ResourceServerProtocol": "http",
+					"ResourceServerPort": "8080"});
 	        	
 	        	// store in localstorage
 	        	this.save();

@@ -126,15 +126,19 @@
 		
 		getAppsFromResourceServer: function (resource, rsToken) {
 			console.log("Resource = " + resource);
+			// make url
+			var url = settings.get("ResourceServerProtocol") + "://" + resource + 
+				":" + settings.get("ResourceServerPort");
+				
 			// Call Registrar- 
 			// TODO make protocol and port a setting, or shouldn't it come from the registrar?
-			$.ajax({url: "http://" + resource + ":8080/authorizations/list", 
+			$.ajax({url: url + "/authorizations/list", 
 				type: "POST",
 				contentType: "application/json;", 
 				data: JSON.stringify({ "request": rsToken }),
 				context: this,
 				success: function (data, textStatus, jqXHR) { 
-					this.getAppsFromResourceServerCallback(data, textStatus, jqXHR, "http://" + resource + ":8080") }});
+					this.getAppsFromResourceServerCallback(data, textStatus, jqXHR, url) }});
 		},
 		
 		/*
@@ -184,6 +188,12 @@
 				apps[appId].resources.push(app.resources);
 				apps[appId].rsRequests.push({"rsUrl": rsUrl,
 					"request": app.request});
+					
+				// Use the most recent last access - although should be the same
+				if (app.lastAccess &&
+					app.lastAccess > app[appid].lastAccess) {
+					apps[appId].lastAccess = app.lastAccess;		
+				}
 			}
 			else {
 				// If it doesn't exist add it

@@ -28,26 +28,9 @@ $(function($) {
 	        this.$("#authZFooter").hide();
 	        this.$("#messageBar").hide();
 	        this.$("#messageBar").text("");
-	        
-	        // Show/hide containers based on model state
-	        var status = this.model.get("Status");
-	   		switch (status) {
-	   			case "Cancelled":
-	   				// all done, back home
-	   				app.home();
-	   				break;
-	   			case "Processing":
-	   				// TODO: show spinner
-	   				break;
-	   			case "Complete":
-	   				// all done, back home
-	   				app.home();
-	   				break;
-	   		}
 	   		
 	   		if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 1) {
-	   			console.log("trying to show");
 	   			this.$("#passcodeContainer").show();
 	   		}
 	   		else if (this.model.get("AuthorizeFlag") == true &&
@@ -60,6 +43,25 @@ $(function($) {
 	   		if (this.model.get("ErrorMessage")) {
 	   			this.$("#messageBar").text(this.model.get("ErrorMessage"));
 	        	this.$("#messageBar").show();
+	   		}
+
+	        // Show/hide containers based on model state
+	        var status = this.model.get("Status");
+	   		switch (status) {
+	   			case "Cancelled":
+	   				// all done, back home
+	   				app.navigate("", true);
+	   				break;
+	   			case "AppVerifyFailed":
+	   			console.log("App verification failed!");
+	   				this.$("#passcodeContainer").hide();
+			        this.$("#authZContainer").hide();
+			        this.$("#authZFooter").hide();
+	   				break;
+	   			case "Complete":
+	   				// all done, back home
+	   				app.navigate("", true);
+	   				break;
 	   		}
 	   		
 	     	// force jquery to restyle

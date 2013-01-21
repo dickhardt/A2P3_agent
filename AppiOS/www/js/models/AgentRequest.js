@@ -33,11 +33,17 @@
 			// Sar - signature of the agent request
 			Sar: '',
 			
+			// Request part of the source URL
+			Request: '',
+			
 			// Notification URL Flag - Indicates if the client app wants a notification URL
 			NotificationURLFlag: '', 
 			
 			// Notification URL - an optiona parameter for the Client to be notified
 			NotificationURL: '', 
+			
+			// Name of the Client App - used for display purposes
+			AppName: '',
 			
 			// An array of resource authZ URL as passed in from request
 			Resources: null,
@@ -46,7 +52,7 @@
 			ResourceIds: null,
 						
 			// An array of resource descriptions
-			ResourceDescriptions: null,
+			ResourceDescriptions: new Object(),
 			
 			// Indicates if the User must enter the passcode
 			PasscodeFlag: true,
@@ -92,8 +98,72 @@
 			this.setAgentRequest(this.get("SourceUrl"));
 			
 			// Begin Async registrar and resource server calls
+			this.verifyWithRegistrar();
 			this.fetchResourceDescriptions();
 			
+		},
+		
+		/*
+		 * Verifies the calling client app with registrar
+		 * /app/verify
+		 * NOTE: non-­-standard API, Agent does a POST call with the 
+		 * “request” and 
+		 * “token” parameters. 
+		 * 
+		 * Standard JSON response format. 
+		 * 
+		 * Called by: Personal Agent 
+		 * 
+		 * Purpose: checks if an Agent Request from an App is valid 
+		 * 
+		 * “request”: Agent Request received from App 
+		 * “token”: agent token 
+		 * 
+		 */
+		verifyWithRegistrar: function () {
+			// make URL
+			var url = settings.get("RegistrarURL") + "/request/verify";
+			
+			// make data
+			var data = {"request": this.get("Request"),
+				"token": settings.get("RegistrarToken")};
+			
+			// Call Registrar
+			$.ajax({url: url, 
+				type: "POST",
+				data: JSON.stringify(data), 
+				contentType: "application/json;", 
+				dataType: "json",
+				context: this,
+				success: this.verifyWithRegistrarCallback});
+		},
+		
+		/*
+		 * Callback for verify with registrar
+		 *  * “result”: 
+		 * “name”: App name that was registered at the Registrar 
+		 * 
+		 * Error codes: 
+		 * 
+		 * “INVALID_APP_ID”: Unknown App ID in Agent Request. 
+		 * “INVALID_REQUEST”: The Agent Request structure or signature is invalid. 
+		 * "INVALID_TOKEN”: agent token is invalid
+		 */
+		verifyWithRegistrarCallback: function (data, textStatus, jqXHR) {
+			console.log("registrar data=" + JSON.stringify(data));
+			if (textStatus == "success") {
+				if (data.result) {
+					this.set("AppName", data.result.name);
+				}
+				else {
+					this.set({"ErrorMessage": data.error.message,
+						"Status": "AppVerifyFailed"});
+				}
+			}
+			else {
+				this.set({"ErrorMessage": textStatus,
+					"Status": "AppVerifyFailed"});
+			}
 		},
 		
 		/*
@@ -125,11 +195,9 @@
 			
 			// Convert to JSON
 			var data1 = JSON.stringify(jsData1);
-			console.log("Post data: " + data1);
 			
 			// Make URL
 			var url1 = this.get("AuthenticationServerURL") + "/token";
-			console.log("Calling URL: " + url1);
 			
 			// Call AS 
 			$.ajax({url: url1, 
@@ -145,8 +213,6 @@
 		 * Callback for getIXToken
 		 */
 		getIXTokenCallback: function (data, textStatus, jqXHR) {
-			console.log("IXToken call back start");
-			console.log("data: " + JSON.stringify(data));
 			
 			// success only means AS responsed
 			if (textStatus == "success") {
@@ -154,7 +220,6 @@
 				// Look for logical errors
 				if (data.error) {
 					this.set({"Passcode": "",
-						"Status": "Error",
 						"ErrorMessage": data.error.message});
 					return;
 				}
@@ -190,11 +255,14 @@
 			var resourceUrls = this.get("Resources");
 			var i = 0;
 			for (i = 0; i < resourceUrls.length; i++) {
-				// Call RS 
+				// Call RS 			
 				$.ajax({url: resourceUrls[i], 
-					type: "GET",
+					type: "GET", 
+					dataType: "json",
 					context: this,
-					success: this.fetchResourceDescriptionCallback});
+					success: function (data, textStatus, jqXHR) {
+						this.fetchResourceDescriptionCallback(data, textStatus, jqXHR, resourceUrls[i])}
+					});			
 			}
 		},
 		
@@ -202,13 +270,18 @@
 		 * Call back from each resource server, push into this resource description
 		 * and allow the view to update
 		 */
-		fetchResourceDescriptionCallback:  function (data, textStatus, jqXHR) {
-			console.log("Callback from fetch resource");
+		fetchResourceDescriptionCallback:  function (data, textStatus, jqXHR, rsUrl) {
 			console.log("data: " + JSON.stringify(data));
 			
 			// success only means RS responsed
 			if (textStatus == "success") {
+				// init
+				var rsDescs = this.get("ResourceDescriptions");
 				
+				// add description, only EN supported for now.  TODO: make language a setting
+				rsDescs[rsUrl] = data["en"];
+				
+				this.trigger("change");
 			}
 		},
 		
@@ -282,7 +355,8 @@
 				"Resources": request.resources,
 				"ResourceIds": resourceIds,
 				"PasscodeFlag": request.auth.passcode,
-				"AuthorizeFlag": request.auth.authorization});
+				"AuthorizeFlag": request.auth.authorization,
+				"Request": requestParam});
 		},
 		
 		/*
@@ -342,5 +416,4 @@
 		
 		
 	});
-
 })();

@@ -113,6 +113,7 @@
 			}
 			
 			// Switch on path (aka operation type), TODO: could make this a factory pattern
+			console.log("just path = " + justPath);
 			switch (justPath) {
 				case "enroll":
 					//TODO: cancel all previous sessions

@@ -40,7 +40,6 @@ $(function($) {
 	    	console.log("Begin scan");
 	        window.plugins.barcodeScanner.scan(
                 function(result) {
-                	console.log("Scan success callback");
                     if (result.cancelled) {
                         navigator.notification.alert("Scan Cancelled");
                     }
@@ -48,6 +47,7 @@ $(function($) {
                     	// Two flavours, enroll QR and logon QR
                     	// Simple logic, if it starts with "a2p3.net" then its a logon QR
                     	// TODO: move a2p3.net into settings
+                    	console.log("Scanned string = " + result.text);
                     	if (result.text.indexOf("a2p3.net") == 0) {
                     		app.mobileUrlInvokeHandler(result.text);
                     	}

@@ -101,18 +101,29 @@
                 <h1>Your Authorizations</h1>
                 <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
             </div>
-            <div data-role="content" class="fullarea">
+            <div id="messageBar" class="ui-bar ui-bar-e"></div>
+            <div id="noAuthZContent" data-role="content" class="fullarea">
+        		<p>You do not have any authorizations yet.</p>
+            </div>
+            <div id="authZContent" data-role="content" class="fullarea">
             	<div data-role="collapsible-set" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	            	<% _.each(ResourceServerIds, function(resourceServerId) { %>  
+	            	<% _.each(Apps, function(app, key) { %>  
 	                	<div data-role="collapsible" data-content-theme="c">
-	                		<h3><%= resourceServerId %></h3>
+	                		<h3><%= app.name %></h3>
 	                		<div class="ui-grid-a">
-		      					<div class="ui-block-a">
-									<p>Last logon: todo</p>
-									<p>Accesses: todo</p>
+		      					<div class="ui-block-a" style="width: 90%;">
+									<p>Last Access: <%= app.lastAccess %></p>
+									<p>Accesses:</p>
+									<ul data-role="listview" class="ui-listview">
+										<% _.each(app.resources, function(resource) { %>
+											<li class="ui-li ui-li-static ui-btn-up-c ui-first-child">
+												<p><%= ResourceDescriptions[resource] %></p>
+											</li>
+										<% }); %>		
+									</ul>
 								</div>
-								<div class="ui-block-b" style="text-align: right;">
-									<a data-role="button" data-inline="true" data-icon="delete">Delete</a>
+								<div class="ui-block-b" style="width: 10%; text-align: right;">
+									<a id="delete" data-appid="<%= key %>" data-role="button" data-inline="true" data-icon="delete">Delete</a>
 								</div>		
 							</div>
 	                	</div>

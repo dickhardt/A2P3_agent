@@ -42,7 +42,7 @@
 			// An array of resource authZ URL as passed in from request
 			Resources: null,
 			
-			// Array of resource ids parsed from Resources
+			// Array of resource server ids parsed from Resources
 			ResourceIds: null,
 						
 			// An array of resource descriptions

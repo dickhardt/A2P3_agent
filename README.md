@@ -51,4 +51,18 @@ Design guidelines:
 - Clean, simple and minimal
 - Agent must be distinguishable from other A2P3 apps
 
+Tips and Tricks:
 
+Brand new agents do not start with any resource server ids for authorizations. To give the agent them all in the PoC environment run this on the java console:
+
+	settings.addResourceIds(["email.local.a2p3.net",
+		"si.local.a2p3.net",
+		"health.local.a2p3.net",
+		"health.bc.local.a2p3.net",
+		"health.ab.local.a2p3.net",
+		"people.local.a2p3.net",
+		"people.bc.local.a2p3.net",
+		"people.ab.local.a2p3.net",]);
+
+
+		

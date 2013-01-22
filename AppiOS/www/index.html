@@ -19,6 +19,7 @@
 	            <h1>Agent Home</h1>
 	            <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
 	        </div>
+	        <div id="container-passcode"></div>
 	      	<div id="enrolled" data-role="content" class="fullarea">
                 <ul data-role="controlgroup">
                     <a href="#demo" data-role="button" data-iconpos="right" data-icon="arrow-r">Demo Apps</a>
@@ -35,6 +36,55 @@
 	      	</div>
     </script>
     
+    <!-- Passcode Dialogue Template -->
+    <script type="text/template" id="passcode" >
+		
+      		<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<a id="1" class="keypad ui-btn-inner" data-role="button" data-corners="false">1</a>
+				</div>
+				<div class="ui-block-b">
+					<a id="2" class="keypad ui-btn-inner" data-role="button" data-corners="false">2</a>
+				</div>
+				<div class="ui-block-c">
+					<a id="3" class="keypad ui-btn-inner" data-role="button" data-corners="false">3</a>
+				</div>
+			</div>
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<a id="4" class="keypad ui-btn-inner" data-role="button" data-corners="false">4</a>
+				</div>
+				<div class="ui-block-b">
+					<a id="5" class="keypad ui-btn-inner" data-role="button" data-corners="false">5</a>
+				</div>
+				<div class="ui-block-c">
+					<a id="6" class="keypad ui-btn-inner" data-role="button" data-corners="false">6</a>
+				</div>
+			</div>
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<a id="7" class="keypad ui-btn-inner" data-role="button" data-corners="false">7</a>
+				</div>
+				<div class="ui-block-b">
+					<a id="8" class="keypad ui-btn-inner" data-role="button" data-corners="false">8</a>
+				</div>
+				<div class="ui-block-c">
+					<a id="9" class="keypad ui-btn-inner" data-role="button" data-corners="false">9</a>
+				</div>
+			</div>
+			<div class="ui-grid-b">
+				<div class="ui-block-a">
+					<a id="cancel" class="keypad ui-btn-inner" data-role="button" data-corners="false">Cancel</a>
+				</div>
+				<div class="ui-block-b">
+					<a id="0" class="keypad ui-btn-inner" data-role="button" data-corners="false">0</a>
+				</div>
+				<div class="ui-block-c">
+					<a id="delete" class="keypad ui-btn-inner" data-role="button" data-corners="false">Delete</a>
+				</div>
+			</div>
+		
+    </script>
     <!-- Settings Page Template -->
     <script type="text/template" id="settings" >
 	        <div data-role="header">
@@ -210,6 +260,7 @@
     <script src="js/views/SettingsView.js"></script>
     <script src="js/views/EnrollmentView.js"></script>
     <script src="js/views/AgentRequestView.js"></script>
+    <script src="js/views/PasscodeView.js"></script>
 	<script src="js/routers/AppRouter.js"></script>
 	
     <script src="js/main.js"></script>

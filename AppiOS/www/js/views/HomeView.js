@@ -6,11 +6,15 @@ $(function($) {
 	    template:_.template($('#home').html()),
 	
 		initialize: function(Opts) {
-			
+			this.passcodeView = new window.Agent.PasscodeView();
+       		this.passcodeView.parentView = this;
 		},
 		
 	    render:function () {
-	        $(this.el).html(this.template());
+	    	$(this.el).html(this.template());
+	        
+	        // Add in passcode view
+	        this.$("#container-passcode").append(this.passcodeView.render().el);
 	        
 	        // init
 	        this.$("#enrolled").hide();
@@ -24,7 +28,7 @@ $(function($) {
 	        	 this.$("#unenrolled").show();
 	        }
 	        
-	        return this;
+	       	return this;
 	    },
 	
 		events: {
@@ -41,7 +45,7 @@ $(function($) {
 	        window.plugins.barcodeScanner.scan(
                 function(result) {
                     if (result.cancelled) {
-                        navigator.notification.alert("Scan Cancelled");
+                        //navigator.notification.alert("Scan Cancelled");
                     }
                     else {
                     	// Two flavours, enroll QR and logon QR

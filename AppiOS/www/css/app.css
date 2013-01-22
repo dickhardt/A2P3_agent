@@ -7,3 +7,9 @@
 	letter-spacing: 30px;
 	text-align: center;
 }
+
+.keypad {
+	margin: 1px !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}

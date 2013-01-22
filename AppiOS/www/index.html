@@ -36,15 +36,25 @@
     </script>
     
     <!-- Passcode Dialogue Template -->
-    <script type="text/template" id="passcode" >
-			<div data-role="fieldcontain" align="center">
-				<p>Enter your passcode</p>
-				<input type="password" id="passcode1" class="passcode" />
-				<input type="password" id="passcode2" class="passcode" />
-				<input type="password" id="passcode3" class="passcode" />
-				<input type="password" id="passcode4" class="passcode" />
+    <script type="text/template" id="passcode">
+			Enter your passcode
+			<BR><BR>
+			<div class="ui-grid-c passcodeBoxes center">
+				<div class="ui-block-a">
+					<input type="password" id="passcode1" class="passcode" />
+				</div>
+				<div class="ui-block-b">
+					<input type="password" id="passcode2" class="passcode" />
+				</div>
+				<div class="ui-block-c">
+					<input type="password" id="passcode3" class="passcode" />
+				</div>
+				<div class="ui-block-d">
+					<input type="password" id="passcode4" class="passcode" />
+				</div>
 			</div>
-      		<div class="ui-grid-b">
+			<br><BR>
+      		<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
 					<a id="1" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="1">1</a>
 				</div>
@@ -55,7 +65,7 @@
 					<a id="3" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="3">3</a>
 				</div>
 			</div>
-			<div class="ui-grid-b">
+			<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
 					<a id="4" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="4">4</a>
 				</div>
@@ -66,7 +76,7 @@
 					<a id="6" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="6">6</a>
 				</div>
 			</div>
-			<div class="ui-grid-b">
+			<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
 					<a id="7" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="7">7</a>
 				</div>
@@ -77,7 +87,7 @@
 					<a id="9" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="9">9</a>
 				</div>
 			</div>
-			<div class="ui-grid-b">
+			<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
 					<a id="cancel" class="keypad ui-btn-inner" data-role="button" data-corners="false">Cancel</a>
 				</div>
@@ -88,7 +98,6 @@
 					<a id="backspace" class="keypad ui-btn-inner" data-role="button" data-corners="false">Delete</a>
 				</div>
 			</div>
-		
     </script>
     <!-- Settings Page Template -->
     <script type="text/template" id="settings" >
@@ -232,7 +241,7 @@
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="mainContainer" data-role="content" class="fullarea">
-           		<div id="container-passcode"></div>
+            <div id="container-passcode"></div>
            	</div>
     </script>
 

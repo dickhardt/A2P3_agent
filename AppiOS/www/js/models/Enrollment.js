@@ -87,7 +87,7 @@
 			
 			// Update our status
 			this.set({"Status": "Error",
-				"ErrorMessage": "The authentication server is unavailble.",
+				"ErrorMessage": "The authentication server is unavailable.",
 				"Passcode": ""});
 		},
 		

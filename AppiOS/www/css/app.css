@@ -12,3 +12,14 @@
 	padding-left: 0px !important;
 	padding-right: 0px !important;
 }
+.keypadBox {
+	width: 300px; 
+}
+
+.passcodeBoxes {
+	width: 240px; 
+}
+
+.center {
+	margin: 0 auto;
+}

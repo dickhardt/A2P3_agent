@@ -16,7 +16,7 @@
 		// Default attributes
 		defaults: {
 			AuthenticationServerURL: '',
-			//Passcode: '', should not need to persistent this in the model
+			Passcode: '', 
 			Name: '',
 			DeviceId: '',
 			Code: '',
@@ -75,7 +75,20 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
-				success: this.registerSuccess});
+				success: this.registerSuccess,
+				error: this.registerError});
+		},
+		
+		/*
+		 * Callback for when bad things happens
+		 */
+		registerError: function (jqXHR, textStatus, errorThrown) {
+			console.log("error in register: " + JSON.stringify(jqXHR));
+			
+			// Update our status
+			this.set({"Status": "Error",
+				"ErrorMessage": "The authentication server is unavailble.",
+				"Passcode": ""});
 		},
 		
 		/*
@@ -90,7 +103,8 @@
 				if (data.error) {
 					// Update our status and set the message
 					this.set({"Status": "Error", 
-						"ErrorMessage": data.error.message});
+						"ErrorMessage": "The authentication server reported the following error: " + data.error.message,
+						"Passcode": ""});
 					return;
 				}
 				
@@ -107,9 +121,11 @@
 			} else {
 				
 				// Update our status
-				this.set({"Status": "Failed"});
+				this.set({"Status": "Error",
+					"ErrorMessage": "The authentication server responsed with an error. " + textStatus,
+					"Passcode": ""});
 				
-				UnhandledError(JSON.stringify(data));
+				
 			}
 		},
 	});

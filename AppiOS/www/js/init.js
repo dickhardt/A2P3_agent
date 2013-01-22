@@ -2,7 +2,7 @@
 * Copyright (C) Province of British Columbia, 2013
 */
 
-$(document).bind("mobileinit", function () {
+$(document).on("mobileinit", function () {
 	//disable JQM router
     $.mobile.ajaxEnabled = false;
     $.mobile.linkBindingEnabled = false;
@@ -10,14 +10,12 @@ $(document).bind("mobileinit", function () {
     $.mobile.pushStateEnabled = false;
 
     // Set default page transitions
-    $.mobile.defaultPageTransition = "none"
+    $.mobile.defaultPageTransition = "none";
                  
     // Remove page from DOM when it's being replaced
     $('div[data-role="page"]').live('pagehide', function (event, ui) {
         $(event.currentTarget).remove();
     });
-    
-    
 });
 
 window.Agent = window.Agent || {};

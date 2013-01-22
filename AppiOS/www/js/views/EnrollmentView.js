@@ -13,14 +13,19 @@ $(function($) {
 	
 		initialize: function() {
 			this.model.bind("change", this.render, this);
+			this.model.bind("change:Passcode", this.checkPasscode, this);
 		},
 		
 		events: {
-	      "click a[id=enrollButton]"   : "submitPasscode",
 	    },
 	    
 	    render:function (eventName) {
 	    	this.$el.html(this.template(this.model.toJSON()));
+	        
+	        // Add in passcode view
+	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
+	        this.passcodeView.bind("cancel", this.cancel);
+	        this.$("#container-passcode").append(this.passcodeView.render().el);
 	        
 	        // Init
 	        this.$("#messageBar").hide();
@@ -37,25 +42,21 @@ $(function($) {
 	        
 	        // force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
-	       
+	        
 	        return this;
 	    },
 	    
-	    submitPasscode: function () {
-	    	// Assemble the passcode
-	    	var passcode = $("#passcode").val();
-	    	
-	    	// Validate - should be in model code	
-	    	if (passcode.length != 4 ||
-	    		isNaN(passcode) ) {
-	    		this.$("#messageBar").text("Passcode must be 4 numbers");
-	        	this.$("#messageBar").show();
-	    		return;
-	    	}
-	    	
-	    	this.model.register(passcode);	
-	    	
-	    	
+	    checkPasscode: function () {
+	    			
+			// If we have four trigger event
+			var passcode = this.model.get("Passcode");
+			if (passcode.length >= 4) {
+				this.model.register(passcode);		
+			}
+	    },
+	    
+	    cancel: function () {
+	    	app.navigate("", true);
 	    }
 	});
 });

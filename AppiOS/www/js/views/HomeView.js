@@ -6,15 +6,11 @@ $(function($) {
 	    template:_.template($('#home').html()),
 	
 		initialize: function(Opts) {
-			this.passcodeView = new window.Agent.PasscodeView();
-       		this.passcodeView.parentView = this;
+			
 		},
 		
 	    render:function () {
 	    	$(this.el).html(this.template());
-	        
-	        // Add in passcode view
-	        this.$("#container-passcode").append(this.passcodeView.render().el);
 	        
 	        // init
 	        this.$("#enrolled").hide();

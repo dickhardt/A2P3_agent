@@ -1,10 +1,9 @@
 /* Override jquery mobile defautls for special cases on a per element basis */
 .passcode {
-	width: 170px !important;
+	width: 50px !important;
 	font-weight: bolder;
 	padding: 10px !important;
 	margin: 5px !important;
-	letter-spacing: 30px;
 	text-align: center;
 }
 

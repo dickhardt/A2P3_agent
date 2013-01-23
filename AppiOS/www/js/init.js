@@ -15,7 +15,6 @@ $(document).on("mobileinit", function () {
 	 * in a higher chance that the same class will be applied 
 	 * even when the user is scrolling (eg, over a long list of links).
 	 */
-	console.log("Default hover delay = " + $.mobile.buttonMarkup.hoverDelay);
 	$.mobile.buttonMarkup.hoverDelay = 0;
 
     // Set default page transitions
@@ -76,7 +75,11 @@ function handleOpenURL(url) {
 	
 }
 
-// time execution
-var startTime;
-var endTime;
+/*
+ * To instantiate FastClick on the body,
+ * https://github.com/ftlabs/fastclick
+ */
+window.addEventListener('load', function() {
+    new FastClick(document.body);
+}, false);
 

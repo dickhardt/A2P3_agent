@@ -53,10 +53,7 @@ $(function($) {
 	    /*
 	     * Event for when the clicks any of the number keys
 	     */
-	    keyClicked: function (ev) {
-	    	//TODO: remove
-	    	startTime = new Date().getTime();
-	    	 
+	    keyClicked: function (ev) {   	 
 	    	// Get key
 	    	var key = $(ev.currentTarget).data('key');
 	    	console.log("key = " + key);

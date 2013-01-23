@@ -34,6 +34,19 @@ $(function($) {
 	        this.$("#passcode3").val(this.model.get("Passcode")[2]);
 	        this.$("#passcode4").val(this.model.get("Passcode")[3]);
 	        
+	        this.$('#1').removeClass('ui-btn-active');
+	        this.$('#2').removeClass('ui-btn-active');
+	        this.$('#3').removeClass('ui-btn-active');
+	        this.$('#4').removeClass('ui-btn-active');
+	        this.$('#5').removeClass('ui-btn-active');
+	        this.$('#6').removeClass('ui-btn-active');
+	        this.$('#7').removeClass('ui-btn-active');
+	        this.$('#8').removeClass('ui-btn-active');
+	        this.$('#9').removeClass('ui-btn-active');
+	        this.$('#0').removeClass('ui-btn-active');
+	        this.$('#cancel').removeClass('ui-btn-active');
+	        this.$('#backspace').removeClass('ui-btn-active');
+	        
 	        return this;
 	    },
 	    

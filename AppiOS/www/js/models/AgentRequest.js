@@ -438,6 +438,12 @@
 				url1 += "&state=" + state; // This does not need encoding since it was read literally from request URL
 			}
 			
+			// Make optional part Request
+			var request = this.get("Request");
+			if (request) {
+				url1 += "&request=" + request; // This does not need encoding since it was read literally from request URL
+			}
+			
 			// Make optional part error
 			var error = this.get("ClientAppErrorCode");
 			if (error) {

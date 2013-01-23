@@ -103,10 +103,18 @@
 				
 				// Look for logical errors
 				if (data.error) {
-					// Update our status and set the message
-					this.set({"Status": "Error", 
-						"ErrorMessage": "The authentication server reported the following error: " + data.error.message,
-						"Passcode": ""});
+					if (data.error.code == "INVALID_PASSCODE") {
+						// Update our status and set the message
+						this.set({"Status": "Error", 
+							"ErrorMessage": "Your passcode was incorrect.  Try again.",
+							"Passcode": ""});
+					}
+					else {
+						// Update our status and set the message
+						this.set({"Status": "Error", 
+							"ErrorMessage": "The authentication server reported the following error: " + data.error.message,
+							"Passcode": ""});
+					}
 					return;
 				}
 				

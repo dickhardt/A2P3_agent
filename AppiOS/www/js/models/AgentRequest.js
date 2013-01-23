@@ -73,17 +73,18 @@
 			// The IX Token returned from the AS after successful authN
 			IXToken: '',
 			
+			// Error Message - a natural language description of the error for the user
+			ErrorMessage: '',
+			
+			// Error code for  Client App
 			// “USER_CANCELLED”: The User cancelled the transaction. 
 			// “INVALID_APP_ID”: Registrar did not recognize the App ID. 
 			// “INVALID_REQUEST”: The Request structure or signature is invalid. 
 			// “INVALID_RETURN_URL”: The ReturnURL is not registered for this App ID with the Registrar.
-			ErrorCode: '',
+			ClientAppErrorCode: '',
 			
-			// Error Message - a natural language description of the error
-			ErrorMessage: '',
-			
-			// Status of the request
-			Status: '',
+			// Error message for Client App
+			ClientAppErrorMessage: '',
 			
 			// Backbone state management
 			IsSync: true,
@@ -135,15 +136,16 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
-				error: this.verifyWithRegistrarError,
+				error: function (jqXHR, textStatus, errorThrown) {
+					this.verifyWithRegistrarError(jqXHR, textStatus, errorThrown, url)},
 				success: this.verifyWithRegistrarCallback});
 		},
 		
 		/*
 		 * When bad things happen with the registrar
 		 */
-		verifyWithRegistrarError: function (jqXHR, textStatus, errorThrown) {
-			this.set({"ErrorMessage": "The registrar is unavailable."});	
+		verifyWithRegistrarError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The registrar is unavailable at: " + url});	
 		},
 		
 		/*
@@ -164,13 +166,11 @@
 					this.set("AppName", data.result.name);
 				}
 				else {
-					this.set({"ErrorMessage": data.error.message,
-						"Status": "AppVerifyFailed"});
+					this.set({"ErrorMessage": "Verification with registrar failed with: " + data.error.message});
 				}
 			}
 			else {
-				this.set({"ErrorMessage": textStatus,
-					"Status": "AppVerifyFailed"});
+				this.set({"ErrorMessage": "Verification with registrar failed with: " + textStatus});
 			}
 		},
 		
@@ -192,8 +192,7 @@
 		 */
 		startGetIXToken: function () {
 			// Update status and reset error message
-			this.set({"Status": "Processing",
-				"ErrorMessage": ""});
+			this.set({"ErrorMessage": ""});
 			
 			// Make JS POST data
 			var jsData1 = {"device": this.get("DeviceId"),
@@ -214,15 +213,16 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
-				error: this.getIXTokenError,
+				error: function (jqXHR, textStatus, errorThrown) {
+					this.getIXTokenError (jqXHR, textStatus, errorThrown, url1)},
 				success: this.getIXTokenCallback});
 		},
 		
 		/*
 		 * When bad things happen to get IX token
 		 */
-		getIXTokenError: function (jqXHR, textStatus, errorThrown) {
-			this.set({"ErrorMessage": "The authentication server is unavailable."});	
+		getIXTokenError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The authentication server is unavailable at: " + url});	
 		},
 		
 		/*
@@ -235,15 +235,21 @@
 				
 				// Look for logical errors
 				if (data.error) {
-					this.set({"Passcode": "",
-						"ErrorMessage": data.error.message});
+					if (data.error.code == "INVALID_PASSCODE") {
+						this.set({"Passcode": "",
+							"ErrorMessage": "Your passcode was incorrect.  Try again."});
+					}
+					else {
+						this.set({"Passcode": "",
+							"ErrorMessage": "Authentication with authentication server failed with: " + data.error.message});
+						
+					}
 					return;
 				}
 				
 				// Get the IX Token out of response
 				// update our model state
-				this.set({"IXToken": data.result.token,
-					"Status": "Complete"});
+				this.set({"IXToken": data.result.token});
 				
 				// Save resource ids we've authorized
 				settings.addResourceIds(this.get("ResourceIds"));
@@ -254,8 +260,8 @@
 				return;
 			}
 			else {
-				//TODO: err handling
-				UnhandledError(JSON.stringify(data));
+				this.set({"Passcode": "",
+						"ErrorMessage": "Authentication with authentication server failed with: " + textStatus});
 			}
 			
 		},
@@ -272,13 +278,15 @@
 			var i = 0;
 			for (i = 0; i < resourceUrls.length; i++) {
 				// Call RS 			
-				$.ajax({url: resourceUrls[i], 
+				var url = resourceUrls[i];
+				$.ajax({url: url, 
 					type: "GET", 
 					dataType: "json",
 					context: this,
-					error: this.fetchResourceDescriptionError,
+					error: function (jqXHR, textStatus, errorThrown) {
+						this.fetchResourceDescriptionError(jqXHR, textStatus, errorThrown, url)},
 					success: function (data, textStatus, jqXHR) {
-						this.fetchResourceDescriptionCallback(data, textStatus, jqXHR, resourceUrls[i])}
+						this.fetchResourceDescriptionCallback(data, textStatus, jqXHR, url)}
 					});			
 			}
 		},
@@ -286,8 +294,8 @@
 		/*
 		 * When bad things happen trying to fetch resource descriptions
 		 */
-		fetchResourceDescriptionError: function(jqXHR, textStatus, errorThrown) {
-			this.set({"ErrorMessage": "A resource server is unavailable."});	
+		fetchResourceDescriptionError: function(jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "A resource server is unavailable at: " + url});	
 		},
 		
 		/* 
@@ -307,6 +315,9 @@
 				
 				this.trigger("change");
 			}
+			else {
+				this.set({"ErrorMessage": "Fetching resource description failed with: " + textStatus});	
+			}
 		},
 		
 		/*
@@ -322,6 +333,9 @@
 		 * JSON.parse the payload
 		 * You now have the resources that you can fetch, and the returnURL for sending results back to the App\
 		 * and we'll parse the resource ids while were at it
+		 * 
+		 * Could set the response error code of:
+		 * INVALID_REQUEST
 		 */
 		setAgentRequest: function(url) {
 			// Get the request portion
@@ -329,36 +343,37 @@
 			
 			// Requireds'
 			var requestParam = parsedUrl.queryKey.request;
+			if (!requestParam) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
+				"ClientAppErrorMessage": "Request missing from query string parameters."}); return;}
 			
 			// Optionals'
 			if (parsedUrl.queryKey.state) {
 				var state = parsedUrl.queryKey.state;
-				this.set({"State" : state});
 			}
 			if (parsedUrl.queryKey.notificationURL) {
 				var notificationURL = parsedUrl.queryKey.notificationURL;
 				this.set({"NotificationURLFlag" : notificationURL});
 			}
 			
-			console.log("Request Param: " + requestParam);
-			
 			// Spilt in half
 			var requestParamParts = requestParam.split(".");
+			if (!requestParamParts ||
+				requestParamParts.length <= 2) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
+				"ClientAppErrorMessage": "Missing or too few . seperators in request string."}); return;}
+			
 			var firstPart = requestParamParts[0]; // the SAR part
 			var secondPart = requestParamParts[1];
 			
-			console.log("Second part: " + secondPart);
-			
 			// Decode it to string
 			var decodedSecondPart = atob(secondPart);
-							
-			console.log("Decoded: " + decodedSecondPart);
 			
 			// Parse into javascript
 			var jsSecondPart = JSON.parse(decodedSecondPart);
 			
 			// Pull out request.a2p3.org part
 			var request = jsSecondPart["request.a2p3.org"];
+			if (!request.returnURL) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
+				"ClientAppErrorMessage": "Missing returnUrl in request."}); return;}
 			
 			// Parse each resource url for its id (aka hostname)
 			var i;
@@ -369,7 +384,6 @@
 				
 				// Save hostname
 				resourceIds[i] = parsedUrl.host;
-				console.log("Resource id = " + resourceIds[i]);
 			}
 			
 			
@@ -387,9 +401,8 @@
 		 * Handles user cancellations
 		 */
 		cancel: function () {
-			this.set({"Status": "Cancelled",
-				"Error": "USER_CANCELLED",
-				"ErrorMessage": "The User cancelled the transaction."});
+			this.set({"ClientAppErrorCode": "USER_CANCELLED",
+				"ClientAppErrorMessage": "The User cancelled the transaction."});
 			this.respondToClientApp();
 		},
 		
@@ -403,6 +416,11 @@
 		 * “errorMessage”: a message about the error
 		 */
 		respondToClientApp: function () {
+			// Check for return url
+			if (!this.get("ReturnURL")) {
+				this.set({"ErrorMessage": "Unable to respond to calling app because no return URL was provided."});
+				return;
+			}
 			
 			// Make required parts of the response URL
 			var url1 = this.get("ReturnURL") +  
@@ -417,25 +435,26 @@
 			// Make optional part state
 			var state = this.get("State");
 			if (state) {
-				url1 += "&state=" + state; // This does not need encoding since it was read verbatium from request URL
+				url1 += "&state=" + state; // This does not need encoding since it was read literally from request URL
 			}
 			
 			// Make optional part error
-			var error = this.get("Error");
+			var error = this.get("ClientAppErrorCode");
 			if (error) {
 				url1 += "&error=" + encodeURI(error);
 			}
 			
 			// Make optional part errorMessage
-			var errorMessage = this.get("ErrorMessage");
+			var errorMessage = this.get("ClientAppErrorMessage");
 			if (errorMessage) {
 				url1 += "&errorMessage=" + encodeURI(errorMessage);
 			}
 			
 			console.log("Client App response URL: " + url1);
 			
-			window.location.href = url1;
+			app.navigate("", true);
 			
+			window.location.href = url1;
 		}
 	});
 })();

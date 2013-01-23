@@ -75,19 +75,21 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
-				success: this.registerSuccess,
-				error: this.registerError});
+				error: function (jqXHR, textStatus, errorThrown) {
+					this.registerError(jqXHR, textStatus, errorThrown, url1)},
+				success: this.registerSuccess
+				});
 		},
 		
 		/*
 		 * Callback for when bad things happens
 		 */
-		registerError: function (jqXHR, textStatus, errorThrown) {
+		registerError: function (jqXHR, textStatus, errorThrown, url) {
 			console.log("error in register: " + JSON.stringify(jqXHR));
 			
 			// Update our status
 			this.set({"Status": "Error",
-				"ErrorMessage": "The authentication server is unavailable.",
+				"ErrorMessage": "The authentication server is unavailable at: " + url,
 				"Passcode": ""});
 		},
 		

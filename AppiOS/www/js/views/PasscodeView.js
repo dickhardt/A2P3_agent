@@ -6,8 +6,6 @@ $(function($) {
 	    template:_.template($('#passcode').html()),
 	
 		initialize: function() {
-			// watch the model for changes
-			//this.model.on("change", this.render, this);
 		},
 		
 		events: {

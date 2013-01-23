@@ -12,6 +12,7 @@ $(function($) {
 		initialize: function() {
 			this.model.bind("change", this.render, this);
 			this.model.bind("change:Passcode", this.login, this);
+			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
 		},
 		
 		events: {
@@ -36,7 +37,7 @@ $(function($) {
 	        this.$("#messageBar").text("");
 	   		
 	   		if (this.model.get("PasscodeFlag") == true &&
-	   			this.model.get("Passcode").length < 1) {
+	   			this.model.get("Passcode").length < 4) {
 	   			this.$("#container-passcode").show();
 	   		}
 	   		else if (this.model.get("AuthorizeFlag") == true &&
@@ -49,25 +50,6 @@ $(function($) {
 	   		if (this.model.get("ErrorMessage")) {
 	   			this.$("#messageBar").text(this.model.get("ErrorMessage"));
 	        	this.$("#messageBar").show();
-	   		}
-
-	        // Show/hide containers based on model state
-	        var status = this.model.get("Status");
-	   		switch (status) {
-	   			case "Cancelled":
-	   				// all done, back home
-	   				app.navigate("", true);
-	   				break;
-	   			case "AppVerifyFailed":
-	   			console.log("App verification failed!");
-	   				this.$("#passcodeContainer").hide();
-			        this.$("#authZContainer").hide();
-			        this.$("#authZFooter").hide();
-	   				break;
-	   			case "Complete":
-	   				// all done, back home
-	   				app.navigate("", true);
-	   				break;
 	   		}
 	   		
 	     	// force jquery to restyle
@@ -83,7 +65,6 @@ $(function($) {
 		    	if (this.model.get("AuthorizeFlag") == false ||
 		    		this.model.get("Authorized") == true) {
 		    		this.model.startGetIXToken();
-		    		app.navigate("", true);
 		    	}	
 	    	}
 	    },
@@ -91,18 +72,16 @@ $(function($) {
 	    allow: function () {
 	    	this.model.set({"Authorized": true});
 	    	this.model.startGetIXToken();
-	    	app.navigate("", true);
 	    },
 	    
 	    dontAllow: function () {
 	    	this.model.set({"Authorized": false});
 	    	this.model.cancel();
-	    	app.navigate("", true);
 	    },
 	    
 	    cancel: function () {
+	    	this.model.set({"Authorized": false});
 	    	this.model.cancel();
-	    	app.navigate("", true);
 	    },
 	});
 });

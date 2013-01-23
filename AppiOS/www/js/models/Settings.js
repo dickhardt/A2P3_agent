@@ -101,7 +101,7 @@
 				}
 			}
 			
-			// All done, add it back
+			// All done, add it back and save
 			this.set({"ResourceServerIds": existingResourceIds});
 			this.save();
 		},

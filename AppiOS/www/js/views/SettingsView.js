@@ -31,9 +31,6 @@ $(function($) {
 			   // Reset model
 			   this.model.reset();
 			   
-			   // Notify user
-			   window.Agent.Notify("Agent has been reset to default settings.", null, "Notice");
-			   
 			   // Route back to this page
 			   app.settings();
 			   

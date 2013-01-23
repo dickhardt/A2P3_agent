@@ -135,7 +135,15 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
+				error: this.verifyWithRegistrarError,
 				success: this.verifyWithRegistrarCallback});
+		},
+		
+		/*
+		 * When bad things happen with the registrar
+		 */
+		verifyWithRegistrarError: function (jqXHR, textStatus, errorThrown) {
+			this.set({"ErrorMessage": "The registrar is unavailable."});	
 		},
 		
 		/*
@@ -206,7 +214,15 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
+				error: this.getIXTokenError,
 				success: this.getIXTokenCallback});
+		},
+		
+		/*
+		 * When bad things happen to get IX token
+		 */
+		getIXTokenError: function (jqXHR, textStatus, errorThrown) {
+			this.set({"ErrorMessage": "The authentication server is unavailable."});	
 		},
 		
 		/*
@@ -260,10 +276,18 @@
 					type: "GET", 
 					dataType: "json",
 					context: this,
+					error: this.fetchResourceDescriptionError,
 					success: function (data, textStatus, jqXHR) {
 						this.fetchResourceDescriptionCallback(data, textStatus, jqXHR, resourceUrls[i])}
 					});			
 			}
+		},
+		
+		/*
+		 * When bad things happen trying to fetch resource descriptions
+		 */
+		fetchResourceDescriptionError: function(jqXHR, textStatus, errorThrown) {
+			this.set({"ErrorMessage": "A resource server is unavailable."});	
 		},
 		
 		/* 
@@ -289,7 +313,7 @@
 		 * Internal function to "crack" the request into Agent useful parts
 		 * TODO: add error handling if request does not meet spec
 		 * 
-		 * TODO: example: a2p3.net://token?request=eyJ0eXAiOiJKV1MiLCJhbGciOiJIUzUxMiIsImtpZCI6InAxZjJfR3VfY2hER1lVd1AifQ.eyJpc3MiOiJhcHAuZXhhbXBsZS5jb20iLCJhdWQiOiJpeC5sb2NhbC5hMnAzLm5ldCIsInJlcWV1ZXN0LmEycDMub3JnIjp7InJldHVyblVSTCI6Imh0dHBzOi8vYXBwLmV4YW1wbGUuY29tL3JldHVyblVSTCIsInJlc291cmNlcyI6WyJodHRwczovL2hlYWx0aC5hMnAzLm5ldC9zY29wZS9wcm92X251bWJlciIsImh0dHBzOi8vcGVvcGxlLmEycDMubmV0L3Njb3BlL2RldGFpbHMiXSwiYXV0aCI6eyJwYXNzY29kZSI6dHJ1ZSwiYXV0aG9yaXphdGlvbiI6dHJ1ZX19LCJpYXQiOjEzNTU3ODY4NDB9.OcijfMJ_m_97nj-DQLX_VGoYXUyJaWzjzELoORiLSrRBC1WW8UCuFEC12dnflIEajj3AHUgGz9LRnBipeq0AlQ
+		 * example: a2p3.net://token?request=eyJ0eXAiOiJKV1MiLCJhbGciOiJIUzUxMiIsImtpZCI6InAxZjJfR3VfY2hER1lVd1AifQ.eyJpc3MiOiJhcHAuZXhhbXBsZS5jb20iLCJhdWQiOiJpeC5sb2NhbC5hMnAzLm5ldCIsInJlcWV1ZXN0LmEycDMub3JnIjp7InJldHVyblVSTCI6Imh0dHBzOi8vYXBwLmV4YW1wbGUuY29tL3JldHVyblVSTCIsInJlc291cmNlcyI6WyJodHRwczovL2hlYWx0aC5hMnAzLm5ldC9zY29wZS9wcm92X251bWJlciIsImh0dHBzOi8vcGVvcGxlLmEycDMubmV0L3Njb3BlL2RldGFpbHMiXSwiYXV0aCI6eyJwYXNzY29kZSI6dHJ1ZSwiYXV0aG9yaXphdGlvbiI6dHJ1ZX19LCJpYXQiOjEzNTU3ODY4NDB9.OcijfMJ_m_97nj-DQLX_VGoYXUyJaWzjzELoORiLSrRBC1WW8UCuFEC12dnflIEajj3AHUgGz9LRnBipeq0AlQ
 		 * 
 		 * split the Request on '.'
 		 * the first part is the header, not much useful to you there
@@ -413,7 +437,5 @@
 			window.location.href = url1;
 			
 		}
-		
-		
 	});
 })();

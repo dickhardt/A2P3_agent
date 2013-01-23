@@ -47,6 +47,10 @@ $(function($) {
 	    },
 	    
 	    checkPasscode: function () {
+	    	//todo: remove
+	    	endTime = new Date().getTime();
+	    	var time = Math.abs(endTime - startTime);
+	    	console.log("total time for key handle ms = " + time);
 	    			
 			// If we have four trigger event
 			var passcode = this.model.get("Passcode");

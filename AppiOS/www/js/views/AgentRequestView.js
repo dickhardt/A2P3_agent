@@ -11,6 +11,7 @@ $(function($) {
 	
 		initialize: function() {
 			this.model.bind("change", this.render, this);
+			this.model.bind("change:Passcode", this.login, this);
 		},
 		
 		events: {
@@ -22,8 +23,13 @@ $(function($) {
 	    render:function (eventName) {
 	    	this.$el.html(this.template(this.model.toJSON()));
 	        
+	        // Add in passcode view
+	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
+	        this.passcodeView.bind("cancel", this.cancel);
+	        this.$("#container-passcode").append(this.passcodeView.render().el);
+	        
 	        // init 
-	        this.$("#passcodeContainer").hide();
+	        this.$("#container-passcode").hide();
 	        this.$("#authZContainer").hide();
 	        this.$("#authZFooter").hide();
 	        this.$("#messageBar").hide();
@@ -31,7 +37,7 @@ $(function($) {
 	   		
 	   		if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 1) {
-	   			this.$("#passcodeContainer").show();
+	   			this.$("#container-passcode").show();
 	   		}
 	   		else if (this.model.get("AuthorizeFlag") == true &&
 	   			this.model.get("Authorized") == false) { 
@@ -71,25 +77,15 @@ $(function($) {
 	    },
 	    
 	    login: function () {
-	    	// Assemble the passcode
-	    	var passcode = $("#passcode").val();
-	    	
-	    	// Validate - should be in model code	
-	    	if (passcode.length != 4 ||
-	    		isNaN(passcode) ) {
-	    		this.$("#messageBar").text("Passcode must be 4 numbers");
-	        	this.$("#messageBar").show();
-	    		return;
+	    	var passcode = this.model.get("Passcode");
+			if (passcode.length >= 4) {
+		    	// If already allowed or authZ not required start the process
+		    	if (this.model.get("AuthorizeFlag") == false ||
+		    		this.model.get("Authorized") == true) {
+		    		this.model.startGetIXToken();
+		    		app.navigate("", true);
+		    	}	
 	    	}
-	    	
-	    	this.model.set({"Passcode": passcode});  
-	    	
-	    	// If already allowed or authZ not required start the process
-	    	if (this.model.get("AuthorizeFlag") == false ||
-	    		this.model.get("Authorized") == true) {
-	    		this.model.startGetIXToken();
-	    		app.navigate("", true);
-	    	}	
 	    },
 	    
 	    allow: function () {
@@ -100,6 +96,11 @@ $(function($) {
 	    
 	    dontAllow: function () {
 	    	this.model.set({"Authorized": false});
+	    	this.model.cancel();
+	    	app.navigate("", true);
+	    },
+	    
+	    cancel: function () {
 	    	this.model.cancel();
 	    	app.navigate("", true);
 	    },

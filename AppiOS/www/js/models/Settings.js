@@ -57,13 +57,13 @@
 	        	}
 	        	
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
-				this.set({"AuthenticationServerURL": "http://as.local.a2p3.net:8080",
-					"RegistrarURL": "http://registrar.local.a2p3.net:8080",
+				this.set({"AuthenticationServerURL": "http://as.a2p3.net:8080",
+					"RegistrarURL": "http://registrar.a2p3.net:8080",
 					"DemoAppsURL": "https://a2p3.ca/#demo",
 					"RegistrarToken": "",
 					"ResourceServerIds": null,
 					"ResourceServerProtocol": "http",
-					"ResourceServerPort": "8080"});
+					"ResourceServerPort": ""});
 	        	
 	        	// store in localstorage
 	        	this.save();

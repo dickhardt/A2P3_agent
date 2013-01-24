@@ -12,6 +12,10 @@
 	padding-left: 0px !important;
 	padding-right: 0px !important;
 }
+.keypadLetters {
+	font-size: 10px;
+}
+
 .keypadBox {
 	width: 300px; 
 }

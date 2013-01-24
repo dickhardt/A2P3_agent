@@ -56,46 +56,70 @@
 			<br><BR>
       		<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
-					<a id="1" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="1">1</a>
+					<a id="1" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="1">1
+						<div class="keypadLetters">&nbsp;</div>
+					</a>
 				</div>
 				<div class="ui-block-b">
-					<a id="2" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="2">2</a>
+					<a id="2" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="2">2
+						<div class="keypadLetters">ABC</div>
+					</a>
 				</div>
 				<div class="ui-block-c">
-					<a id="3" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="3">3</a>
+					<a id="3" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="3">3
+						<div class="keypadLetters">DEF</div>	
+					</a>
 				</div>
 			</div>
 			<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
-					<a id="4" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="4">4</a>
+					<a id="4" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="4">4
+						<div class="keypadLetters">GHI</div>	
+					</a>
 				</div>
 				<div class="ui-block-b">
-					<a id="5" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="5">5</a>
+					<a id="5" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="5">5
+						<div class="keypadLetters">JKL</div>
+					</a>
 				</div>
 				<div class="ui-block-c">
-					<a id="6" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="6">6</a>
+					<a id="6" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="6">6
+						<div class="keypadLetters">MNO</div>
+					</a>
 				</div>
 			</div>
 			<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
-					<a id="7" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="7">7</a>
+					<a id="7" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="7">7
+						<div class="keypadLetters">PRS</div>
+					</a>
 				</div>
 				<div class="ui-block-b">
-					<a id="8" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="8">8</a>
+					<a id="8" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="8">8
+						<div class="keypadLetters">TUV</div>
+					</a>
 				</div>
 				<div class="ui-block-c">
-					<a id="9" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="9">9</a>
+					<a id="9" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="9">9
+						<div class="keypadLetters">WXY</div>
+					</a>
 				</div>
 			</div>
 			<div class="ui-grid-b keypadBox center">
 				<div class="ui-block-a">
-					<a id="cancel" class="keypad ui-btn-inner" data-role="button" data-corners="false">Cancel</a>
+					<a id="cancel" class="keypad ui-btn-inner" data-role="button" data-corners="false">Cancel
+						<div class="keypadLetters">&nbsp;</div>
+					</a>
 				</div>
 				<div class="ui-block-b">
-					<a id="0" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="0">0</a>
+					<a id="0" class="keypad ui-btn-inner" data-role="button" data-corners="false" data-key="0">0
+						<div class="keypadLetters">QZ</div>
+					</a>
 				</div>
 				<div class="ui-block-c">
-					<a id="backspace" class="keypad ui-btn-inner" data-role="button" data-corners="false">Delete</a>
+					<a id="backspace" class="keypad ui-btn-inner" data-role="button" data-corners="false">Delete
+						<div class="keypadLetters">&nbsp;</div>
+					</a>
 				</div>
 			</div>
     </script>
@@ -221,6 +245,7 @@
             <div data-role="content" class="fullarea">
                 <div id="container-passcode"></div>
 	           	<div id="authZContainer" data-role="content" class="fullarea">
+	           		<h2><%= AppName %> is requesting:</h2>
 	            	<ul data-role="listview" data-theme="c" class="resourceList">
 		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
 		        			<li><%= resourceDescriptions %></li> 

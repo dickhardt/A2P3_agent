@@ -99,7 +99,7 @@
 			this.setAgentRequest(this.get("SourceUrl"));
 			
 			// Begin Async registrar and resource server calls
-			//this.verifyWithRegistrar();
+			this.verifyWithRegistrar();
 			this.fetchResourceDescriptions();
 			
 		},

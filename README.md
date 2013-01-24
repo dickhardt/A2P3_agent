@@ -51,7 +51,7 @@ Design guidelines:
 - Clean, simple and minimal
 - Agent must be distinguishable from other A2P3 apps
 
-Tips and Tricks:
+## Tips and Tricks:
 
 Brand new agents do not start with any resource server ids for authorizations. To give the agent them all in the PoC environment run this on the java console:
 

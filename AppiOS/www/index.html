@@ -167,32 +167,46 @@
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="noAuthZContent" data-role="content" class="fullarea">
-        		<p>You do not have any authorizations yet.</p>
+        		<p>This Personal Agent does not have any authorizations yet.</p>
             </div>
             <div id="authZContent" data-role="content" class="fullarea">
-            	<div data-role="collapsible-set" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+            	<ul data-role="controlgroup">
 	            	<% _.each(Apps, function(app, key) { %>  
-	                	<div data-role="collapsible" data-content-theme="c">
-	                		<h3><%= app.name %></h3>
-	                		<div class="ui-grid-a">
-		      					<div class="ui-block-a" style="width: 90%;">
-									<p>Last Access: <%= app.lastAccess %></p>
-									<p>Accesses:</p>
-									<ul data-role="listview" class="ui-listview">
-										<% _.each(app.resources, function(resource) { %>
-											<li class="ui-li ui-li-static ui-btn-up-c ui-first-child">
-												<p><%= ResourceDescriptions[resource] %></p>
-											</li>
-										<% }); %>		
-									</ul>
-								</div>
-								<div class="ui-block-b" style="width: 10%; text-align: right;">
-									<a id="delete" data-appid="<%= key %>" data-role="button" data-inline="true" data-icon="delete">Delete</a>
-								</div>		
-							</div>
-	                	</div>
+	            		<a id="detail" data-appid="<%= key %>" data-role="button" data-iconpos="right" data-icon="arrow-r">
+	            			<h3><%= app.name %></h3>
+	            			<p>Last Access: <%= app.lastAccess %></p>
+	            		</a>
 	               	<% }); %>
-	            </div>
+	            </ul>
+            </div>
+    </script>
+    
+     <!-- AuthZ Details Page Template -->
+    <script type="text/template" id="authzDetail" >
+            <div data-role="header">
+            	<a id="back" data-role="button" data-inline="true" data-icon="arrow-l">Authorizations</a>
+                <h1>Authorization Detail</h1>
+                <a id="delete" data-role="button" data-inline="true" data-icon="delete">Delete</a>
+            </div>
+            <div id="messageBar" class="ui-bar ui-bar-e"></div>
+            <div id="authZContent" data-role="content" class="fullarea">
+        		<h3><%= this.app.name %></h3>
+        		<div class="ui-grid-a">
+  					<div class="ui-block-a" style="width: 90%;">
+						<p>Last Access: <%= this.app.lastAccess %></p>
+						<p>Accesses:</p>
+						<ul data-role="listview" class="ui-listview">
+							<% _.each(this.app.resources, function(resource) { %>
+								<li class="ui-li ui-li-static ui-btn-up-c ui-first-child">
+									<p><%= ResourceDescriptions[resource] %></p>
+								</li>
+							<% }); %>		
+						</ul>
+					</div>
+					<div class="ui-block-b" style="width: 10%; text-align: right;">
+						
+					</div>		
+				</div>
             </div>
     </script>
 
@@ -239,8 +253,8 @@
            	</div>
     </script>
 
-    <!-- All the Scripts -->
-    <script src="lib/jqm/jquery-1.8.2.js"></script>
+    <!-- All the Scripts - for speed no require.js-->
+    <script src="lib/jqm/jquery-1.8.2.min.js"></script>
     <script src="js/util/common.js"></script>
     <script src="js/util/ui.js"></script>
     <script src="js/init.js"></script>
@@ -260,6 +274,7 @@
     <script src="js/collections/AgentRequestSessions.js"></script>
     <script src="js/views/DemoView.js"></script>
     <script src="js/views/AuthzView.js"></script>
+    <script src="js/views/AuthzDetailView.js"></script>
     <script src="js/views/HomeView.js"></script>
     <script src="js/views/SettingsView.js"></script>
     <script src="js/views/EnrollmentView.js"></script>

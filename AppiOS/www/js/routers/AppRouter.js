@@ -13,6 +13,7 @@
 	        "settings" : "settings",
 	        "demo" : "demo",
 	        "authz" : "authz",
+	        "authzdetail/:id" : "authzDetail",
 	        "agentrequest/:id" : "agentrequest",
 	        "enroll/:id" : "enroll",
 	        "token/:id" : "token",
@@ -52,11 +53,20 @@
 		 /*
 	     * Authz page
 	     */
-	    authz:function () {
-	    	var authorizations = new window.Agent.Authorizations();
+	    authz:function (authorizations) {
+	    	if (!authorizations) {
+	    	 	authorizations = new window.Agent.Authorizations();
+	    	}
 	        this.changePage(new window.Agent.AuthzView({model: authorizations}));
 	    },
-	
+	    
+	    /* 
+	     * AuthZ detail page
+	     */
+		authzDetail: function (appId, authorizations) {
+			this.changePage(new window.Agent.AuthzDetailView({"id" : appId, "model" : authorizations}));
+		},
+		
 		/* 
 		 * Enroll, handles both the a2p3.net://enroll? and QR code scan
 		 */
@@ -113,7 +123,6 @@
 			}
 			
 			// Switch on path (aka operation type), TODO: could make this a factory pattern
-			console.log("just path = " + justPath);
 			switch (justPath) {
 				case "enroll":
 					//TODO: cancel all previous sessions

@@ -23,3 +23,8 @@
 .center {
 	margin: 0 auto;
 }
+
+/* Override jquery mobile style to allow breaking words to wrap */
+.ui-bar {
+	word-wrap: break-word;
+}

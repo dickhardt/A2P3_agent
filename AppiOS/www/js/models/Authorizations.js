@@ -75,16 +75,27 @@
 			// concat the resource server id into authorizations
 			var authorizations = this.get("ResourceServerIds");
 			var token = this.get("RegistrarToken");
+			var url = this.get("RegistrarURL") + "/authorizations/requests";
 			
 			// Call Registrar
-			$.ajax({url: this.get("RegistrarURL") + "/authorizations/requests", 
+			$.ajax({url: url, 
 				type: "POST",
 				contentType: "application/json;", 
 				data: JSON.stringify({ "token": token ,
 					"authorizations": authorizations}),
 				context: this,
+				error: function (jqXHR, textStatus, errorThrown) {
+					this.getResourceServerTokensError(jqXHR, textStatus, errorThrown, url);},
 				success: this.getResourceServerTokensCallback});
 		},
+		
+		/*
+		 * When bad things happen trying to fetch rs tokens
+		 */
+		getResourceServerTokensError: function(jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The registrar is unavailable at: " + url});	
+		},
+		
 		
 		/*
 		 * The callback for getResourceServerTokens
@@ -99,7 +110,7 @@
 			if (data.error) {
 				
 				// Update our status and set the message
-				this.set({"ErrorMessage": data.error.message});
+				this.set({"ErrorMessage": "Fetching resource server tokens from registrar failed with: " + data.error.message});
 				return;
 			}
 			
@@ -127,18 +138,28 @@
 		getAppsFromResourceServer: function (resource, rsToken) {
 			console.log("Resource = " + resource);
 			// make url
-			var url = settings.get("ResourceServerProtocol") + "://" + resource + 
-				":" + settings.get("ResourceServerPort");
-				
+			var url = settings.get("ResourceServerProtocol") + "://" + resource;
+			var port = settings.get("ResourceServerPort");
+			if (port) {
+				url += ":" + port;
+			}
 			// Call Registrar- 
-			// TODO make protocol and port a setting, or shouldn't it come from the registrar?
 			$.ajax({url: url + "/authorizations/list", 
 				type: "POST",
 				contentType: "application/json;", 
 				data: JSON.stringify({ "request": rsToken }),
 				context: this,
+				error: function (jqXHR, textStatus, errorThrown) {
+					this.getAppsFromResourceServerError(jqXHR, textStatus, errorThrown, url + "/authorizations/list");},
 				success: function (data, textStatus, jqXHR) { 
 					this.getAppsFromResourceServerCallback(data, textStatus, jqXHR, url) }});
+		},
+		
+		/*
+		 * When bad things happen trying to fetch apps from rs
+		 */
+		getAppsFromResourceServerError: function(jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The resource server is unavailable at: " + url});	
 		},
 		
 		/*
@@ -161,7 +182,7 @@
 			if (data.error) {
 				
 				// Update our status and set the message
-				this.set({"ErrorMessage": data.error.message});
+				this.set({"ErrorMessage": "Fetching authorizations from resource server failed with: " + data.error.message});
 				return;
 			}
 			
@@ -177,7 +198,6 @@
 		/*
 		 * Adds apps to our attribute.  
 		 * If app already exists, append resource description URLs and requests
-		 * TODO: what if logon time or name is different?
 		 */
 		addApp: function (appId, app, rsUrl) {
 			// init
@@ -185,7 +205,9 @@
 						
 			// If the app already exists, append the resource descriptions
 			if (apps.hasOwnProperty(appId)) {
+				
 				apps[appId].resources.push(app.resources);
+				apps[appId].rsRequests = [];
 				apps[appId].rsRequests.push({"rsUrl": rsUrl,
 					"request": app.request});
 					
@@ -224,8 +246,8 @@
 		 */
 		getResourceDescription: function (rsUrl) {
 			// Tolerate if a null url is provided - defect logged on A2P3
-			if (!rsUrl || 
-				rsUrl.length < 1) {
+			console.log("rsUrl = " + rsUrl)
+			if (!rsUrl) {
 				return;
 			}
 			// init
@@ -239,10 +261,19 @@
 					type: "GET", 
 					dataType: "json",
 					context: this,
+					error: function (jqXHR, textStatus, errorThrown) {
+						this.getResourceDescriptionError (jqXHR, textStatus, errorThrown, rsUrl);},
 					success: function (data, textStatus, jqXHR) { 
 						this.getResourceDescriptionCallback (data, textStatus, jqXHR, rsUrl); }
 					});				
 			}
+		},
+		
+		/*
+		 * When bad things happen trying to get resource descriptions
+		 */
+		getResourceDescriptionError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The resource server is unavailable at: " + url});	
 		},
 		
 		/*
@@ -254,10 +285,18 @@
 		getResourceDescriptionCallback: function (data, textStatus, jqXHR, rsUrl) {
 			console.log("rsurl = " + rsUrl + "; data = " + JSON.stringify(data));
 			if (textStatus == "success") {
+				// Look for logical errors
+				if (data.error) {
+					
+					// Update our status and set the message
+					this.set({"ErrorMessage": "Fetching resource server failed with: " + data.error.message});
+					return;
+				}
+				
 				// init
 				var rsDescs = this.get("ResourceDescriptions");
 				
-				// add description, only EN supported for now.  TODO: make language a setting
+				// add description, only EN supported for now.  
 				rsDescs[rsUrl] = data["en"];
 				
 				this.trigger("change");
@@ -279,14 +318,18 @@
 				
 				// make up data
 				var data = {"request": app.rsRequests[i].request};
+				var url = app.rsRequests[i].rsUrl + "/authorization/delete";
 				
 				// Call resource server
-				$.ajax({url: app.rsRequests[i].rsUrl + "/authorization/delete",
+				$.ajax({url: url,
 					type: "POST", 
 					dataType: "json",
 					contentType: "application/json;", 
 					data: JSON.stringify(data),
 					context: this,
+					error: function (jqXHR, textStatus, errorThrown) {
+						this.deleteAppAuthorizationsError(jqXHR, textStatus, errorThrown, url)
+					},
 					success: function (data, textStatus, jqXHR) { 
 						this.deleteAppAuthorizationsCallback (data, textStatus, jqXHR, appId); }
 					});		
@@ -294,16 +337,30 @@
 		},
 		
 		/*
+		 * When bad things happen trying delete authorizations
+		 */
+		deleteAppAuthorizationsError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The resource server is unavailable at: " + url});	
+		},
+		
+		
+		/*
 		 * Callback for deleteAppAuthorizations
 		 */
 		deleteAppAuthorizationsCallback: function (data, textStatus, jqXHR, appId) {
 			console.log("data" + JSON.stringify(data));
-			if (data.result == "success") {
+			if (data.error) {
+				// Update our status and set the message
+				this.set({"ErrorMessage": "When deleting authorization, the resource server failed with: " + data.error.message});
+				return;
+			}
+			else if (data.result.success) {
 				// remove the app from our list
 				var apps = this.get("Apps");
-				delete apps[appid]; //TODO: this doesn't seem to work
-				
-				// Fire event
+				delete apps[appId]; 
+				this.set({"Apps": apps});
+		
+				// Fire event explicity
 				this.trigger("change");
 			}
 		}

@@ -54,8 +54,6 @@ $(function($) {
 	    keyClicked: function (ev) {   	 
 	    	// Get key
 	    	var key = $(ev.currentTarget).data('key');
-	    	console.log("key = " + key);
-	    	
 	    	var passcode = this.model.get("Passcode");
 			passcode += key;
 			

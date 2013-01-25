@@ -66,7 +66,7 @@ Brand new agents do not start with any resource server ids for authorizations. T
 
 ## Related
 
-[A2P3.CA](http://a2p3.ca) A2P3 project home page
+[A2P3 project home page](http://www.a2p3.net)
 
 [A2P3_specs](https://github.com/dickhardt/A2P3_specs) Specifications and POC documentation
 

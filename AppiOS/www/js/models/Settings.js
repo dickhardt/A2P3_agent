@@ -59,7 +59,7 @@
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
 				this.set({"AuthenticationServerURL": "http://as.a2p3.net",
 					"RegistrarURL": "http://registrar.a2p3.net",
-					"DemoAppsURL": "https://a2p3.ca/#demo",
+					"DemoAppsURL": "https://a2p3.net/#demo",
 					"RegistrarToken": "",
 					"ResourceServerIds": null,
 					"ResourceServerProtocol": "http",

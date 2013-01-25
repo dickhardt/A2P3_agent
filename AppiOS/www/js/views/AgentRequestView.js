@@ -19,6 +19,11 @@ $(function($) {
 	      "click a[id=login]"   : "login",
 	      "click a[id=allowButton]" : "allow",
 	      "click a[id=dontAllowButton]": "dontAllow",
+	      "pageshow" : "onPageShow",
+	    },
+	    
+	    onPageShow: function () {
+	    	this.passcodeView.focus();
 	    },
 	    
 	    render:function (eventName) {
@@ -54,7 +59,7 @@ $(function($) {
 	   		
 	     	// force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
-	        
+
 	        return this;
 	    },
 	    

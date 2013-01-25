@@ -17,7 +17,13 @@ $(function($) {
 		},
 		
 		events: {
+			"pageshow" : "onPageShow",
 	    },
+	    
+	    onPageShow: function () {
+	    	this.passcodeView.focus();
+	    },
+	    	    
 	    
 	    render:function (eventName) {
 	    	this.$el.html(this.template(this.model.toJSON()));

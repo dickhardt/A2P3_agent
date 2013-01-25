@@ -31,8 +31,9 @@ $(function($) {
 	    	// Pull passcodes from boxes
 	        var passcode = this.$("#passcode1").val();
 			
-			this.model.set("Passcode", passcode);
-			
+			if (passcode.length >= 4) {
+				this.model.set("Passcode", passcode);
+			}
 			
 	    },
 	    

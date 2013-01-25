@@ -37,8 +37,14 @@ $(function($) {
 			
 	    },
 	    
+	    /*
+	     * Changes browser focus to out passcode field
+	     * also prevents iOS from auto scrolling
+	     */
 	    focus: function () {
+	    	var savedScrollTop = $(document).scrollTop();
 	    	this.$("#passcode1").focus();
+	    	$(document).scrollTop(savedScrollTop);
 	    },
 
 	    /*

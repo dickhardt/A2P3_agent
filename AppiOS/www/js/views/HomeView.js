@@ -29,14 +29,20 @@ $(function($) {
 	        	 this.$("#unenrolled").show();
 	        }
 	        
+	        
+	        
 	       	return this;
 	    },
 	
 		events: {
 			"click a[id=logonScan]" : "scan",
 			"click a[id=enrollScan]" : "scan",
+			"pageshow" : "onPageShow",
 	    },
 	    
+	    onPageShow: function () {
+	    	this.passcodeView.focus();
+	    },
 	    	    
 	    /*
 	     * Event handler addScan(): 

@@ -35,6 +35,10 @@ $(function($) {
 			
 			
 	    },
+	    
+	    focus: function () {
+	    	this.$("#passcode1").focus();
+	    },
 
 	    /*
 	     * Event for when the user clicks the cancel key
@@ -42,19 +46,6 @@ $(function($) {
 	    cancel: function () {
 	    	// nav home
 	    	this.trigger("cancel");
-	    },
-	    
-	    /*
-	     * Event for when the clicks the X backspace key
-	     */
-	    backspace: function () {
-	    	// remove last one
-	    	var passcode = this.model.get("Passcode");
-	    	if (passcode > 0) {
-				passcode = passcode.substring(0, passcode.length - 1);
-			
-				this.model.set("Passcode", passcode);
-			}
 	    },
 	});
 });

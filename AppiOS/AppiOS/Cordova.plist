@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>KeyboardDisplayRequiresUserAction</key>
-	<true/>
+	<false/>
 	<key>SuppressesIncrementalRendering</key>
 	<false/>
 	<key>UIWebViewBounce</key>

@@ -10,9 +10,6 @@ $(function($) {
 		
 		events: {
 			"keyup input[id=passcode1]": "keyClicked",
-			"keyup input[id=passcode2]": "keyClicked",
-			"keyup input[id=passcode3]": "keyClicked",
-			"keyup input[id=passcode4]": "keyClicked"
 		},
 		
 	    render:function () {
@@ -22,13 +19,8 @@ $(function($) {
 	        var passcode = this.model.get("Passcode");
 	        
 	        // Put passcode into boxes
-	        this.$("#passcode1").val(passcode[0]);
-	        this.$("#passcode2").val(passcode[1]);
-	        this.$("#passcode3").val(passcode[2]);
-	        this.$("#passcode4").val(passcode[3]);
-	        
-	        this.changeFocus();
-	        
+	        this.$("#passcode1").val(passcode);
+	  
 	        return this;
 	    },
 	    
@@ -37,40 +29,13 @@ $(function($) {
 	     */
 	    keyClicked: function (ev) {   	 
 	    	// Pull passcodes from boxes
-	        var passcode = this.$("#passcode1").val() +
-	        	this.$("#passcode2").val() +
-	        	this.$("#passcode3").val() +
-	        	this.$("#passcode4").val();	
+	        var passcode = this.$("#passcode1").val();
 			
 			this.model.set("Passcode", passcode);
 			
-			this.changeFocus();
 			
 	    },
-	    
-	    changeFocus: function () {
-	    	// pull out passcode
-	        var passcode = this.model.get("Passcode");
-	        
-	    	// change focus
-	    	switch (passcode.length) {
-	    		case 0:
-	    			this.$("#passcode1").focus();
-	    			break;
-	    		case 1:
-	    			this.$("#passcode2").focus();
-	    			break;
-	    		case 2:
-	    			this.$("#passcode3").focus();
-	    			break;
-	    		case 3:
-	    			this.$("#passcode4").focus();
-	    			break;	
-    		}
-	    },
-	    
-	    
-	    
+
 	    /*
 	     * Event for when the user clicks the cancel key
 	     */
@@ -90,7 +55,6 @@ $(function($) {
 			
 				this.model.set("Passcode", passcode);
 			}
-			this.changeFocus();
 	    },
 	});
 });

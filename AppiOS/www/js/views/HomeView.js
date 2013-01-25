@@ -11,6 +11,11 @@ $(function($) {
 		
 	    render:function () {
 	    	$(this.el).html(this.template());
+	    	
+	    	   // Add in passcode view
+	        this.passcodeView = new window.Agent.PasscodeView({model: new window.Agent.Enrollment()});
+	        this.passcodeView.bind("cancel", this.cancel);
+	        this.$("#container-passcode").append(this.passcodeView.render().el);
 	        
 	        // init
 	        this.$("#enrolled").hide();

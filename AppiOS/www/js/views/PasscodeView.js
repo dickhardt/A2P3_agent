@@ -9,56 +9,66 @@ $(function($) {
 		},
 		
 		events: {
-			"click a[id=1]": "keyClicked",
-			"click a[id=2]": "keyClicked",
-			"click a[id=3]": "keyClicked",
-			"click a[id=4]": "keyClicked",
-			"click a[id=5]": "keyClicked",
-			"click a[id=6]": "keyClicked",
-			"click a[id=7]": "keyClicked",
-			"click a[id=8]": "keyClicked",
-			"click a[id=9]": "keyClicked",
-			"click a[id=0]": "keyClicked",
-			"click a[id=cancel]": "cancel",
-			"click a[id=backspace]": "backspace",
+			"keyup input[id=passcode1]": "keyClicked",
+			"keyup input[id=passcode2]": "keyClicked",
+			"keyup input[id=passcode3]": "keyClicked",
+			"keyup input[id=passcode4]": "keyClicked"
 		},
 		
 	    render:function () {
 	        $(this.el).html(this.template());
 	        
-	        // Put passcode into boxes
-	        this.$("#passcode1").val(this.model.get("Passcode")[0]);
-	        this.$("#passcode2").val(this.model.get("Passcode")[1]);
-	        this.$("#passcode3").val(this.model.get("Passcode")[2]);
-	        this.$("#passcode4").val(this.model.get("Passcode")[3]);
+	        // pull out passcode
+	        var passcode = this.model.get("Passcode");
 	        
-	        this.$('#1').removeClass('ui-btn-active');
-	        this.$('#2').removeClass('ui-btn-active');
-	        this.$('#3').removeClass('ui-btn-active');
-	        this.$('#4').removeClass('ui-btn-active');
-	        this.$('#5').removeClass('ui-btn-active');
-	        this.$('#6').removeClass('ui-btn-active');
-	        this.$('#7').removeClass('ui-btn-active');
-	        this.$('#8').removeClass('ui-btn-active');
-	        this.$('#9').removeClass('ui-btn-active');
-	        this.$('#0').removeClass('ui-btn-active');
-	        this.$('#cancel').removeClass('ui-btn-active');
-	        this.$('#backspace').removeClass('ui-btn-active');
+	        // Put passcode into boxes
+	        this.$("#passcode1").val(passcode[0]);
+	        this.$("#passcode2").val(passcode[1]);
+	        this.$("#passcode3").val(passcode[2]);
+	        this.$("#passcode4").val(passcode[3]);
+	        
+	        this.changeFocus();
 	        
 	        return this;
 	    },
 	    
 	    /*
-	     * Event for when the clicks any of the number keys
+	     * Event for when the types in keypad
 	     */
 	    keyClicked: function (ev) {   	 
-	    	// Get key
-	    	var key = $(ev.currentTarget).data('key');
-	    	var passcode = this.model.get("Passcode");
-			passcode += key;
+	    	// Pull passcodes from boxes
+	        var passcode = this.$("#passcode1").val() +
+	        	this.$("#passcode2").val() +
+	        	this.$("#passcode3").val() +
+	        	this.$("#passcode4").val();	
 			
 			this.model.set("Passcode", passcode);
+			
+			this.changeFocus();
+			
 	    },
+	    
+	    changeFocus: function () {
+	    	// pull out passcode
+	        var passcode = this.model.get("Passcode");
+	        
+	    	// change focus
+	    	switch (passcode.length) {
+	    		case 0:
+	    			this.$("#passcode1").focus();
+	    			break;
+	    		case 1:
+	    			this.$("#passcode2").focus();
+	    			break;
+	    		case 2:
+	    			this.$("#passcode3").focus();
+	    			break;
+	    		case 3:
+	    			this.$("#passcode4").focus();
+	    			break;	
+    		}
+	    },
+	    
 	    
 	    
 	    /*
@@ -80,6 +90,7 @@ $(function($) {
 			
 				this.model.set("Passcode", passcode);
 			}
+			this.changeFocus();
 	    },
 	});
 });

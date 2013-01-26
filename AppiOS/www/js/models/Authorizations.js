@@ -212,8 +212,8 @@
 						
 			// If the app already exists, append the resource descriptions
 			if (apps.hasOwnProperty(appId)) {
-				
-				apps[appId].resources.push(app.resources);
+			
+				apps[appId].resources.concat(app.resources);
 				apps[appId].rsRequests = [];
 				apps[appId].rsRequests.push({"rsUrl": rsUrl,
 					"request": app.request});

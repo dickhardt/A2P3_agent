@@ -136,8 +136,10 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
-				error: function (jqXHR, textStatus, errorThrown) {
-					this.verifyWithRegistrarError(jqXHR, textStatus, errorThrown, url)},
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.verifyWithRegistrarError(jqXHR, textStatus, errorThrown, url)
+					}}(url),
 				success: this.verifyWithRegistrarCallback});
 		},
 		
@@ -275,22 +277,26 @@
 			
 			// Loop through each resource url
 			var resourceUrls = this.get("Resources");
-			var i = 0;
-			for (i = 0; i < resourceUrls.length; i++) {
+			var i;
+			for (i in resourceUrls) {
 				// Call RS 			
-				var url = resourceUrls[i];
+				var url = resourceUrls[i].valueOf();
 				$.ajax({url: url, 
 					type: "GET", 
 					dataType: "json",
 					context: this,
-					error: function (jqXHR, textStatus, errorThrown) {
-						this.fetchResourceDescriptionError(jqXHR, textStatus, errorThrown, url)},
-					success: function (data, textStatus, jqXHR) {
-						this.fetchResourceDescriptionCallback(data, textStatus, jqXHR, url)}
-					});			
+					error: function(url) {
+						return function(jqXHR, textStatus, errorThrown) {
+							this.fetchResourceDescriptionError(jqXHR, textStatus, errorThrown, url);
+						}}(url),
+					success: function(url) {
+    					return function(data, textStatus, jqXHR) {
+    						this.fetchResourceDescriptionCallback(data, textStatus, jqXHR, url);
+    					}}(url),
+				});
 			}
 		},
-		
+
 		/*
 		 * When bad things happen trying to fetch resource descriptions
 		 */
@@ -303,7 +309,7 @@
 		 * and allow the view to update
 		 */
 		fetchResourceDescriptionCallback:  function (data, textStatus, jqXHR, rsUrl) {
-			console.log("data: " + JSON.stringify(data));
+			//console.log("rsUrl: " + rsUrl + "; data: " + JSON.stringify(data));
 			
 			// success only means RS responsed
 			if (textStatus == "success") {
@@ -312,6 +318,8 @@
 				
 				// add description, only EN supported for now.  TODO: make language a setting
 				rsDescs[rsUrl] = data["en"];
+				
+				this.set(rsDescs);
 				
 				this.trigger("change");
 			}
@@ -461,6 +469,10 @@
 			app.navigate("", true);
 			
 			window.location.href = url1;
-		}
+		},
+		
+		
 	});
+	
+	
 })();

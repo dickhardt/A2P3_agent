@@ -84,8 +84,10 @@
 				data: JSON.stringify({ "token": token ,
 					"authorizations": authorizations}),
 				context: this,
-				error: function (jqXHR, textStatus, errorThrown) {
-					this.getResourceServerTokensError(jqXHR, textStatus, errorThrown, url);},
+				error: function(url) {
+					return function (jqXHR, textStatus, errorThrown) {
+						this.getResourceServerTokensError(jqXHR, textStatus, errorThrown, url);
+					}}(url),
 				success: this.getResourceServerTokensCallback});
 		},
 		
@@ -149,10 +151,15 @@
 				contentType: "application/json;", 
 				data: JSON.stringify({ "request": rsToken }),
 				context: this,
-				error: function (jqXHR, textStatus, errorThrown) {
-					this.getAppsFromResourceServerError(jqXHR, textStatus, errorThrown, url + "/authorizations/list");},
-				success: function (data, textStatus, jqXHR) { 
-					this.getAppsFromResourceServerCallback(data, textStatus, jqXHR, url) }});
+				error: function (url) {
+					return function (jqXHR, textStatus, errorThrown) {
+						this.getAppsFromResourceServerError(jqXHR, textStatus, errorThrown, url);
+					}}(url + "/authorizations/list"),
+				success: function(url) {
+					return function (data, textStatus, jqXHR) { 
+						this.getAppsFromResourceServerCallback(data, textStatus, jqXHR, url);
+					}}(url),
+				});
 		},
 		
 		/*
@@ -261,10 +268,14 @@
 					type: "GET", 
 					dataType: "json",
 					context: this,
-					error: function (jqXHR, textStatus, errorThrown) {
-						this.getResourceDescriptionError (jqXHR, textStatus, errorThrown, rsUrl);},
-					success: function (data, textStatus, jqXHR) { 
-						this.getResourceDescriptionCallback (data, textStatus, jqXHR, rsUrl); }
+					error: function (rsUrl) {
+						return function (jqXHR, textStatus, errorThrown) {
+							this.getResourceDescriptionError (jqXHR, textStatus, errorThrown, rsUrl);
+						}}(rsUrl),
+					success: function (rsUrl) {
+						return function (data, textStatus, jqXHR) { 
+							this.getResourceDescriptionCallback (data, textStatus, jqXHR, rsUrl); 
+						}}(rsUrl),
 					});				
 			}
 		},
@@ -327,11 +338,14 @@
 					contentType: "application/json;", 
 					data: JSON.stringify(data),
 					context: this,
-					error: function (jqXHR, textStatus, errorThrown) {
-						this.deleteAppAuthorizationsError(jqXHR, textStatus, errorThrown, url)
-					},
-					success: function (data, textStatus, jqXHR) { 
-						this.deleteAppAuthorizationsCallback (data, textStatus, jqXHR, appId); }
+					error: function (url) {
+						return function (jqXHR, textStatus, errorThrown) {
+							this.deleteAppAuthorizationsError(jqXHR, textStatus, errorThrown, url);
+						}}(url),
+					success: function (url) {
+						return function (data, textStatus, jqXHR) { 
+							this.deleteAppAuthorizationsCallback (data, textStatus, jqXHR, appId); 
+						}}(url),
 					});		
 			}
 		},

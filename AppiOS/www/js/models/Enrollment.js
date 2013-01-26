@@ -75,8 +75,10 @@
 				contentType: "application/json;", 
 				dataType: "json",
 				context: this,
-				error: function (jqXHR, textStatus, errorThrown) {
-					this.registerError(jqXHR, textStatus, errorThrown, url1)},
+				error: function (url1) {
+					return function (jqXHR, textStatus, errorThrown) {
+						this.registerError(jqXHR, textStatus, errorThrown, url1);
+					}}(url1),
 				success: this.registerSuccess
 				});
 		},

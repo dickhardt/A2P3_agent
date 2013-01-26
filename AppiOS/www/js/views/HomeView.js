@@ -98,9 +98,12 @@ $(function($) {
 		 * Callback for get agent requst from QR code
 		 */
 		getAgentRequestSuccess: function (data, textStatus, jqXHR) {
-			console.log("data = " + data);
+			console.log("data = " + JSON.stringify(data));
 			if (data.result) {
-				app.mobileUrlInvokeHandler(data.result);
+				// make a2p3 URL
+				var url = "a2p3.net://token?request=" + data.result.agentRequest + 
+					"&state=" + data.result.state;
+				app.mobileUrlInvokeHandler(url);
 			}
 		},
 	});

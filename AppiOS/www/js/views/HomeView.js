@@ -15,6 +15,7 @@ $(function($) {
 	        // init
 	        this.$("#enrolled").hide();
 	        this.$("#unenrolled").hide();
+	        this.$("#messageBar").hide();
 	        
 	        // Switch on enrollment state
 	        if (settings.isEnrolled()) {
@@ -24,20 +25,14 @@ $(function($) {
 	        	 this.$("#unenrolled").show();
 	        }
 	        
-	        
-	        
-	       	return this;
+	      	return this;
 	    },
 	
 		events: {
 			"click a[id=logonScan]" : "scan",
 			"click a[id=enrollScan]" : "scan"
 	    },
-	    
-	    onPageShow: function () {
-	    	this.passcodeView.focus();
-	    },
-	    	    
+	   
 	    /*
 	     * Event handler addScan(): 
 	     */
@@ -59,15 +54,22 @@ $(function($) {
                     		// must call to get real a2p3 URL
                     		this.followQRCodeAgentRequestUrl(result.text);
                     	}
+                    	else {
+                    		// tell user we can't handle this
+                    		this.displayError("Agent does not know how to handle the scanned QR: " + result.text);
+                    	}
                     }
                 },
                 function(error) {
                 	console.log("Scan failed callback");
-                    navigator.notification.alert("scanning failed: " + error);
+                    this.displayError("Scanning failed with: " + error);
                 }
 	   		)
 		},
 		
+		displayError: function (msg) {
+			navigator.notification.alert(msg);
+		},
 		
 		/*
 		 * Function to follow HTTP requests
@@ -91,7 +93,7 @@ $(function($) {
 		 * When bad things happen with get agent request
 		 */
 		getAgentRequestError: function (jqXHR, textStatus, errorThrown, url) {
-			console.log("bad things happended");
+			this.displayError("The application you are trying to logon to is unavailable at: " + url);
 		},
 		
 		/*
@@ -104,6 +106,9 @@ $(function($) {
 				var url = "a2p3.net://token?request=" + data.result.agentRequest + 
 					"&state=" + data.result.state;
 				app.mobileUrlInvokeHandler(url);
+			}
+			else {
+				this.displayError.text("The application you are trying to logon had the following error: " + data);
 			}
 		},
 	});

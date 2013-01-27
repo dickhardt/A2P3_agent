@@ -44,6 +44,7 @@ $(function($) {
 	   		if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 4) {
 	   			this.$("#container-passcode").show();
+	   			this.passcodeView.focus();
 	   		}
 	   		else if (this.model.get("AuthorizeFlag") == true &&
 	   			this.model.get("Authorized") == false) { 

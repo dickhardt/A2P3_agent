@@ -18,6 +18,7 @@ $(function($) {
 		
 		events: {
 			"pageshow" : "onPageShow",
+			"click a[id=cancel]": "cancel",
 	    },
 	    
 	    onPageShow: function () {

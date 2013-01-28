@@ -19,6 +19,7 @@ $(function($) {
 	      "click a[id=login]"   : "login",
 	      "click a[id=allowButton]" : "allow",
 	      "click a[id=dontAllowButton]": "dontAllow",
+	      "click a[id=cancel]": "cancel",
 	      "pageshow" : "onPageShow",
 	    },
 	    

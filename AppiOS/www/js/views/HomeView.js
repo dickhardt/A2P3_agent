@@ -75,6 +75,7 @@ $(function($) {
 		 * Function to follow HTTP requests
 		 */
 		followQRCodeAgentRequestUrl: function (url) {
+			console.log("following url = " + url);
 			// Call 
 			url += "?json=true";
 			$.ajax({url: url, 

@@ -378,6 +378,9 @@
 			// Parse into javascript
 			var jsSecondPart = JSON.parse(decodedSecondPart);
 			
+			// Log decoded second part
+			console.log("Parsing request: " + JSON.stringify(jsSecondPart));
+			
 			// Pull out request.a2p3.org part
 			var request = jsSecondPart["request.a2p3.org"];
 			if (!request.returnURL) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
@@ -396,6 +399,9 @@
 					resourceIds[i] = parsedUrl.host;
 				}
 			}
+			
+			
+			
 			
 			// Populate my model
 			this.set({"Sar": firstPart,

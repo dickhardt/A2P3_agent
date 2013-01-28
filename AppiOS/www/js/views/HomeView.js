@@ -38,34 +38,36 @@ $(function($) {
 	     */
 	    scan: function() {
 	    	console.log("Begin scan");
-	        window.plugins.barcodeScanner.scan(
-                function(result) {
-                    if (result.cancelled) {
-                        //navigator.notification.alert("Scan Cancelled");
-                    }
-                    else {
-                    	// Two flavours, enroll QR and logon QR
-                    	// TODO: move a2p3.net into settings
-                    	console.log("Scanned string = " + result.text);
-                    	if (result.text.indexOf("a2p3.net") == 0) {
-                    		app.mobileUrlInvokeHandler(result.text);
-                    	}
-                    	else if (result.text.indexOf("http") == 0) {
-                    		// must call to get real a2p3 URL
-                    		this.followQRCodeAgentRequestUrl(result.text);
-                    	}
-                    	else {
-                    		// tell user we can't handle this
-                    		this.displayError("Agent does not know how to handle the scanned QR: " + result.text);
-                    	}
-                    }
-                },
-                function(error) {
-                	console.log("Scan failed callback");
-                    this.displayError("Scanning failed with: " + error);
-                }
-	   		)
+	        window.plugins.barcodeScanner.scan(scanSuccess, scanFailed);
 		},
+		
+		scanSuccess: function (result) {
+			
+            if (result.cancelled) {
+                //navigator.notification.alert("Scan Cancelled");
+            }
+            else {
+            	// Two flavours, enroll QR and logon QR
+            	// TODO: move a2p3.net into settings
+            	console.log("Scanned string = " + result.text);
+            	if (result.text.indexOf("a2p3.net") == 0) {
+            		app.mobileUrlInvokeHandler(result.text);
+            	}
+            	else if (result.text.indexOf("http") == 0) {
+            		// must call to get real a2p3 URL
+            		this.followQRCodeAgentRequestUrl(result.text);
+            	}
+            	else {
+            		// tell user we can't handle this
+            		this.displayError("Agent does not know how to handle the scanned QR: " + result.text);
+            	}
+            }
+		},
+		
+		scanFailed: function(error) {
+        	console.log("Scan failed callback");
+            this.displayError("Scanning failed with: " + error);
+        },
 		
 		displayError: function (msg) {
 			navigator.notification.alert(msg);

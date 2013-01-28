@@ -79,7 +79,18 @@
 	      	<div data-role="footer">
 	      		<div class="ui-grid-a">
 		      		<div class="ui-block-a">
-	      				<a id="reset" data-role="button" data-inline="true" data-icon="refresh">Reset</a>
+	      				<a id="reset" data-rel="popup" data-role="button" data-inline="true">Reset</a>
+	      				<div data-role="popup" id="resetDialogue">
+	      					<div data-role="header" data-theme="e">
+								<h1>Confirm Reset</h1>
+							</div>
+							<div data-shadow="true" data-role="content" data-theme="d">
+								<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
+								<p>This action cannot be undone.</p>
+								<a id="cancel" data-role="button" data-inline="true" data-rel="back" data-theme="c" >Cancel</a>    
+								<a id="confirm" data-role="button" data-inline="true" data-transition="flow" data-theme="a" >Reset</a>  
+							</div>
+	      				</div>
 	      			</div>
 		      		<div class="ui-block-b" style="text-align: right">
 		      			<a id="save" data-role="button" data-inline="true" data-icon="check">Save</a>

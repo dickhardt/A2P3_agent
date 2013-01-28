@@ -20,22 +20,30 @@ $(function($) {
 	    },
 	
 		events: {
-			"click a[id=reset]": "reset",
 			"click a[id=save]": "save",
+			"click a[id=reset]": "reset",
+			"click a[id=cancel]": "cancel",
+			"click a[id=confirm]": "confirm",
 		},
 		
-		reset: function() {
-			// prompt user to confirm and then destroy
-			var result = confirm("Are you sure to reset to default settings?", null, "Confirm", "Reset");
-			if (result == true) {
-			   // Reset model
-			   this.model.reset();
-			   
-			   // Route back to this page
-			   app.settings();
-			   
-			}
-			
+		cancel: function () {
+			this.$("#resetDialogue").popup("close");
+		},
+		
+		reset: function () {
+			this.$("#resetDialogue").popup("open", 
+				{transition: "pop",
+				 shadow: true});
+		},
+		
+		confirm: function() {
+
+		console.log("Resetting");
+		   // Reset model
+		   this.model.reset();
+		   
+		   // Route back to this page
+		   app.settings();
 		},
 		
 		/*

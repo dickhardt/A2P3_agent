@@ -10,14 +10,8 @@ $(function($) {
 	    template:_.template($('#agentrequest').html()),
 	
 		initialize: function() {
-			// Optimized for listening on attributes that matter to the 
-			// view
-			this.model.bind("change:Authorized", this.render, this);
-			this.model.bind("change:ResourceDescriptions", this.render, this);
-			this.model.bind("change:AppName", this.render, this);
-			this.mobel.bind("change:ErrorMessage", this.render, this);
+			this.model.bind("change", this.render, this);
 			this.model.bind("change:Passcode", this.login, this);
-			this.model.bind("change:Passcode", this.render, this);
 			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
 		},
 		

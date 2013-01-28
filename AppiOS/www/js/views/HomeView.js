@@ -38,7 +38,8 @@ $(function($) {
 	     */
 	    scan: function() {
 	    	console.log("Begin scan");
-	        window.plugins.barcodeScanner.scan(scanSuccess, scanFailed);
+	        window.plugins.barcodeScanner.scan(function(){this.scanSuccess(result);}, 
+	        	function(){this.scanFailed(error);});
 		},
 		
 		scanSuccess: function (result) {

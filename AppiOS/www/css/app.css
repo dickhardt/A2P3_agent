@@ -33,3 +33,9 @@
 .ui-bar {
 	word-wrap: break-word;
 }
+
+/* Stop the title from being truncated */
+.ui-title {
+	margin-right: auto !important;
+	margin-left: auto !important;
+}

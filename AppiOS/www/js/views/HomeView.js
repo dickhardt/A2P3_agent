@@ -38,8 +38,9 @@ $(function($) {
 	     */
 	    scan: function() {
 	    	console.log("Begin scan");
-	        window.plugins.barcodeScanner.scan(function(){this.scanSuccess(result);}, 
-	        	function(){this.scanFailed(error);});
+            var self = this;
+	        window.plugins.barcodeScanner.scan(function(result){self.scanSuccess(result);},
+	        	function(error){self.scanFailed(error);});
 		},
 		
 		scanSuccess: function (result) {

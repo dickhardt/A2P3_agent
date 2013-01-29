@@ -12,8 +12,8 @@ $(document).ready(function () {
     Backbone.history.start();
     
     // Register device for push notifications
-	if (navigator.plugins.pushNotification) {
-		var pushNotification = navigator.plugins.pushNotification;
+	if (window.plugins.pushNotification) {
+		var pushNotification = window.plugins.pushNotification;
 		pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
 		    console.log(JSON.stringify(['registerDevice status: ', status])+"\n");
 		    //app.storeToken(status.deviceToken);

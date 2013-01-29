@@ -58,7 +58,6 @@
 	cordova.addConstructor(function() {
 		if(!window.plugins) window.plugins = {};
 		window.plugins.pushNotification = new PushNotification();
-	});		
-})(window.cordova || window.Cordova);
+	});
 
-	
+})(window.cordova || window.Cordova);

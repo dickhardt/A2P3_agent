@@ -30,6 +30,15 @@ $(function($) {
 	    render:function (eventName) {
 	    	this.$el.html(this.template(this.model.toJSON()));
 	        
+	        // if we're looking at the passcode 
+	    	// and we don't have an error
+	    	// then don't render (stops flickery focus)
+	    	if (this.model.get("PasscodeFlag") == true &&
+	   			this.model.get("Passcode").length < 4 &&
+	   			this.model.get("ErrorMessage").length < 1) {
+	   				return; // eat the event
+   			}
+   			
 	        // Add in passcode view
 	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
 	        this.passcodeView.bind("cancel", this.cancel);

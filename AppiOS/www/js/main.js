@@ -18,15 +18,5 @@ $(document).ready(function () {
 document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
-    // Register device for push notifications
-	var pushNotification = window.plugins.pushNotification;
-	pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
-	    console.log(JSON.stringify(['registerDevice status: ', status])+"\n");
-	    //app.storeToken(status.deviceToken);
-	});
-	
-	// And test if registration is scuessful
-	pushNotification.getRemoteNotificationStatus(function(status) {
-	    console.log(JSON.stringify(['Registration check - getRemoteNotificationStatus', status])+"\n");
-	});
+    
 }

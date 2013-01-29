@@ -58,6 +58,7 @@ $(function($) {
 				"RegistrarToken" : $("#registrarToken").val(),
 				"ResourceServerProtocol": $("#resourceServerProtocol").val(),
 				"ResourceServerPort": $("#resourceServerPort").val(),
+				"NotificationDeviceToken": $("#notificationDeviceToken").val(),
 				})
 			this.model.save();
 			app.navigate("", true);

@@ -29,6 +29,7 @@
 			ResourceServerPort: '',
 			// Resource server we've authorized in the past and haven't revoked
 			ResourceServerIds: null,
+			NotificationDeviceToken: '',
 		},
 
 		urlRoot: window.Agent.Context.BaseUrl + '/api/settings',
@@ -63,7 +64,8 @@
 					"RegistrarToken": "",
 					"ResourceServerIds": null,
 					"ResourceServerProtocol": "http",
-					"ResourceServerPort": ""});
+					"ResourceServerPort": "",
+					"NotificationDeviceToken": ""});
 	        	
 	        	// store in localstorage
 	        	this.save();

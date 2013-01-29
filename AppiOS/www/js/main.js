@@ -11,10 +11,9 @@ $(document).ready(function () {
     app = new window.Agent.AppRouter();
     Backbone.history.start();
     
-   
-	// Register device for push notifications
-	if (window.plugins.pushNotification) {
-		var pushNotification = window.plugins.pushNotification;
+    // Register device for push notifications
+	if (navigator.plugins.pushNotification) {
+		var pushNotification = navigator.plugins.pushNotification;
 		pushNotification.registerDevice({alert:true, badge:true, sound:true}, function(status) {
 		    console.log(JSON.stringify(['registerDevice status: ', status])+"\n");
 		    //app.storeToken(status.deviceToken);
@@ -25,7 +24,6 @@ $(document).ready(function () {
 		    console.log(JSON.stringify(['Registration check - getRemoteNotificationStatus', status])+"\n");
 		});
 	}
-
+    
 });
-
 

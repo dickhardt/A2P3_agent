@@ -28,16 +28,20 @@ $(function($) {
 	    },
 	    
 	    render:function (eventName) {
-	    	this.$el.html(this.template(this.model.toJSON()));
-	        
-	        // if we're looking at the passcode 
+	    	
+	    	// if we're looking at the passcode 
 	    	// and we don't have an error
+	    	// and its not the first render
 	    	// then don't render (stops flickery focus)
 	    	if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 4 &&
-	   			this.model.get("ErrorMessage").length < 1) {
+	   			this.model.get("ErrorMessage").length < 1 &&
+	   			this.firstRendered) {
+	   				//console.log("eating render");
 	   				return; // eat the event
    			}
+   			
+	    	this.$el.html(this.template(this.model.toJSON()));
    			
 	        // Add in passcode view
 	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
@@ -70,6 +74,9 @@ $(function($) {
 	   		
 	     	// force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
+
+			// mark first rendered
+			this.firstRendered = true;
 
 	        return this;
 	    },

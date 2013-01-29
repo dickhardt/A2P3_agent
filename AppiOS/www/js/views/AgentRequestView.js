@@ -32,7 +32,7 @@ $(function($) {
 	    	// if we're looking at the passcode 
 	    	// and we don't have an error
 	    	// and its not the first render
-	    	// then don't render (stops flickery focus)
+	    	// then don't render (stops flickery focus on iPhone)
 	    	if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 4 &&
 	   			this.model.get("ErrorMessage").length < 1 &&

@@ -32,7 +32,9 @@
 		 * Home page, default router
 		 */
 		home:function (url) {
-	        var homeView = this.changePage(new window.Agent.HomeView());
+	        var homeView = new window.Agent.HomeView();
+	        this.changePage(homeView);
+	        
 	        if (url) {
 	        	homeView.followQRCodeAgentRequestUrl(url);
 	        }

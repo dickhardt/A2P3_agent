@@ -60,14 +60,27 @@
 		
 		/*
 		 * Logic for processing the AN incoming notification
-		 *
+		 * 
+		 * Sample payload 
+		 * {
+		 *   "aps" : {
+		 *       "alert" : “<insert app name> is requesting logon”,
+		 *       "sound" : "chime"
+		 *   },
+		 *   "url" : "<insert app small url>"
+		 *	}
 		 */
 		onPendingNotification: function (notification) {
 			
-			console.log("notification = " + notification);
+			console.log("notification = " + JSON.stringify(notification));
 			
 			// use the home view processing this URL
-			app.home(notification.body.url);
+			if (notification.url) {
+				app.home(notification.url);
+			}
+			else {
+				UnhandledError("Expected url in notification not found for notfication: " + notification);
+			}
 		},
 	});
 

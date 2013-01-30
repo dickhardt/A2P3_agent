@@ -72,7 +72,7 @@ $(function($) {
         },
 		
 		displayError: function (msg) {
-			navigator.notification.alert(msg);
+			UnhandledError(msg);
 		},
 		
 		/*

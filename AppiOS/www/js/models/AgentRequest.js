@@ -200,7 +200,8 @@
 			var jsData1 = {"device": this.get("DeviceId"),
 				"sar": this.get("Sar"),
 				"auth": {"passcode": this.get("Passcode"),
-						 "authorization": this.get("Authorize")}};
+						 "authorization": this.get("Authorize")},
+				"notificationURL": this.get("NotificationURLFlag")};
 			
 			// Convert to JSON
 			var data1 = JSON.stringify(jsData1);
@@ -251,8 +252,11 @@
 				
 				// Get the IX Token out of response
 				// update our model state
-				this.set({"IXToken": data.result.token});
-				
+				this.set({"IXToken": data.result.token,
+					"NotificationURL": data.result.notificationURL});
+					
+				console.log("notification url: " + data.result.notificationURL);
+					
 				// Save resource ids we've authorized
 				settings.addResourceIds(this.get("ResourceIds"));
 				
@@ -445,7 +449,12 @@
 			// Make optional part NotificationURL
 			var notificationURL = this.get("NotificationURL");
 			if (notificationURL) {
-				url1 += "&notificationURL=" + encodeURI(notificationURL);
+				if (settings.get("NotificationDeviceToken")) {
+					url1 += "&notificationURL=" + encodeURI(notificationURL);
+				}
+				else {
+					url1 += "&notificationURL=" + "NOTIFICATION_DECLINED";
+				}
 			}
 			
 			// Make optional part state

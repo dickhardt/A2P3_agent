@@ -358,10 +358,15 @@
 			if (!requestParam) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
 				"ClientAppErrorMessage": "Request missing from query string parameters."}); return;}
 			
+			console.log("state = " + parsedUrl.queryKey.state);
+			
 			// Optionals'
 			if (parsedUrl.queryKey.state) {
 				var state = parsedUrl.queryKey.state;
 			}
+			
+			console.log("notificationURL = " + parsedUrl.queryKey.notificationURL);
+			
 			if (parsedUrl.queryKey.notificationURL) {
 				var notificationURL = parsedUrl.queryKey.notificationURL;
 				this.set({"NotificationURLFlag" : notificationURL});

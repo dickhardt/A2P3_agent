@@ -41,17 +41,21 @@
 		},
 		
 		/*
-		 * Event for getting notification while we launch
+		 * Method for getting notification while we launch
 		 * 
 		 * We could have a pile up of notifications
 		 * use only the most recent
 		 */
-		getPendingNotifications: function () {
+		processPendingNotifications: function () {
 			// First get them
 			var pushNotification = window.plugins.pushNotification;
 			var notifcations = pushNotification.getPendingNotifications();
 			
 			// Grab last one and process
+			var notification = notifications[notifications.length - 1];
+			
+			// Call event
+			this.onPendingNotification(notification);
 		},
 		
 		/*
@@ -60,17 +64,11 @@
 		 */
 		onPendingNotification: function (notification) {
 			
+			console.log("notification = " + notification);
+			
+			// use the home view processing this URL
+			app.home(notification.body.url);
 		},
-		
-		/*
-		 * // Event spawned when a notification is received while the application is active
-	PushNotification.prototype.notificationCallback = function(notification) {
-		var ev = document.createEvent('HTMLEvents');
-		ev.notification = notification;
-		ev.initEvent('push-notification', true, true, arguments);
-		document.dispatchEvent(ev);
-	};
-		 */
 	});
 
 })();  

@@ -31,8 +31,11 @@
 		/*
 		 * Home page, default router
 		 */
-		home:function () {
-	        this.changePage(new window.Agent.HomeView());
+		home:function (url) {
+	        var homeView = this.changePage(new window.Agent.HomeView());
+	        if (url) {
+	        	homeView.followQRCodeAgentRequestUrl(url);
+	        }
 	    },
 
 		/*

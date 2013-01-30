@@ -5,7 +5,7 @@ $(function($) {
 	
 	    template:_.template($('#home').html()),
 	
-		initialize: function(Opts) {
+		initialize: function(url) {
 			
 		},
 		

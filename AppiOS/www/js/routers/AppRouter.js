@@ -114,6 +114,7 @@
 		 * Handles incoming URL from mobile device invoke
 		 */
 		mobileUrlInvokeHandler: function (url) {
+			console.log("Handling incoming url = " + url);
 			
 			// parse URI and drop schema (we only support ONE IX) and drive into router
 			var parsedUrl = parseUri(url);

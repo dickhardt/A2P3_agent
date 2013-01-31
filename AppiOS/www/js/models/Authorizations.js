@@ -78,7 +78,7 @@
 			var url = this.get("RegistrarURL") + "/authorizations/requests";
 			
 			console.log("Calling registrar at = " + url);
-			console.log("token = " + JSON.stringify(token);
+			console.log("token = " + JSON.stringify(token));
 			console.log("authorizations = " + JSON.stringify(authorizations));
 			
 			// Call Registrar

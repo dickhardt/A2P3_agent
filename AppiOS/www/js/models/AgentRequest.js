@@ -200,11 +200,12 @@
 			var jsData1 = {"device": this.get("DeviceId"),
 				"sar": this.get("Sar"),
 				"auth": {"passcode": this.get("Passcode"),
-						 "authorization": this.get("Authorize")},
+						 "authorization": this.get("Authorized")},
 				"notificationURL": this.get("NotificationURLFlag")};
 			
 			// Convert to JSON
 			var data1 = JSON.stringify(jsData1);
+			console.log("AS data = " + data1);
 			
 			// Make URL
 			var url1 = this.get("AuthenticationServerURL") + "/token";

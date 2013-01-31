@@ -24,10 +24,10 @@
 			// “request”: an RS Request the agent can use to delete the authorization
 			// extended to include 
 			// rsRequests {rsUrl, token}
-			Apps: new Object(),
+			Apps: null,
 			// An object array using the resource server URL as the key
 			// "en": "Retrieve your weight records at 'health.bc.local.a2p3.net' at anytime." 
-			ResourceDescriptions: new Object(),
+			ResourceDescriptions: null,
 			ErrorMessage: '',
 			IsSync: true,
 		},
@@ -41,7 +41,9 @@
 			
 			this.set({"ResourceServerIds": resourceServerIds,
 				"RegistrarURL": registrarUrl,
-				"RegistrarToken": registrarToken});
+				"RegistrarToken": registrarToken,
+				"Apps": new Object(),
+				"ResourceDescriptions": new Object()});
 			
 			// if we have any authZ start the process
 			if (resourceServerIds && 

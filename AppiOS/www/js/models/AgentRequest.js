@@ -52,7 +52,7 @@
 			ResourceIds: null,
 						
 			// An array of resource descriptions
-			ResourceDescriptions: new Object(),
+			ResourceDescriptions: null,
 			
 			// Indicates if the User must enter the passcode
 			PasscodeFlag: true,
@@ -284,6 +284,11 @@
 			
 			// Loop through each resource url
 			var resourceUrls = this.get("Resources");
+			if (resourceUrls &&
+				resourceUrls.length > 0) {
+				this.set("ResourceDescriptions", new Object());
+			}
+			
 			var i;
 			for (i in resourceUrls) {
 				// Call RS 			
@@ -322,6 +327,9 @@
 			if (textStatus == "success") {
 				// init
 				var rsDescs = this.get("ResourceDescriptions");
+				if (!rsDescs) {
+					
+				}
 				
 				// add description, only EN supported for now.  TODO: make language a setting
 				rsDescs[rsUrl] = data["en"];

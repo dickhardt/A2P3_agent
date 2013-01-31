@@ -10,7 +10,8 @@ $(function($) {
 	    template:_.template($('#settings').html()),
 	
 		initialize: function(Opts) {
-					},
+			this.model.on("change", this.render, this);
+		},
 		
 	    render:function (eventName) {
 	    	console.log(this.model);
@@ -45,9 +46,7 @@ $(function($) {
 		   
 		   // Redo notificaitons
 		   notification.register();
-		   
-		   // Route back to this page
-		   app.settings();
+		  
 		},
 		
 		/*

@@ -38,9 +38,13 @@ $(function($) {
 		
 		confirm: function() {
 
-		console.log("Resetting");
+			console.log("Resetting");
+		
 		   // Reset model
 		   this.model.reset();
+		   
+		   // Redo notificaitons
+		   notification.register();
 		   
 		   // Route back to this page
 		   app.settings();
@@ -54,6 +58,7 @@ $(function($) {
 				"DeviceId" : $("#id").val(),
 				"AuthenticationServerURL" : $("#authenticationServerURL").val(),
 				"RegistrarURL": $("#registrarURL").val(),
+				"SetupUrl": $("#setupUrl").val(),
 				"DemoAppsURL" : $("#demoAppsURL").val(),
 				"RegistrarToken" : $("#registrarToken").val(),
 				"ResourceServerProtocol": $("#resourceServerProtocol").val(),

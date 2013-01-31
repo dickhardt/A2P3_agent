@@ -31,6 +31,7 @@
 	      		Welcome to your Personal Agent.  This Agent must be enrolled with the Authentication Server before you may use it.  
 	     
                 <ul data-role="controlgroup">
+                	<a id="enrollDirect" data-role="button" data-iconpos="right" data-icon="arrow-r">Enroll Agent Directly</a>
                     <a id="enrollScan" data-role="button" data-iconpos="right" data-icon="arrow-r">Scan Enrollment QR Code</a>
                 </ul>
 	      	</div>
@@ -61,6 +62,8 @@
 	      		<input type="text" id="authenticationServerURL" value="<%= AuthenticationServerURL %>" />
 	      		Registrar URL:
 	      		<input type="text" id="registrarURL" value="<%= RegistrarURL %>" />
+	      		Enroll Agent Directly URL:
+	      		<input type="text" id="setupUrl" value="<%= SetupUrl %>" />
 	      		Demonstration Apps URL:
 	      		<input type="text" id="demoAppsURL" value="<%= DemoAppsURL %>" />
 	      		Registrar Token:

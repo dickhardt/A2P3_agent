@@ -30,7 +30,15 @@ $(function($) {
 	
 		events: {
 			"click a[id=logonScan]" : "scan",
-			"click a[id=enrollScan]" : "scan"
+			"click a[id=enrollScan]" : "scan",
+			"click a[id=enrollDirect]" : "enrollDirect",
+	    },
+	    
+	    /*
+	     * Event handler for Enroll Direct
+	     */
+	    enrollDirect: function () {
+	    	window.location.href = settings.get("SetupUrl");
 	    },
 	   
 	    /*

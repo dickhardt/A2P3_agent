@@ -53,7 +53,7 @@ window.Agent.Notify = function(message, title, button, callback) {
  * there, unless you wrap it first in a setTimeout call, with a timeout value of zero
  *  */
 function handleOpenURL(url) {
-	
+	console.log("url from iOS = " + url);
 	setTimeout(function() {
 		app.mobileUrlInvokeHandler(url);
 	}, 0);

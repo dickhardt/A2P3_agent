@@ -254,7 +254,9 @@
 				// update our model state
 				this.set({"IXToken": data.result.token,
 					"NotificationURL": data.result.notificationURL});
-					
+				
+				console.log("IXToken = " + JSON.stringify(data.result.token));
+				
 				console.log("notification url: " + data.result.notificationURL);
 					
 				// Save resource ids we've authorized
@@ -375,11 +377,13 @@
 			// Spilt in half
 			var requestParamParts = requestParam.split(".");
 			if (!requestParamParts ||
-				requestParamParts.length <= 2) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
-				"ClientAppErrorMessage": "Missing or too few . seperators in request string."}); return;}
+				requestParamParts.length != 3) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
+				"ClientAppErrorMessage": "Missing, too few or many JWT parts in request string."}); return;}
 			
-			var firstPart = requestParamParts[0]; // the SAR part
-			var secondPart = requestParamParts[1];
+			//var firstPart = requestParamParts[0]; // header
+			var secondPart = requestParamParts[1]; // body
+			var thirdPart = requestParamParts[2]; // sig (aka sar)
+			console.log("sig = " + thirdPart);
 			
 			// Decode it to string
 			var decodedSecondPart = atob(secondPart);
@@ -413,7 +417,7 @@
 			
 			
 			// Populate my model
-			this.set({"Sar": firstPart,
+			this.set({"Sar": thirdPart,
 				"ReturnURL": request.returnURL,
 				"Resources": request.resources,
 				"ResourceIds": resourceIds,

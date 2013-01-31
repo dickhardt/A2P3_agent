@@ -6,11 +6,10 @@ $(document).ready(function() {
 	console.log("jquery document ready");
 	
 	 // Disable caching of AJAX responses
-	 /*
 	$.ajaxSetup ({
 	   
 	    cache: false
-	});*/
+	});
 	
 	// Init our singltons
 	settings = new window.Agent.Settings();

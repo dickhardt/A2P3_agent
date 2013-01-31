@@ -111,7 +111,7 @@
  	 	 * Error codes: INVALID_TOKEN”: agent token is invalid
 		 */
 		getResourceServerTokensCallback: function(data, textStatus, jqXHR) {
-			console.log("Resource server data = " + data);
+			console.log("Resource server data = " + JSON.stringif(data));
 			// Look for logical errors
 			if (data.error) {
 				

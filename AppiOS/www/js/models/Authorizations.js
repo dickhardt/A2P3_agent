@@ -77,6 +77,10 @@
 			var token = this.get("RegistrarToken");
 			var url = this.get("RegistrarURL") + "/authorizations/requests";
 			
+			console.log("Calling registrar at = " + url);
+			console.log("token = " + JSON.stringify(token);
+			console.log("authorizations = " + JSON.stringify(authorizations));
+			
 			// Call Registrar
 			$.ajax({url: url, 
 				type: "POST",
@@ -107,7 +111,7 @@
  	 	 * Error codes: INVALID_TOKEN”: agent token is invalid
 		 */
 		getResourceServerTokensCallback: function(data, textStatus, jqXHR) {
-			console.log(data);
+			console.log("Resource server data = " + data);
 			// Look for logical errors
 			if (data.error) {
 				

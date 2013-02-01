@@ -372,8 +372,9 @@
 			console.log("state = " + parsedUrl.queryKey.state);
 			
 			// Optionals'
+			var state = "";
 			if (parsedUrl.queryKey.state) {
-				var state = parsedUrl.queryKey.state;
+				state = parsedUrl.queryKey.state;
 			}
 			
 			console.log("notificationURL = " + parsedUrl.queryKey.notificationURL);
@@ -432,6 +433,7 @@
 				"ResourceIds": resourceIds,
 				"PasscodeFlag": request.auth.passcode,
 				"AuthorizeFlag": request.auth.authorization,
+				"State": state,
 				"Request": requestParam});
 		},
 		

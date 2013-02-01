@@ -10,6 +10,7 @@
 	    routes:{
 	        "" : "home",
             "home" : "home",
+            "info" : "info",
 	        "settings" : "settings",
 	        "demo" : "demo",
 	        "authz" : "authz",

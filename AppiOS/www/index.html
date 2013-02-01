@@ -15,7 +15,7 @@
     <!-- Home Page Template -->
     <script type="text/template" id="home" >
 	        <div data-role="header">
-	     		<a href="#" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext">Info</a>	
+	     		<a href="#info" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext">Info</a>	
 	            <h1>Agent Home</h1>
 	            <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
 	        </div>
@@ -102,6 +102,19 @@
 		      		</div>
 		      	</div>
 	      	</div>
+    </script>
+    <!-- info page template -->
+    <script type="text/template" id="info" >
+            <div data-role="header">
+            	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
+            	<h1>Info</h1>
+    		</div>
+    		<div data-role="content" class="fullarea">
+    			<h2>Personal Agent</h2>
+    			<p style="font-style: italic">A2P3 Protocol Draft v8</p>
+    			<p>Version - <%= Version %></p>
+    			<p>More info at <a id="a2p3link">a2p3.net</a></p>
+    		</div>
     </script>
     
     <!-- Demo Page Template -->

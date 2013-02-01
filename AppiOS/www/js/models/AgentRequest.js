@@ -205,7 +205,7 @@
 			
 			// Convert to JSON
 			var data1 = JSON.stringify(jsData1);
-			console.log("AS data = " + data1);
+			//console.log("AS data = " + data1);
 			
 			// Make URL
 			var url1 = this.get("AuthenticationServerURL") + "/token";
@@ -256,7 +256,7 @@
 				this.set({"IXToken": data.result.token,
 					"NotificationURL": data.result.notificationURL});
 				
-				console.log("IXToken = " + JSON.stringify(data.result.token));
+				//console.log("IXToken = " + JSON.stringify(data.result.token));
 				
 				console.log("notification url: " + data.result.notificationURL);
 					

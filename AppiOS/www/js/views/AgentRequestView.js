@@ -42,7 +42,7 @@ $(function($) {
    			}
    			
 	    	this.$el.html(this.template(this.model.toJSON()));
-	    	console.log("model contents on render = " + JSON.stringify(this.model));
+	    	//console.log("model contents on render = " + JSON.stringify(this.model));
    			
 	        // Add in passcode view
 	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
@@ -94,6 +94,7 @@ $(function($) {
 	    },
 	    
 	    allow: function () {
+	    	console.log("allow");
 	    	this.model.set({"Authorized": true});
 	    	this.model.startGetIXToken();
 	    },

@@ -39,3 +39,9 @@
 	margin-right: auto !important;
 	margin-left: auto !important;
 }
+
+.homeButton .ui-btn-inner {
+	
+	padding-top: 48px;
+	padding-bottom: 48px;
+}

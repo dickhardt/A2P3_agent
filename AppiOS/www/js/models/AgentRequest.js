@@ -379,9 +379,9 @@
 			
 			console.log("notificationURL = " + parsedUrl.queryKey.notificationURL);
 			
+			var notificationURLFlag = "";
 			if (parsedUrl.queryKey.notificationURL) {
-				var notificationURL = parsedUrl.queryKey.notificationURL;
-				this.set({"NotificationURLFlag" : notificationURL});
+				notificationURLFlag = parsedUrl.queryKey.notificationURL;
 			}
 			
 			// Spilt in half
@@ -434,6 +434,7 @@
 				"PasscodeFlag": request.auth.passcode,
 				"AuthorizeFlag": request.auth.authorization,
 				"State": state,
+				"NotificationURLFlag": notificationURLFlag,
 				"Request": requestParam});
 		},
 		
@@ -468,6 +469,7 @@
 			
 			// Make optional part NotificationURL
 			var notificationURL = this.get("NotificationURL");
+			console.log("res notification url = " + notificationURL);
 			if (notificationURL) {
 				if (settings.get("NotificationDeviceToken")) {
 					url1 += "&notificationURL=" + encodeURI(notificationURL);

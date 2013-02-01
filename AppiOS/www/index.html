@@ -195,7 +195,7 @@
             <div data-role="content" class="fullarea">
                 <div id="container-passcode"></div>
 	           	<div id="authZContainer" data-role="content" class="fullarea">
-	           		<h2><%= AppName %> is requesting:</h2>
+	           		<h3><%= AppName %> requests:</h3>
 	            	<ul data-role="listview" data-theme="c" class="resourceList">
 		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
 		        			<li><%= resourceDescriptions %></li> 
@@ -206,10 +206,10 @@
           	<div id="authZFooter" data-role="footer">
            		<div class="ui-grid-a">
 		      		<div class="ui-block-a">
-	      				<a id="dontAllowButton" data-role="button" data-inline="true"  data-icon="">Don't Allow</a>
+	      				<a class="footerButton" id="dontAllowButton" data-role="button" data-inline="true" data-icon="">Cancel</a>
 	      			</div>
 		      		<div class="ui-block-b" style="text-align: right">
-		      			<a id="allowButton" data-role="button" data-inline="true"  data-icon="">OK</a>
+		      			<a class="footerButton" id="allowButton" data-role="button" data-inline="true" data-icon="">Authorize</a>
 		      		</div>
 		      	</div>
 		    </div>

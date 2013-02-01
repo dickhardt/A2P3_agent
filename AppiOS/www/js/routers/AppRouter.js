@@ -40,6 +40,13 @@
 	        	homeView.followQRCodeAgentRequestUrl(url);
 	        }
 	    },
+		
+		/*
+		 * Info page
+		 */
+		info:function () {
+	        this.changePage(new window.Agent.InfoView());
+	    },
 
 		/*
 		 * Settings page, send in the global instance of settings

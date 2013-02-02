@@ -86,6 +86,9 @@
 			// Error message for Client App
 			ClientAppErrorMessage: '',
 			
+			// A flag to indicate the transaction is aborted
+			Abort: false,
+			
 			// Backbone state management
 			IsSync: true,
 		},
@@ -157,7 +160,8 @@
 		 * When bad things happen with the registrar
 		 */
 		verifyWithRegistrarError: function (jqXHR, textStatus, errorThrown, url) {
-			this.set({"ErrorMessage": "The registrar is unavailable at: " + url});	
+			this.set({"ErrorMessage": "The registrar is unavailable at: " + url,
+				"Abort": true});	
 		},
 		
 		/*
@@ -178,11 +182,25 @@
 					this.set("AppName", data.result.name);
 				}
 				else {
-					this.set({"ErrorMessage": "Verification with registrar failed with: " + data.error.message});
+					if (data.error.code == "INVALID_TOKEN") {
+						this.set({"Passcode": "",
+							"ErrorMessage": "This agent is not recognized by the registrar.  This can happen if the servers data has been reset.  Reset this Agent and enroll again.",
+							"Abort": true});
+					}
+					else if (data.error.code == "INVALID_APP_ID") {
+						this.set({"ClientAppErrorCode": "INVALID_APP_ID", 
+							"ClientAppErrorMessage": "The registrar is not recognize the app id.",
+							"Abort": true});
+					}
+					else {
+						this.set({"ErrorMessage": "Verification with registrar failed with: " + data.error.message,
+						"Abort": true});
+					}
 				}
 			}
 			else {
-				this.set({"ErrorMessage": "Verification with registrar failed with: " + textStatus});
+				this.set({"ErrorMessage": "Verification with registrar failed with: " + textStatus,
+					"Abort": true});
 			}
 		},
 		
@@ -245,7 +263,8 @@
 		 * When bad things happen to get IX token
 		 */
 		getIXTokenError: function (jqXHR, textStatus, errorThrown, url) {
-			this.set({"ErrorMessage": "The authentication server is unavailable at: " + url});	
+			this.set({"ErrorMessage": "The authentication server is unavailable at: " + url,
+				"Abort": true});	
 		},
 		
 		/*
@@ -262,9 +281,15 @@
 						this.set({"Passcode": "",
 							"ErrorMessage": "Your passcode was incorrect.  Try again."});
 					}
+					else if (data.error.code == "INVALID_DEVICEID") {
+						this.set({"Passcode": "",
+							"ErrorMessage": "This agent is not recognized by the authentication server.  This can happen if the servers data has been reset.  Reset this Agent and enroll again.",
+							"Abort": true});
+					}
 					else {
 						this.set({"Passcode": "",
-							"ErrorMessage": "Authentication with authentication server failed with: " + data.error.message});
+							"ErrorMessage": "Authentication with authentication server failed with: " + data.error.message,
+							"Abort": true});
 						
 					}
 					return;
@@ -289,7 +314,8 @@
 			}
 			else {
 				this.set({"Passcode": "",
-						"ErrorMessage": "Authentication with authentication server failed with: " + textStatus});
+						"ErrorMessage": "Authentication with authentication server failed with: " + textStatus,
+						"Abort": true});
 			}
 			
 		},
@@ -332,7 +358,8 @@
 		 * When bad things happen trying to fetch resource descriptions
 		 */
 		fetchResourceDescriptionError: function(jqXHR, textStatus, errorThrown, url) {
-			this.set({"ErrorMessage": "A resource server is unavailable at: " + url});	
+			this.set({"ErrorMessage": "A resource server is unavailable at: " + url,
+			"Abort": true});	
 		},
 		
 		/* 
@@ -358,7 +385,8 @@
 				this.trigger("change");
 			}
 			else {
-				this.set({"ErrorMessage": "Fetching resource description failed with: " + textStatus});	
+				this.set({"ErrorMessage": "Fetching resource description failed with: " + textStatus,
+					"Abort": true});	
 			}
 		},
 		
@@ -478,7 +506,8 @@
 		respondToClientApp: function () {
 			// Check for return url
 			if (!this.get("ReturnURL")) {
-				this.set({"ErrorMessage": "Unable to respond to calling app because no return URL was provided."});
+				this.set({"ErrorMessage": "Unable to respond to calling app because no return URL was provided.",
+					"Abort": true});
 				return;
 			}
 			

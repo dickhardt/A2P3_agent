@@ -68,8 +68,11 @@ $(function($) {
 	        this.$("#noAuthCopy").hide();
 	        this.$("#authCopy").hide();
 	        this.$("#messageBar").text("");
-	   		
-	   		if (this.model.get("PasscodeFlag") == true &&
+	        
+	        if (this.model.get("Abort") == true) {
+	        	console.log("Abort view");
+	        }
+	   		else if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 4) {
 	   			this.$("#container-passcode").show();
 	   			this.passcodeView.focus();
@@ -88,7 +91,8 @@ $(function($) {
 	   				
 	   		}
 	   		else if (this.model.get("AuthorizeFlag") == true &&
-	   			this.model.get("Authorized") == false) { 
+	   			this.model.get("Authorized") == false &&
+	   			this.model.get("ResourceIds").length > 0) { 
 	   			this.$("#authZContainer").show();
 	   			this.$("#authZFooter").show();
 	   		}
@@ -101,6 +105,9 @@ $(function($) {
 	   		
 	     	// force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
+	    	
+	    	// Default focus
+	    	this.onPageShow();
 
 			// mark first rendered
 			this.firstRendered = true;

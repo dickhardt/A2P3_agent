@@ -193,7 +193,13 @@
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div data-role="content" class="fullarea">
-                <div id="container-passcode"></div>
+            	<div id="passcodeBlock" data-role="content" class="fullarea">
+            		<h3><%= this.model.AppDisplayName() %></h3>
+            		<p id="noAuthCopy">requests only logon - no additional authorizations.</p>
+            		<p id="authCopy">requests logon with <strong><%= this.NumberOfAuthZs %></strong> authorizations.</p>
+            		<div id="container-passcode"></div> 
+            	</div>
+                
 	           	<div id="authZContainer" data-role="content" class="fullarea">
 	           		<h3><%= AppName %> requests:</h3>
 	            	<ul data-role="listview" data-theme="c" class="resourceList">
@@ -206,7 +212,7 @@
           	<div id="authZFooter" data-role="footer">
            		<div class="ui-grid-a">
 		      		<div class="ui-block-a">
-	      				<a class="footerButton" id="dontAllowButton" data-role="button" data-inline="true" data-icon="">Cancel</a>
+	      				<a class="footerButton" id="dontAllowButton" data-role="button" data-inline="true" data-icon="">Deny</a>
 	      			</div>
 		      		<div class="ui-block-b" style="text-align: right">
 		      			<a class="footerButton" id="allowButton" data-role="button" data-inline="true" data-icon="">Authorize</a>

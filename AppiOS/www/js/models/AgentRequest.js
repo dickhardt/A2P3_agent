@@ -89,6 +89,16 @@
 			// Backbone state management
 			IsSync: true,
 		},
+		
+		AppDisplayName: function () {
+			var appName = this.get("AppName");
+			if (appName) {
+				return appName;
+			}
+			else {
+				return "Loading...";
+			}
+		},
 	
 		initialize: function() {
 			// Get AS URL and deviceId from config

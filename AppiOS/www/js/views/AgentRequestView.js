@@ -6,13 +6,16 @@ $(function($) {
 	'use strict';
 	
 	window.Agent.AgentRequestView = Backbone.View.extend({
-	
+		NumberOfAuthZs: 0,
 	    template:_.template($('#agentrequest').html()),
 	
 		initialize: function() {
 			this.model.bind("change", this.render, this);
 			this.model.bind("change:Passcode", this.login, this);
 			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
+			this.model.bind("change:AppName", this.force, this);
+			
+			this.NumberOfAuthZs = 0;
 		},
 		
 		events: {
@@ -24,23 +27,30 @@ $(function($) {
 	    },
 	    
 	    onPageShow: function () {
-	    	this.passcodeView.focus();
+	    	if (!this.firstRendered) {
+	    		this.passcodeView.focus();
+	    	}
 	    },
 	    
-	    render:function (eventName) {
+	    force: function () {
+	    	this.render(true);
+	    },
+	    
+	    render:function (force) {
 	    	
 	    	// if we're looking at the passcode 
 	    	// and we don't have an error
 	    	// and its not the first render
 	    	// then don't render (stops flickery focus on iPhone)
-	    	if (this.model.get("PasscodeFlag") == true &&
-	   			this.model.get("Passcode").length < 4 &&
-	   			this.model.get("ErrorMessage").length < 1 &&
-	   			this.firstRendered) {
-	   				//console.log("eating render");
-	   				return; // eat the event
+	    	if (!force) {
+		    	if (this.model.get("PasscodeFlag") == true &&
+		   			this.model.get("Passcode").length < 4 &&
+		   			this.model.get("ErrorMessage").length < 1 &&
+		   			this.firstRendered) {
+		   				//console.log("eating render");
+		   				return; // eat the event
+	   			}
    			}
-   			
 	    	this.$el.html(this.template(this.model.toJSON()));
 	    	//console.log("model contents on render = " + JSON.stringify(this.model));
    			
@@ -50,16 +60,32 @@ $(function($) {
 	        this.$("#container-passcode").append(this.passcodeView.render().el);
 	        
 	        // init 
+	        this.$("#passcodeBlock").hide();
 	        this.$("#container-passcode").hide();
 	        this.$("#authZContainer").hide();
 	        this.$("#authZFooter").hide();
 	        this.$("#messageBar").hide();
+	        this.$("#noAuthCopy").hide();
+	        this.$("#authCopy").hide();
 	        this.$("#messageBar").text("");
 	   		
 	   		if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 4) {
 	   			this.$("#container-passcode").show();
 	   			this.passcodeView.focus();
+	   			this.$("#passcodeBlock").show();
+	   			
+	   			// Which authZ message to show
+	   			var numberOfAuthZ = this.model.get("ResourceIds").length;
+	   			if (numberOfAuthZ &&
+	   				numberOfAuthZ > 0) {
+	   				this.$("#authCopy").show();	
+	   				this.NumberOfAuthZs = numberOfAuthZ;
+				}
+				else {
+					this.$("#noAuthCopy").show();
+				}
+	   				
 	   		}
 	   		else if (this.model.get("AuthorizeFlag") == true &&
 	   			this.model.get("Authorized") == false) { 
@@ -106,7 +132,7 @@ $(function($) {
 	    
 	    cancel: function () {
 	    	this.model.set({"Authorized": false});
-	    	this.model.cancel();
+	    	//this.model.cancel();
 	    },
 	});
 });

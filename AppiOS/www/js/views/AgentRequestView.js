@@ -22,10 +22,9 @@ $(function($) {
 		},
 		
 		events: {
-	      "click a[id=login]"   : "login",
 	      "tap a[id=allowButton]" : "allow",
-	      "click a[id=dontAllowButton]": "dontAllow",
-	      "click a[id=cancel]": "cancel",
+	      "tap a[id=dontAllowButton]": "dontAllow",
+	      "tap a[id=cancel]": "cancel",
 	    },
 
 	    

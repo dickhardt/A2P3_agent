@@ -86,7 +86,7 @@
 		 * Not sure why associative arrays are having issues with jstorage 
 		 */
 		addAppName: function (appId, name) {
-			console.log("Adding app to cache id = " + appId + "; name = " + name);
+			//console.log("Adding app to cache id = " + appId + "; name = " + name);
 			
 			var appNameCache = this.get("AppNameCache");
 			if (!appNameCache) {

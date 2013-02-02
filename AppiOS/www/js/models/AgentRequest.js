@@ -425,7 +425,7 @@
 			if (!requestParam) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
 				"ClientAppErrorMessage": "Request missing from query string parameters."}); return;}
 			
-			console.log("state = " + parsedUrl.queryKey.state);
+			//console.log("state = " + parsedUrl.queryKey.state);
 			
 			// Optionals'
 			var state = "";
@@ -478,7 +478,6 @@
 					resourceIds[i] = parsedUrl.host;
 				}
 			}
-			console.log("request.iss = " + jsSecondPart.iss);
 			
 			// Populate my model
 			this.set({"Sar": thirdPart,

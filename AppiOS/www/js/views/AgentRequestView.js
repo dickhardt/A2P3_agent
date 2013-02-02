@@ -10,7 +10,9 @@ $(function($) {
 	    template:_.template($('#agentrequest').html()),
 	
 		initialize: function() {
-			this.model.bind("change", this.render, this);
+			this.model.bind("change:ErrorMessage", this.render, this);
+            this.model.bind("change:ResourceIds", this.render, this);
+            this.model.bind("change:Passcode", this.render, this);
 			this.model.bind("change:Passcode", this.login, this);
 			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
 			this.model.bind("change:AppName", this.force, this);
@@ -27,9 +29,8 @@ $(function($) {
 	    },
 	    
 	    onPageShow: function () {
-	    	//if (!this.firstRendered) {
-	    		this.passcodeView.focus();
-	    	//}
+            this.passcodeView.focus();
+	    	
 	    },
 	    
 	    force: function () {
@@ -58,7 +59,7 @@ $(function($) {
 	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
 	        this.passcodeView.bind("cancel", this.cancel);
 	        this.$("#container-passcode").append(this.passcodeView.render().el);
-	        this.passcodeView.focus();
+	        
 	        
 	        // init 
 	        this.$("#passcodeBlock").hide();
@@ -75,8 +76,8 @@ $(function($) {
 	        }
 	   		else if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 4) {
+                                                         
 	   			this.$("#container-passcode").show();
-	   			this.passcodeView.focus();
 	   			this.$("#passcodeBlock").show();
 	   			
 	   			// Which authZ message to show

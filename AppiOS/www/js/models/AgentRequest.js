@@ -115,11 +115,10 @@
 			// Get AS URL and deviceId from config
 			this.set({"AuthenticationServerURL": settings.get("AuthenticationServerURL"), 
 				"DeviceId": settings.get("DeviceId"),});
-			
-			// parse URL
-			this.setAgentRequest(this.get("SourceUrl"));
+		
 			
 			// Begin Async registrar and resource server calls
+            this.setAgentRequest();                                          
 			this.verifyWithRegistrar();
 			this.fetchResourceDescriptions();
 			
@@ -416,9 +415,9 @@
 		 * Could set the response error code of:
 		 * INVALID_REQUEST
 		 */
-		setAgentRequest: function(url) {
+		setAgentRequest: function() {                                  
 			// Get the request portion
-			var parsedUrl = parseUri(url);
+			var parsedUrl = parseUri(this.get("SourceUrl"));
 			
 			// Requireds'
 			var requestParam = parsedUrl.queryKey.request;
@@ -468,9 +467,11 @@
 			// Parse each resource url for its id (aka hostname)
 			// note: resources are optional
 			var i;
-			var resourceIds = [];
-			if (request.resources) {
-				for (i = 0; i < request.resources.length; i++) {
+			var resourceIds = null;
+            if (request.resources &&
+                request.resources.length > 0)
+                resourceIds = [];
+                for (i = 0; i < request.resources.length; i++) {
 					// Parse URI
 					var parsedUrl = parseUri(request.resources[i]);
 					

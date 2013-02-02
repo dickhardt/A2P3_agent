@@ -11,11 +11,12 @@ $(function($) {
 	
 		initialize: function() {
 			this.model.bind("change:ErrorMessage", this.render, this);
+			this.model.bind("change:ParsedFlag", this.render, this);
             this.model.bind("change:ResourceIds", this.render, this);
             this.model.bind("change:Passcode", this.render, this);
 			this.model.bind("change:Passcode", this.login, this);
 			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
-			this.model.bind("change:AppName", this.force, this);
+			this.model.bind("change:AppName", this.render, this);
 			
 			this.NumberOfAuthZs = '';
 		},
@@ -29,7 +30,7 @@ $(function($) {
 	    },
 	    
 	    onPageShow: function () {
-            this.passcodeView.focus();
+            //this.passcodeView.focus();
 	    	
 	    },
 	    
@@ -38,11 +39,17 @@ $(function($) {
 	    },
 	    
 	    render:function (force) {
+	    	// If we haven't parsed yet, wait
+	    	if (this.model.get("ParsedFlag") == false)  {
+	    		console.log("not parsed yet");
+	    		return;
+	    	}
 	    	
 	    	// if we're looking at the passcode 
 	    	// and we don't have an error
 	    	// and its not the first render
 	    	// then don't render (stops flickery focus on iPhone)
+	    	/*
 	    	if (!force) {
 		    	if (this.model.get("PasscodeFlag") == true &&
 		   			this.model.get("Passcode").length < 4 &&
@@ -51,7 +58,7 @@ $(function($) {
 		   				//console.log("eating render");
 		   				return; // eat the event
 	   			}
-   			}
+   			}*/
 	    	this.$el.html(this.template(this.model.toJSON()));
 	    	//console.log("model contents on render = " + JSON.stringify(this.model));
    			
@@ -79,6 +86,7 @@ $(function($) {
                                                          
 	   			this.$("#container-passcode").show();
 	   			this.$("#passcodeBlock").show();
+	   			this.passcodeView.focus();
 	   			
 	   			// Which authZ message to show
 	   			var numberOfAuthZ = this.model.get("ResourceIds").length;

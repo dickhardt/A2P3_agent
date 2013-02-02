@@ -92,6 +92,9 @@
 			// A flag to indicate the transaction is aborted
 			Abort: false,
 			
+			// A flag to saw we've parsed the request
+			ParsedFlag: false,
+			
 			// Backbone state management
 			IsSync: true,
 		},
@@ -467,10 +470,10 @@
 			// Parse each resource url for its id (aka hostname)
 			// note: resources are optional
 			var i;
-			var resourceIds = null;
+			var resourceIds = [];
             if (request.resources &&
-                request.resources.length > 0)
-                resourceIds = [];
+                request.resources.length > 0) {
+                	
                 for (i = 0; i < request.resources.length; i++) {
 					// Parse URI
 					var parsedUrl = parseUri(request.resources[i]);
@@ -490,7 +493,8 @@
 				"AppId": jsSecondPart.iss,
 				"State": state,
 				"NotificationURLFlag": notificationURLFlag,
-				"Request": requestParam});
+				"Request": requestParam,
+				"ParsedFlag": true});
 		},
 		
 		/*

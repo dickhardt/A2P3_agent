@@ -208,7 +208,7 @@
             	</div>
                 
 	           	<div id="authZContainer">
-	           		<p><strong><%= this.model.AppDisplayName() %></strong> requests:</p>
+	           		<p><span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> requests:</p>
 	            	<ul data-role="listview" data-theme="c" class="resourceList">
 		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
 		        			<li><%= resourceDescriptions %></li> 

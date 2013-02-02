@@ -23,20 +23,11 @@ $(function($) {
 		
 		events: {
 	      "click a[id=login]"   : "login",
-	      "click a[id=allowButton]" : "allow",
+	      "tap a[id=allowButton]" : "allow",
 	      "click a[id=dontAllowButton]": "dontAllow",
 	      "click a[id=cancel]": "cancel",
-	      "pageshow" : "onPageShow",
 	    },
-	    
-	    onPageShow: function () {
-            //this.passcodeView.focus();
-	    	
-	    },
-	    
-	    force: function () {
-	    	this.render(true);
-	    },
+
 	    
 	    render:function (force) {
 	    	// If we haven't parsed yet, wait
@@ -137,17 +128,14 @@ $(function($) {
 	    
 	    allow: function () {
 	    	console.log("allow");
-	    	this.model.set({"Authorized": true});
-	    	this.model.startGetIXToken();
+	    	this.model.startGetIXToken(true);
 	    },
 	    
 	    dontAllow: function () {
-	    	this.model.set({"Authorized": false});
 	    	this.model.cancel();
 	    },
 	    
 	    cancel: function () {
-	    	this.model.set({"Authorized": false});
 	    	this.model.cancel();
 	    },
 	});

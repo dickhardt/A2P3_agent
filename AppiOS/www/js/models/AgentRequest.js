@@ -231,9 +231,9 @@
 		 * Error codes:
 		 * “INVALID_DEVICEID”: Invalid device ID
 		 */
-		startGetIXToken: function () {
+		startGetIXToken: function (authorized) {
 			// Update status and reset error message
-			this.set({"ErrorMessage": ""});
+			this.set({"Authorized": authorized});
 			
 			var notificationUrl = this.get("NotificationURLFlag");
 			
@@ -565,7 +565,7 @@
 			
 			console.log("Client App response URL: " + url1);
 			
-			//app.navigate("", true);
+			app.navigate("", true);
 			
 			window.location.href = url1;
 		},

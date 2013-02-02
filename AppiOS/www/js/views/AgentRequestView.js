@@ -58,6 +58,7 @@ $(function($) {
 	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
 	        this.passcodeView.bind("cancel", this.cancel);
 	        this.$("#container-passcode").append(this.passcodeView.render().el);
+	        this.passcodeView.focus();
 	        
 	        // init 
 	        this.$("#passcodeBlock").hide();

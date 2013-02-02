@@ -80,6 +80,14 @@
 						<% }); %>
 					</ul>
 				</div>
+				App Names Cache:
+				<div id="appsContainer" data-role="content" class="fullarea">
+	      			<ul data-role="listview" data-theme="c">
+		        		<% _.each(AppNameCache, function(app) { %>  
+		        			<li><%= app.appId %>: <%= app.name %></li> 
+						<% }); %>
+					</ul>
+				</div>
 	      	</div>
 	      	<div data-role="footer">
 	      		<div class="ui-grid-a">

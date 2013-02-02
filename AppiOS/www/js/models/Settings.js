@@ -31,6 +31,9 @@
 			// Resource server we've authorized in the past and haven't revoked
 			ResourceServerIds: null,
 			NotificationDeviceToken: '',
+			// Cache of previously see App Name
+			// app id as key and 'name' element
+			AppNameCache: null,
 		},
 
 		urlRoot: window.Agent.Context.BaseUrl + '/api/settings',
@@ -43,7 +46,7 @@
 			{
 				// set defaults to what is found in localstorage
 				this.set($.jStorage.get('settings'));
-				console.log('Settings retrieved from storage');
+				console.log('Settings retrieved from storage = ' + JSON.stringify(this));
 			}
 			else
 			{	    	
@@ -67,12 +70,59 @@
 					"ResourceServerIds": null,
 					"ResourceServerProtocol": "http",
 					"ResourceServerPort": "",
-					"NotificationDeviceToken": ""});
+					"NotificationDeviceToken": "",
+					"AppNameCache": null});
 	        	
 	        	// store in localstorage
 	        	this.save();
 	        	console.log('First time settings initialized');
 	        	console.log($.jStorage.get('settings'));
+			}
+		},
+		
+		/*
+		 * Adds app name to our cache
+		 * Overwrite any previous entries
+		 * Not sure why associative arrays are having issues with jstorage 
+		 */
+		addAppName: function (appId, name) {
+			console.log("Adding app to cache id = " + appId + "; name = " + name);
+			
+			var appNameCache = this.get("AppNameCache");
+			if (!appNameCache) {
+				appNameCache = [];
+			}
+			
+			// Blindly overwrite our cache
+			var i;
+			var found = false;
+			for (i = 0; i < appNameCache.length; i++) {
+				if (appNameCache[i].appId == appId) {
+					appNameCache[i].name = name;
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				appNameCache.push({"appId": appId, "name": name});
+			}
+			
+			// All done, add it back and save
+			this.set({"AppNameCache": appNameCache});
+			this.save();
+		},
+		
+		/*
+		 * Gets an app name for a given app Id
+		 */
+		getAppName: function (appId) {
+			// loop through
+			var appNameCache = this.get("AppNameCache");
+			var i;
+			for (i = 0; i < appNameCache.length; i++) {
+				if (appNameCache[i].appId == appId) {
+					return appNameCache[i].name;
+				}
 			}
 		},
 		

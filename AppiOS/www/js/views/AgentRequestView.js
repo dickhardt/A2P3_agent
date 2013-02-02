@@ -27,9 +27,9 @@ $(function($) {
 	    },
 	    
 	    onPageShow: function () {
-	    	if (!this.firstRendered) {
+	    	//if (!this.firstRendered) {
 	    		this.passcodeView.focus();
-	    	}
+	    	//}
 	    },
 	    
 	    force: function () {
@@ -105,9 +105,6 @@ $(function($) {
 	   		
 	     	// force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
-	    	
-	    	// Default focus
-	    	this.onPageShow();
 
 			// mark first rendered
 			this.firstRendered = true;
@@ -141,7 +138,7 @@ $(function($) {
 	    
 	    cancel: function () {
 	    	this.model.set({"Authorized": false});
-	    	//this.model.cancel();
+	    	this.model.cancel();
 	    },
 	});
 });

@@ -42,6 +42,9 @@
 			// Notification URL - an optiona parameter for the Client to be notified
 			NotificationURL: '', 
 			
+			// AppId - the identifier of the app
+			AppId: '',
+			
 			// Name of the Client App - used for display purposes
 			AppName: '',
 			
@@ -99,7 +102,12 @@
 				return appName;
 			}
 			else {
-				return "Loading...";
+				// Look in cache
+				var appName = settings.getAppName(this.get("AppId"));
+				if (appName) {
+					return appName;
+				}
+				return "~Loading~";
 			}
 		},
 	
@@ -180,6 +188,7 @@
 			if (textStatus == "success") {
 				if (data.result) {
 					this.set("AppName", data.result.name);
+					settings.addAppName(this.get("AppId"), data.result.name);
 				}
 				else {
 					if (data.error.code == "INVALID_TOKEN") {
@@ -469,9 +478,7 @@
 					resourceIds[i] = parsedUrl.host;
 				}
 			}
-			
-			
-			
+			console.log("request.iss = " + jsSecondPart.iss);
 			
 			// Populate my model
 			this.set({"Sar": thirdPart,
@@ -480,6 +487,7 @@
 				"ResourceIds": resourceIds,
 				"PasscodeFlag": request.auth.passcode,
 				"AuthorizeFlag": request.auth.authorization,
+				"AppId": jsSecondPart.iss,
 				"State": state,
 				"NotificationURLFlag": notificationURLFlag,
 				"Request": requestParam});

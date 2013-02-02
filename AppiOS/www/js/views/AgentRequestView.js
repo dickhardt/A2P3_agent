@@ -15,7 +15,7 @@ $(function($) {
 			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
 			this.model.bind("change:AppName", this.force, this);
 			
-			this.NumberOfAuthZs = 0;
+			this.NumberOfAuthZs = '';
 		},
 		
 		events: {

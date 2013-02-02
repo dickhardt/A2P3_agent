@@ -196,16 +196,25 @@
 			// Update status and reset error message
 			this.set({"ErrorMessage": ""});
 			
+			var notificationUrl = this.get("NotificationURLFlag");
+			
+
 			// Make JS POST data
 			var jsData1 = {"device": this.get("DeviceId"),
 				"sar": this.get("Sar"),
 				"auth": {"passcode": this.get("Passcode"),
-						 "authorization": this.get("Authorized")},
-				"notificationURL": this.get("NotificationURLFlag")};
+						 "authorization": this.get("Authorized")}};
+			
+			// Add in optional notification URL
+			// only if its true
+			if (notificationUrl &&
+				notificationUrl == "true") {
+					jsData1.notificationURL = notificationUrl;
+			}
 			
 			// Convert to JSON
 			var data1 = JSON.stringify(jsData1);
-			//console.log("AS data = " + data1);
+			console.log("AS data = " + data1);
 			
 			// Make URL
 			var url1 = this.get("AuthenticationServerURL") + "/token";

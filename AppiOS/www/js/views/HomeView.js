@@ -117,7 +117,7 @@ $(function($) {
 			if (data.result) {
 				// make a2p3 URL
 				var url = "a2p3.net://token?request=" + data.result.agentRequest + 
-					"&state=" + data.result.state;
+					"&state=" + data.result.state + "&notification=" + data.result.notificationURL;
 				app.mobileUrlInvokeHandler(url);
 			}
 			else {

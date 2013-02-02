@@ -111,9 +111,11 @@ $(function($) {
 	    login: function () {
 	    	var passcode = this.model.get("Passcode");
 			if (passcode.length >= 4) {
-		    	// If already allowed or authZ not required start the process
+		    	// If already allowed or authZ not required or zero resources 
+		    	// start the process
 		    	if (this.model.get("AuthorizeFlag") == false ||
-		    		this.model.get("Authorized") == true) {
+		    		this.model.get("Authorized") == true ||
+		    		this.model.get("ResourceIds").length < 1) {
 		    		this.model.startGetIXToken();
 		    	}	
 	    	}

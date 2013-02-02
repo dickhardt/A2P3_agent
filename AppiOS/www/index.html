@@ -195,13 +195,13 @@
             <div data-role="content" class="fullarea">
             	<div id="passcodeBlock" data-role="content" class="fullarea">
             		<h3><%= this.model.AppDisplayName() %></h3>
-            		<p id="noAuthCopy">requests only logon - no additional authorizations.</p>
-            		<p id="authCopy">requests logon with <strong><%= this.NumberOfAuthZs %></strong> authorizations.</p>
+            		<p id="noAuthCopy">Requests only logon</p>
+            		<p id="authCopy">Requests logon with <strong><%= this.NumberOfAuthZs %></strong> authorizations.</p>
             		<div id="container-passcode"></div> 
             	</div>
                 
 	           	<div id="authZContainer" data-role="content" class="fullarea">
-	           		<h3><%= AppName %> requests:</h3>
+	           		<h3><%= this.model.AppDisplayName() %> requests:</h3>
 	            	<ul data-role="listview" data-theme="c" class="resourceList">
 		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
 		        			<li><%= resourceDescriptions %></li> 

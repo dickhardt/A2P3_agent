@@ -45,7 +45,21 @@ $(function($) {
 	    		return;
 	    	}
 	    	
-			el.html(this.template(this.model.toJSON()));
+	    	// if we're looking at the passcode 
+	    	// and we don't have an error
+	    	// and its not the first render
+	    	// then don't render (stops flickery focus on iPhone)
+	    	/*
+	    	if (!force) {
+		    	if (this.model.get("PasscodeFlag") == true &&
+		   			this.model.get("Passcode").length < 4 &&
+		   			this.model.get("ErrorMessage").length < 1 &&
+		   			this.firstRendered) {
+		   				//console.log("eating render");
+		   				return; // eat the event
+	   			}
+   			}*/
+	    	this.$el.html(this.template(this.model.toJSON()));
 	    	//console.log("model contents on render = " + JSON.stringify(this.model));
    			
 	        // Add in passcode view

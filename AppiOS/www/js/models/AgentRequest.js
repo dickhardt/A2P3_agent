@@ -565,7 +565,7 @@
 			
 			console.log("Client App response URL: " + url1);
 			
-			app.navigate("", true);
+			//app.navigate("", true);
 			
 			window.location.href = url1;
 		},

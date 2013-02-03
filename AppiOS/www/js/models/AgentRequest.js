@@ -487,13 +487,17 @@
 			}
 			
 			// Do callback URL
-			if (request.returnURL.length > 0 &&
+			if (request.returnURL &&
+				request.returnURL.length > 0 &&
+				request.callbackURL &&
 				request.callbackURL.length > 0) {
 				this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
 				"ClientAppErrorMessage": "Both returnUrl and callbackURL were provided.  Use one or the other but not both."}); 
 				return;	
 			}	
-			if (request.returnURL.length < 1 &&
+			if (request.returnURL &&
+				request.returnURL.length < 1 &&
+				request.callbackURL &&
 				request.callbackURL.length < 1) {
 				this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
 				"ClientAppErrorMessage": "Niether returnUrl and callbackURL was provided.  Use one or the other but not both."}); 

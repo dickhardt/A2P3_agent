@@ -128,7 +128,7 @@
 				this.set({"Status": "Complete"});
 				
 				// Go home 
-				app.navigate("", true);
+				this.trigger("complete");
 				
 			} else {
 				

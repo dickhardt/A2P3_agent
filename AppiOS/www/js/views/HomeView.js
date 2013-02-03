@@ -29,9 +29,9 @@ $(function($) {
 	    },
 	
 		events: {
-			"click a[id=logonScan]" : "scan",
-			"click a[id=enrollScan]" : "scan",
-			"click a[id=enrollDirect]" : "enrollDirect",
+			"tap a[id=logonScan]" : "scan",
+			"tap a[id=enrollScan]" : "scan",
+			"tap a[id=enrollDirect]" : "enrollDirect",
 	    },
 	    
 	    /*

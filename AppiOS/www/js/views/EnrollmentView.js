@@ -14,6 +14,7 @@ $(function($) {
 		initialize: function() {
 			this.model.bind("change", this.render, this);
 			this.model.bind("change:Passcode", this.checkPasscode, this);
+			this.model.bind("complete", this.complete, this)
 		},
 		
 		events: {
@@ -65,6 +66,11 @@ $(function($) {
 	    
 	    cancel: function () {
 	    	app.navigate("", true);
-	    }
+	    },
+	    
+	      
+	    complete: function () {
+	    	app.navigate("", true);
+	    },
 	});
 });

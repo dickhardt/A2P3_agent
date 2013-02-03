@@ -24,8 +24,11 @@
 			// Raw incoming URL
 			SourceUrl: '',
 					
-			// Where the Client App wants responses
+			// Where the Client App wants redirect responses
 			ReturnURL: '',
+			
+			// Where the Client APp wants an ACK instead
+			CallbackURL: '',
 			
 			// State - an optional parameter for the Client APp to preserve state
 			State: '',
@@ -483,9 +486,24 @@
 				}
 			}
 			
+			// Do callback URL
+			if (request.returnURL.length > 0 &&
+				request.callbackURL.length > 0) {
+				this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
+				"ClientAppErrorMessage": "Both returnUrl and callbackURL were provided.  Use one or the other but not both."}); 
+				return;	
+			}	
+			if (request.returnURL.length < 1 &&
+				request.callbackURL.length < 1) {
+				this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
+				"ClientAppErrorMessage": "Niether returnUrl and callbackURL was provided.  Use one or the other but not both."}); 
+				return;	
+			}
+			
 			// Populate my model
 			this.set({"Sar": thirdPart,
 				"ReturnURL": request.returnURL,
+				"CallbackURL": request.callbackURL,
 				"Resources": request.resources,
 				"ResourceIds": resourceIds,
 				"PasscodeFlag": request.auth.passcode,
@@ -516,12 +534,9 @@
 		 * “errorMessage”: a message about the error
 		 */
 		respondToClientApp: function () {
-			// Check for return url
-			if (!this.get("ReturnURL")) {
-				this.set({"ErrorMessage": "Unable to respond to calling app because no return URL was provided.",
-					"Abort": true});
-				return;
-			}
+			// Check for return 
+			var returnUrl = this.get("ReturnURL");
+			var callbackUrl = this.get("CallbackURL");
 			
 			// Make required parts of the response URL
 			var url1 = this.get("ReturnURL") +  
@@ -565,12 +580,71 @@
 			
 			console.log("Client App response URL: " + url1);
 			
+			// Move nav 
 			app.navigate("", true);
 			
-			window.location.href = url1;
+			// call appropriate channel of response
+			if (returnUrl.length > 0) {
+				this.respondToClientAppReturn(url1);
+			}
+			else if (callbackUrl.length > 0) {
+				this.respondToClientAppCallback(url1);
+			}
+			else {
+				UnhandledError("Unable to return response to app.");
+			}
 		},
 		
+		/* 
+		 * Client Apps wants a browser invoke to URL
+		 */
+		respondToClientAppReturn: function (url) {
+			window.location.href = url;
+		},
 		
+		/*
+		 * Client App wants a web service call instead
+		 * returns:
+		 * tbd
+		 */
+		respondToClientAppCallback: function (url) {
+			// Do some back channel call
+			$.ajax({url: url, 
+					type: "POST", 
+				dataType: "json",
+				context: this,
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.respondToClientAppCallbackFail(jqXHR, textStatus, errorThrown, url);
+					}}(url),
+				success: function(url) {
+					return function(data, textStatus, jqXHR) {
+						this.respondToClientAppCallbackOK(data, textStatus, jqXHR, url);
+					}}(url),
+			});
+		},
+		
+		/*
+		 * When bad things happen responding to client app via JSON
+		 */
+		respondToClientAppCallbackFail: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "Client App callback failed with: " + errorThrown,
+			"Abort": true});	
+		},
+		
+		/*
+		 * We've got an 200 from client app
+		 */
+		respondToClientAppCallbackOK: function (data, textStatus, jqXHR, url) {
+			// success only means RS responsed
+			if (textStatus == "success") {
+				// do nothing yet
+			}
+			else {
+				this.set({"ErrorMessage": "Client App callback failed with:  " + textStatus,
+					"Abort": true});	
+			}
+		},
 	});
 	
 	

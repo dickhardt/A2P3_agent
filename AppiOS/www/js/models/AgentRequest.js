@@ -154,6 +154,7 @@
 			// make data
 			var data = {"request": this.get("Request"),
 				"token": settings.get("RegistrarToken")};
+			console.log("verify data = " + JSON.stringify(data));
 			
 			// Call Registrar
 			$.ajax({url: url, 
@@ -467,8 +468,6 @@
 			
 			// Pull out request.a2p3.org part
 			var request = jsSecondPart["request.a2p3.org"];
-			if (!request.returnURL) { this.set({"ClientAppErrorCode": "INVALID_REQUEST", 
-				"ClientAppErrorMessage": "Missing returnUrl in request."}); return;}
 			
 			// Parse each resource url for its id (aka hostname)
 			// note: resources are optional
@@ -542,9 +541,18 @@
 			var returnUrl = this.get("ReturnURL");
 			var callbackUrl = this.get("CallbackURL");
 			
+			var url1;
+			if (returnUrl &&
+				returnUrl.length > 0) {
+				url1 = returnUrl;
+			}
+			else if (callbackUrl &&
+				callbackUrl.length > 0) {
+				url1 = callbackUrl;	
+			}
+			
 			// Make required parts of the response URL
-			var url1 = this.get("ReturnURL") +  
-				"?token=" + encodeURI(this.get("IXToken"));
+			url1 += "?token=" + encodeURI(this.get("IXToken"));
 			
 			// Make optional part NotificationURL
 			var notificationURL = this.get("NotificationURL");
@@ -588,10 +596,12 @@
 			app.navigate("", true);
 			
 			// call appropriate channel of response
-			if (returnUrl.length > 0) {
+			if (returnUrl &&
+				returnUrl.length > 0) {
 				this.respondToClientAppReturn(url1);
 			}
-			else if (callbackUrl.length > 0) {
+			else if (callbackUrl &&
+				callbackUrl.length > 0) {
 				this.respondToClientAppCallback(url1);
 			}
 			else {
@@ -602,8 +612,55 @@
 		/* 
 		 * Client Apps wants a browser invoke to URL
 		 */
-		respondToClientAppReturn: function (url) {
-			window.location.href = url;
+		respondToClientAppReturn: function () {
+			// Check for return 
+			var returnUrl = this.get("ReturnURL");
+			
+			// Make required parts of the response URL
+			var url1 = returnUrl + "?token=" + encodeURI(this.get("IXToken"));
+			
+			// Make optional part NotificationURL
+			var notificationURL = this.get("NotificationURL");
+			console.log("res notification url = " + notificationURL);
+			if (notificationURL) {
+				if (settings.get("NotificationDeviceToken")) {
+					url1 += "&notificationURL=" + encodeURI(notificationURL);
+				}
+				else {
+					url1 += "&notificationURL=" + "NOTIFICATION_DECLINED";
+				}
+			}
+			
+			// Make optional part state
+			var state = this.get("State");
+			if (state) {
+				url1 += "&state=" + state; // This does not need encoding since it was read literally from request URL
+			}
+			
+			// Make optional part Request
+			var request = this.get("Request");
+			if (request) {
+				url1 += "&request=" + request; // This does not need encoding since it was read literally from request URL
+			}
+			
+			// Make optional part error
+			var error = this.get("ClientAppErrorCode");
+			if (error) {
+				url1 += "&error=" + encodeURI(error);
+			}
+			
+			// Make optional part errorMessage
+			var errorMessage = this.get("ClientAppErrorMessage");
+			if (errorMessage) {
+				url1 += "&errorMessage=" + encodeURI(errorMessage);
+			}
+			
+			console.log("Client App response URL: " + url1);
+			
+			// Move nav 
+			app.navigate("", true);
+			
+			window.location.href = url1;
 		},
 		
 		/*
@@ -611,20 +668,70 @@
 		 * returns:
 		 * tbd
 		 */
-		respondToClientAppCallback: function (url) {
+		respondToClientAppCallback: function () {
+			// Check for return 
+			var callbackUrl = this.get("CallbackURL");
+			
+			// init data
+			var data = new Object();
+			
+			// put in token
+			data.token = this.get("IXToken");
+			
+			// Make optional part NotificationURL
+			var notificationURL = this.get("NotificationURL");
+			console.log("res notification url = " + notificationURL);
+			if (notificationURL) {
+				if (settings.get("NotificationDeviceToken")) {
+					data.notificationURL = notificationURL;
+				}
+				else {
+					data.notificationURL = "NOTIFICATION_DECLINED";
+				}
+			}
+			
+			// Make optional part state
+			var state = this.get("State");
+			if (state) {
+				data.state = state; 
+			}
+			
+			// Make optional part Request
+			var request = this.get("Request");
+			if (request) {
+				data.request = request; 
+			}
+			
+			// Make optional part error
+			var error = this.get("ClientAppErrorCode");
+			if (error) {
+				data.error = error;
+			}
+			
+			// Make optional part errorMessage
+			var errorMessage = this.get("ClientAppErrorMessage");
+			if (errorMessage) {
+				data.error.message = errorMessage;
+			}
+			
+			console.log("Client app callback URL = " + callbackUrl);
+			console.log("Client App response data: " + JSON.stringify(data));
+		
 			// Do some back channel call
-			$.ajax({url: url, 
-					type: "POST", 
+			$.ajax({url: callbackUrl, 
+				type: "POST", 
 				dataType: "json",
+				contentType: "application/json;", 
+				data: JSON.stringify(data),
 				context: this,
 				error: function(url) {
 					return function(jqXHR, textStatus, errorThrown) {
 						this.respondToClientAppCallbackFail(jqXHR, textStatus, errorThrown, url);
-					}}(url),
+					}}(callbackUrl),
 				success: function(url) {
 					return function(data, textStatus, jqXHR) {
 						this.respondToClientAppCallbackOK(data, textStatus, jqXHR, url);
-					}}(url),
+					}}(callbackUrl),
 			});
 		},
 		
@@ -642,7 +749,8 @@
 		respondToClientAppCallbackOK: function (data, textStatus, jqXHR, url) {
 			// success only means RS responsed
 			if (textStatus == "success") {
-				// do nothing yet
+				// Move nav 
+				app.navigate("", true);
 			}
 			else {
 				this.set({"ErrorMessage": "Client App callback failed with:  " + textStatus,

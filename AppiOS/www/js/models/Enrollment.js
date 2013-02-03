@@ -127,8 +127,8 @@
 				// Update our status
 				this.set({"Status": "Complete"});
 				
-				// Go home - TODO: models really shouldn't navigate... 
-				app.home();
+				// Go home 
+				app.navigate("", true);
 				
 			} else {
 				

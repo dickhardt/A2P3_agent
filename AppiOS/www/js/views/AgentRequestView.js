@@ -120,7 +120,7 @@ $(function($) {
 		    	if (this.model.get("AuthorizeFlag") == false ||
 		    		this.model.get("Authorized") == true ||
 		    		this.model.get("ResourceIds").length < 1) {
-		    		this.model.startGetIXToken();
+		    		this.model.startGetIXToken(true);
 		    	}	
 	    	}
 	    },

@@ -113,7 +113,7 @@
 				if (appName) {
 					return appName;
 				}
-				return "~Loading~";
+				return "Loading...";
 			}
 		},
 	

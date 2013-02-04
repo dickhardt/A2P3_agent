@@ -59,28 +59,64 @@
 	      		<input type="text" id="notificationDeviceToken" value="<%= NotificationDeviceToken %>" />
 	      		Authentication Server Protocol:
 	      		<select id="authenticationServerProtocolList" data-mini="true">
-	      			<option value="http">http</option>
-	      			<option value="https">https</option>
+	      			<option value="http">
+	      				http</option>
+	      			<option value="https">
+	      				https</option>
 	      		</select>
 	      		Authentication Server Host:
-	      		<select id="authenticationServerHostList" data-mini="true" class="dropdown">
+	      		<select id="authenticationServerHostList" data-mini="true">
 	      			<option value="as.a2p3.net">as.a2p3.net</option>
 	      			<option value="as.dev.a2p3.net">as.dev.a2p3.net</option>
-	      			<option value="as.local.a2p3.net">as.dev.a2p3.net</option>
+	      			<option value="as.local.a2p3.net">as.local.a2p3.net</option>
 	      		</select>
-	      		<input type="text" id="authenticationServerURL" value="<%= AuthenticationServerURL %>" />
-	      		Registrar URL:
-	      		<input type="text" id="registrarURL" value="<%= RegistrarURL %>" />
-	      		Enroll Agent Directly URL:
-	      		<input type="text" id="setupUrl" value="<%= SetupUrl %>" />
+	      		Authentication Server Port (optional):
+	      		<input pattern="\d*" type="text" id="authenticationServerPort" value="<%= AuthenticationServerPort %>" />
+	      		
+	      		Registrar Server Protocol:
+	      		<select id="registrarProtocolList" data-mini="true">
+	      			<option value="http">
+	      				http</option>
+	      			<option value="https">
+	      				https</option>
+	      		</select>
+	      		Registrar Server Host:
+	      		<select id="registrarHostList" data-mini="true">
+	      			<option value="registrar.a2p3.net">registrar.a2p3.net</option>
+	      			<option value="registrar.dev.a2p3.net">registrar.dev.a2p3.net</option>
+	      			<option value="registrar.local.a2p3.net">registrar.local.a2p3.net</option>
+	      		</select>
+	      		Registrar Server Port (optional):
+	      		<input pattern="\d*" type="text" id="registrarPort" value="<%= RegistrarPort %>" />
+	      		
+	      		Setup Server Protocol:
+	      		<select id="setupProtocolList" data-mini="true">
+	      			<option value="http">
+	      				http</option>
+	      			<option value="https">
+	      				https</option>
+	      		</select>
+	      		Setup Server Host:
+	      		<select id="setupHostList" data-mini="true">
+	      			<option value="setup.a2p3.net">setup.a2p3.net</option>
+	      			<option value="setup.dev.a2p3.net">setup.dev.a2p3.net</option>
+	      			<option value="setup.local.a2p3.net">setup.local.a2p3.net</option>
+	      		</select>
+	      		Setup Server Port:
+	      		<input type="url" id="setupPort" value="<%= SetupPort %>" />
 	      		Demonstration Apps URL:
-	      		<input type="text" id="demoAppsURL" value="<%= DemoAppsURL %>" />
+	      		<input type="url" id="demoAppsURL" value="<%= DemoAppsURL %>" />
 	      		Registrar Token:
 	      		<input type="text" id="registrarToken" value="<%= RegistrarToken %>" />
-	      		Resource Server Protocol
-	      		<input type="text" id="resourceServerProtocol" value="<%= ResourceServerProtocol %>" />
-	      		Resource Server Port
-	      		<input type="text" id="resourceServerPort" value="<%= ResourceServerPort %>" />
+	      		Resource Server Protocol:
+	      		<select id="resourceServerProtocolList" data-mini="true">
+	      			<option value="http">
+	      				http</option>
+	      			<option value="https">
+	      				https</option>
+	      		</select>
+	      		Resource Server Port (Optional):
+	      		<input pattern="\d*" type="text" id="resourceServerPort" value="<%= ResourceServerPort %>" />
 	      		Resource Server Ids:
 	      		<div id="resourceServerIdContainer" data-role="content" class="fullarea">
 	      			<ul data-role="listview" data-theme="c">
@@ -109,8 +145,12 @@
 							<div data-shadow="true" data-role="content" data-theme="d">
 								<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
 								<p>This action cannot be undone.</p>
-								<a id="cancel" data-role="button" data-inline="true" data-rel="back" data-theme="c" >Cancel</a>    
-								<a id="confirm" data-role="button" data-inline="true" data-transition="flow" data-theme="a" >Reset</a>  
+								<div data-role="controlgroup">
+									<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
+									<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="a" >Reset to *.local.a2p3.net</a> 
+									<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="a" >Reset to *.dev.a2p3.net</a> 
+									<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="a" >Reset to *.a2p3.net (Prod)</a>
+								</div>  
 							</div>
 	      				</div>
 	      			</div>

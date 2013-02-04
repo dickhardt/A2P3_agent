@@ -36,7 +36,7 @@
 			
 			// get resource server ids from config
 			var resourceServerIds = settings.get("ResourceServerIds");
-			var registrarUrl = settings.get("RegistrarURL");
+			var registrarUrl = settings.getRegistrarURL();
 			var registrarToken = settings.get("RegistrarToken");
 			
 			this.set({"ResourceServerIds": resourceServerIds,

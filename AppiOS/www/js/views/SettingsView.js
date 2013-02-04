@@ -20,6 +20,15 @@ $(function($) {
 	        // force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
 	    	
+	    	// Select our drop down lists
+	    	this.$("#authenticationServerProtocolList").val(this.model.get("AuthenticationServerProtocol"));
+	    	this.$("#authenticationServerHostList").val(this.model.get("AuthenticationServerHost"));
+	    	this.$("#registrarProtocolList").val(this.model.get("RegistrarProtocol"));
+	   		this.$("#registrarHostList").val(this.model.get("RegistrarHost"));
+	    	this.$("#resourceServerProtocolList").val(this.model.get("ResourceServerProtocol"));
+	    	this.$("#setupProtocolList").val(this.model.get("SetupProtocol"));
+	    	this.$("#setupHostList").val(this.model.get("SetupHost"));
+	    	
 	        return this;
 	    },
 	
@@ -40,12 +49,12 @@ $(function($) {
 				 shadow: true});
 		},
 		
-		confirm: function() {
+		confirm: function(resetto) {
 
 			console.log("Resetting");
 		
 		   // Reset model
-		   this.model.reset();
+		   this.model.reset(resetto);
 		   
 		   // Redo notificaitons
 		   notification.register();
@@ -58,12 +67,18 @@ $(function($) {
 		save: function () {
 			this.model.set({"Name" : $("#name").val(), 
 				"DeviceId" : $("#id").val(),
-				"AuthenticationServerURL" : $("#authenticationServerURL").val(),
-				"RegistrarURL": $("#registrarURL").val(),
-				"SetupUrl": $("#setupUrl").val(),
+				"AuthenticationServerProtocol": $("#authenticationServerProtocolList").val(),
+				"AuthenticationServerHost": $("#authenticationServerHostList").val(),
+				"AuthenticationServerPort": $("#authenticationServerPort").val(),
+				"RegistrarProtocol": $("#registrarProtocolList").val(),
+				"RegistrarHost": $("#registrarHostList").val(),
+				"RegistrarPort": $("#registrarPort").val(),
+				"SetupProtocol": $("#setupProtocolList").val(),
+				"SetupHost": $("#setupHostList").val(),
+				"SetupPort": $("#setupPort").val(),
 				"DemoAppsURL" : $("#demoAppsURL").val(),
 				"RegistrarToken" : $("#registrarToken").val(),
-				"ResourceServerProtocol": $("#resourceServerProtocol").val(),
+				"ResourceServerProtocol": $("#resourceServerProtocolList").val(),
 				"ResourceServerPort": $("#resourceServerPort").val(),
 				"NotificationDeviceToken": $("#notificationDeviceToken").val(),
 				})

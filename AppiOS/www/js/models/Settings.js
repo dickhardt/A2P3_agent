@@ -21,9 +21,15 @@
 		defaults: {
 			DeviceId : '',
 			Name: '',
-			AuthenticationServerURL: '',
-			RegistrarURL: '',
-			SetupUrl: '',
+			AuthenticationServerProtocol: '',
+			AuthenticationServerHost: '',
+			AuthenticationServerPort: '',
+			RegistrarProtocol: '',
+			RegistrarHost: '',
+			RegistrarPort: '',
+			SetupProtocol: '',
+			SetupHost: '',
+			SetupPort: '',
 			DemoAppsURL: '',
 			RegistrarToken: '',
 			ResourceServerProtocol: '',
@@ -39,7 +45,7 @@
 		urlRoot: window.Agent.Context.BaseUrl + '/api/settings',
 		
 		// Singleton pattern checks if there is an existing configuration file
-		initialize: function() {
+		initialize: function(resetto) {
 			
 			// check for localstorage
 		 	if ($.jStorage.get('settings'))
@@ -61,10 +67,34 @@
     				"DeviceId": GUID()}); 	   
 	        	}
 	        	
+	        	var authenticationServerHost;
+	        	var authenticationServerPort;
+	        	var registrarHost;
+	        	var registrarPort;
+	        	var setupHost;
+	        	var setupPort;
+	        	
+	        	switch (resetto) {
+	        		case "local":
+	        			authenticationServerHost = ""
+	        			break;
+	        		case "dev":
+	        			break;
+	        		case "prod":
+	        		default:
+	        			
+	        	}
+	        	
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
-				this.set({"AuthenticationServerURL": "http://as.a2p3.net",
-					"RegistrarURL": "http://registrar.a2p3.net",
-					"SetupUrl": "http://setup.a2p3.net?agent=true",
+				this.set({"AuthenticationServerProtocol": "http",
+					"AuthenticationServerHost": "as.a2p3.net",
+					"AuthenticationServerPort": "",
+					"RegistrarProtocol": "http",
+					"RegistrarHost": "registrar.a2p3.net",
+					"RegistrarPort": "",
+					"SetupProtocol": "http",
+					"SetupHost": "setup.a2p3.net",
+					"SetupPort": "",
 					"DemoAppsURL": "http://www.a2p3.net/#demo",
 					"RegistrarToken": "",
 					"ResourceServerIds": null,
@@ -80,6 +110,46 @@
 			}
 		},
 		
+		/*
+		 * Simple function to assemble the URL
+		 */
+		getAuthenticationServerURL: function () {
+			var url = this.get("AuthenticationServerProtocol") + "://" + 
+				this.get("AuthenticationServerHost");
+			var port = this.get("AuthenticationServerPort");
+			if (port &&
+				port.length > 0) {
+				url += ":" + port;	
+			}
+			return url;
+		},
+		
+		/*
+		 * Simple function to assemble the URL
+		 */
+		getRegistrarURL: function () {
+			var url = this.get("RegisterServerProtocol") + "://" + 
+				this.get("RegisterServerHost");
+			var port = this.get("RegisterServerPort");
+			if (port &&
+				port.length > 0) {
+				url += ":" + port;	
+			}
+			return url;
+		},
+				/*
+		 * Simple function to assemble the URL
+		 */
+		getSetupURL: function () {
+			var url = this.get("SetupProtocol") + "://" + 
+				this.get("SetupHost");
+			var port = this.get("SetupPort");
+			if (port &&
+				port.length > 0) {
+				url += ":" + port;	
+			}
+			return url;
+		},
 		/*
 		 * Adds app name to our cache
 		 * Overwrite any previous entries
@@ -163,10 +233,10 @@
 		},
 	
 		// Reset to factory settings
-		reset: function () {
+		reset: function (resetto) {
 			$.jStorage.deleteKey('settings');
 			$.jStorage.flush();
-			this.initialize();
+			this.initialize(resetto);
 		},
 
 		// Save to local stroage

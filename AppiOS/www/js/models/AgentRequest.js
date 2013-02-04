@@ -119,7 +119,7 @@
 	
 		initialize: function() {
 			// Get AS URL and deviceId from config
-			this.set({"AuthenticationServerURL": settings.get("AuthenticationServerURL"), 
+			this.set({"AuthenticationServerURL": settings.getAuthenticationServerURL(), 
 				"DeviceId": settings.get("DeviceId"),});
 		
 			
@@ -149,7 +149,7 @@
 		 */
 		verifyWithRegistrar: function () {
 			// make URL
-			var url = settings.get("RegistrarURL") + "/request/verify";
+			var url = settings.getRegistrarURL() + "/request/verify";
 			
 			// make data
 			var data = {"request": this.get("Request"),

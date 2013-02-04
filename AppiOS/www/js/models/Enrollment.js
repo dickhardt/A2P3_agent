@@ -32,8 +32,9 @@
 			var parsedUrl = parseUri(this.get("SourceUrl"));
 			var enrollmentCode = parsedUrl.queryKey.code;
 			
+
 			// Get AS URL, name and deviceId from config
-			this.set({"AuthenticationServerURL": settings.get("AuthenticationServerURL"), 
+			this.set({"AuthenticationServerURL": settings.getAuthenticationServerURL(), 
 				"Name": settings.get("Name"),
 				"DeviceId": settings.get("DeviceId"),
 				"Code": enrollmentCode,});

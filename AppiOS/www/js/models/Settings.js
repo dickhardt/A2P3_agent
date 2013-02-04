@@ -118,10 +118,12 @@
 		getAppName: function (appId) {
 			// loop through
 			var appNameCache = this.get("AppNameCache");
-			var i;
-			for (i = 0; i < appNameCache.length; i++) {
-				if (appNameCache[i].appId == appId) {
-					return appNameCache[i].name;
+			if (appNameCache) {
+				var i;
+				for (i = 0; i < appNameCache.length; i++) {
+					if (appNameCache[i].appId == appId) {
+						return appNameCache[i].name;
+					}
 				}
 			}
 		},

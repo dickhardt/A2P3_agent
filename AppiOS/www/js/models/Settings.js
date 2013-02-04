@@ -73,33 +73,46 @@
 	        	var registrarPort;
 	        	var setupHost;
 	        	var setupPort;
+	        	var resourceServerPort;
 	        	
 	        	switch (resetto) {
 	        		case "local":
-	        			authenticationServerHost = ""
+	        			authenticationServerHost = "as.local.a2p3.net";
+	        			registrarHost = "registrar.local.a2p3.net";
+	        			setupHost = "setup.local.a2p3.net";
+	        			authenticationServerPort = "8080";
+	        			registrarPort = "8080";
+	        			setupPort = "8080";
+	        			resourceServerPort = "8080";
 	        			break;
 	        		case "dev":
+	        			authenticationServerHost = "as.dev.a2p3.net";
+	        			registrarHost = "registrar.dev.a2p3.net";
+	        			setupHost = "setup.dev.a2p3.net";
 	        			break;
 	        		case "prod":
 	        		default:
-	        			
+	        			authenticationServerHost = "as.a2p3.net";
+	        			registrarHost = "registrar.a2p3.net";
+	        			setupHost = "setup.a2p3.net";
+	        			break;
 	        	}
 	        	
 	        	// Set bootstrap defaults here, could move this to somewhere more obvious
 				this.set({"AuthenticationServerProtocol": "http",
-					"AuthenticationServerHost": "as.a2p3.net",
-					"AuthenticationServerPort": "",
+					"AuthenticationServerHost": authenticationServerHost,
+					"AuthenticationServerPort": authenticationServerPort,
 					"RegistrarProtocol": "http",
-					"RegistrarHost": "registrar.a2p3.net",
-					"RegistrarPort": "",
+					"RegistrarHost": registrarHost,
+					"RegistrarPort": registrarPort,
 					"SetupProtocol": "http",
-					"SetupHost": "setup.a2p3.net",
-					"SetupPort": "",
+					"SetupHost": setupHost,
+					"SetupPort": setupPort,
 					"DemoAppsURL": "http://www.a2p3.net/#demo",
 					"RegistrarToken": "",
 					"ResourceServerIds": null,
 					"ResourceServerProtocol": "http",
-					"ResourceServerPort": "",
+					"ResourceServerPort": resourceServerPort,
 					"NotificationDeviceToken": "",
 					"AppNameCache": null});
 	        	
@@ -237,6 +250,7 @@
 			$.jStorage.deleteKey('settings');
 			$.jStorage.flush();
 			this.initialize(resetto);
+			this.trigger("change");
 		},
 
 		// Save to local stroage

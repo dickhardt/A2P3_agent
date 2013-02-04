@@ -28,16 +28,18 @@
 		register: function () {
 			// Register device for push notifications
 			var pushNotification = window.plugins.pushNotification;
-			pushNotification.registerDevice({alert:true, badge:false, sound:true}, function(status) {
-			    console.log(JSON.stringify(['registerDevice status: ', status])+"\n");
-			    settings.set("NotificationDeviceToken", status.deviceToken);
-			    settings.save();
-			});
-			
-			// And test if registration is scuessful
-			pushNotification.getRemoteNotificationStatus(function(status) {
-			    console.log(JSON.stringify(['Registration check - getRemoteNotificationStatus', status])+"\n");
-			});
+			if (pushNotification) {
+				pushNotification.registerDevice({alert:true, badge:false, sound:true}, function(status) {
+				    console.log(JSON.stringify(['registerDevice status: ', status])+"\n");
+				    settings.set("NotificationDeviceToken", status.deviceToken);
+				    settings.save();
+				});
+				
+				// And test if registration is scuessful
+				pushNotification.getRemoteNotificationStatus(function(status) {
+				    console.log(JSON.stringify(['Registration check - getRemoteNotificationStatus', status])+"\n");
+				});
+			}
 		},
 		
 		/*

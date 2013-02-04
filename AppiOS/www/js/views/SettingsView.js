@@ -14,12 +14,9 @@ $(function($) {
 		},
 		
 	    render:function (eventName) {
-	    	console.log(this.model);
+	    	console.log("rendering = " + JSON.stringify(this.model));
 	       	this.$el.html(this.template(this.model.toJSON()));
 	        
-	        // force jquery to restyle
-	    	$(this.el).trigger("pagecreate");
-	    	
 	    	// Select our drop down lists
 	    	this.$("#authenticationServerProtocolList").val(this.model.get("AuthenticationServerProtocol"));
 	    	this.$("#authenticationServerHostList").val(this.model.get("AuthenticationServerHost"));
@@ -28,6 +25,9 @@ $(function($) {
 	    	this.$("#resourceServerProtocolList").val(this.model.get("ResourceServerProtocol"));
 	    	this.$("#setupProtocolList").val(this.model.get("SetupProtocol"));
 	    	this.$("#setupHostList").val(this.model.get("SetupHost"));
+	    	
+	    	// force jquery to restyle
+	    	$(this.el).trigger("pagecreate");
 	    	
 	        return this;
 	    },
@@ -49,10 +49,11 @@ $(function($) {
 				 shadow: true});
 		},
 		
-		confirm: function(resetto) {
-
-			console.log("Resetting");
-		
+		confirm: function(ev) {
+			var resetto = $(ev.currentTarget).data('resetto');
+			
+			console.log("Resetting to " + resetto);
+			
 		   // Reset model
 		   this.model.reset(resetto);
 		   

@@ -44,12 +44,13 @@
 		/*
 		 * Makes AJAX POST to AS server
 		 */
-		register: function (passcode) {
+		register: function (passcode, name) {
 			
 			console.log("Begin register");
 			
-			// Update our status
-			this.set({"Status": "Inprogress"});
+			// Update our status and name
+			this.set({"Status": "Inprogress", 
+				"Name": name});
 			
 			// Generate POST data
 			var jsData1 = {"passcode": passcode,
@@ -122,7 +123,8 @@
 				}
 				
 				// Save the token in settings
-				settings.set({"RegistrarToken": data.result.token});	
+				settings.set({"RegistrarToken": data.result.token, 
+					"Name": this.get("Name")});	
 				settings.save();
 				
 				// Update our status

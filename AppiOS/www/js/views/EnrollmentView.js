@@ -60,7 +60,7 @@ $(function($) {
 			// If we have four trigger event
 			var passcode = this.model.get("Passcode");
 			if (passcode.length >= 4) {
-				this.model.register(passcode);		
+				this.model.register(passcode, this.$("#name").val());		
 			}
 	    },
 	    

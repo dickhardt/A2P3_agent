@@ -38,7 +38,7 @@ $(function($) {
 	     * Event handler for Enroll Direct
 	     */
 	    enrollDirect: function () {
-	    	window.location.href = settings.getSetupUrl() + "?agent=true";
+	    	window.location.href = settings.getSetupURL() + "?agent=true";
 	    },
 	   
 	    /*

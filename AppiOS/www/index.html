@@ -57,7 +57,17 @@
 	      		<input type="text" id="id" value="<%= DeviceId %>" />
 	      		Notification Device token:
 	      		<input type="text" id="notificationDeviceToken" value="<%= NotificationDeviceToken %>" />
-	      		Authentication Server URL:
+	      		Authentication Server Protocol:
+	      		<select id="authenticationServerProtocolList" data-mini="true">
+	      			<option value="http">http</option>
+	      			<option value="https">https</option>
+	      		</select>
+	      		Authentication Server Host:
+	      		<select id="authenticationServerHostList" data-mini="true" class="dropdown">
+	      			<option value="as.a2p3.net">as.a2p3.net</option>
+	      			<option value="as.dev.a2p3.net">as.dev.a2p3.net</option>
+	      			<option value="as.local.a2p3.net">as.dev.a2p3.net</option>
+	      		</select>
 	      		<input type="text" id="authenticationServerURL" value="<%= AuthenticationServerURL %>" />
 	      		Registrar URL:
 	      		<input type="text" id="registrarURL" value="<%= RegistrarURL %>" />

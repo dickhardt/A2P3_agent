@@ -49,3 +49,7 @@
 .footerButton .ui-btn-inner {
 	font-size: 16px;
 }
+
+.dropdown {
+	text-align: left;
+}

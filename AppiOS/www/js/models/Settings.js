@@ -141,9 +141,9 @@
 		 * Simple function to assemble the URL
 		 */
 		getRegistrarURL: function () {
-			var url = this.get("RegisterServerProtocol") + "://" + 
-				this.get("RegisterServerHost");
-			var port = this.get("RegisterServerPort");
+			var url = this.get("RegistrarProtocol") + "://" + 
+				this.get("RegistrarHost");
+			var port = this.get("RegistrarPort");
 			if (port &&
 				port.length > 0) {
 				url += ":" + port;	

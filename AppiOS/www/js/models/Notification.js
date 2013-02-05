@@ -49,6 +49,7 @@
 		 * use only the most recent
 		 */
 		processPendingNotifications: function () {
+			console.log("processing pending notifications");
 			// First get them
 			var pushNotification = window.plugins.pushNotification;
 			var notifcations = pushNotification.getPendingNotifications();

@@ -54,6 +54,8 @@
 			var pushNotification = window.plugins.pushNotification;
 			var notifcations = pushNotification.getPendingNotifications();
 			
+			console.log("notifications = " + JSON.stringify(notifications));
+			
 			// Grab last one and process
 			var notification = notifications[notifications.length - 1];
 			

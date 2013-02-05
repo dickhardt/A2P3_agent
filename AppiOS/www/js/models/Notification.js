@@ -52,6 +52,9 @@
 			console.log("processing pending notifications");
 			// First get them
 			var pushNotification = window.plugins.pushNotification;
+			
+			if ("pushNotification = " + pushNotification);
+			
 			var notifcations = pushNotification.getPendingNotifications();
 			
 			console.log("notifications = " + JSON.stringify(notifications));

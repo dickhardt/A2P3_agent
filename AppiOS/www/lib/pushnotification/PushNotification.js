@@ -17,7 +17,7 @@
 	};
 
 	// Call this to retreive pending notification received while the application is in background or at launch
-	PushNotification.prototype.getPendingNotifications = function(callback) {
+	PushNotification.prototype.getPendingNotifications = function(callback, errorCallback) {
 		cordova.exec(callback, callback, "PushNotification", "getPendingNotifications", []);
 	};
 

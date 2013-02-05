@@ -60,6 +60,10 @@
 			
 		},
 		
+		getPendingNotificationError: function (err) {
+			console.log("getPendingNotificationError = ", err);
+		},
+		
 		getPendingNotificationsCallback: function (notifications) {
 			console.log("notifications = " + JSON.stringify(notifications));
 			

@@ -53,9 +53,9 @@
 			// First get them
 			var pushNotification = window.plugins.pushNotification;
 			
-			if ("pushNotification = " + JSON.stringif(pushNotification));
+			if ("pushNotification = " + JSON.stringify(pushNotification));
 			
-			pushNotification.getPendingNotifications(getPendingNotificationsCallback);
+            pushNotification.getPendingNotifications(this.getPendingNotificationsCallback);
 			
 			
 		},
@@ -63,11 +63,15 @@
 		getPendingNotificationsCallback: function (notifications) {
 			console.log("notifications = " + JSON.stringify(notifications));
 			
-			// Grab last one and process
-			var notification = notifications[notifications.length - 1];
+            if (notifications &&
+                notification.length > 0) {
+                                                      
+                // Grab last one and process
+                var notification = notifications[notifications.length - 1];
 			
-			// Call event
-			this.onPendingNotification(notification);
+			    // Call event
+			    this.onPendingNotification(notification);
+            }
 		},
 		
 		/*

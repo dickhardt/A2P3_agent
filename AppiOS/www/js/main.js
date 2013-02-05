@@ -53,7 +53,7 @@ function onResume() {
 	console.log("resume");
 	
 	// Process new notifications
-	if (!settings.get("NotificationDeviceToken")) {
+	if (settings.get("NotificationDeviceToken")) {
     	notification.processPendingNotifications();
     }
 }

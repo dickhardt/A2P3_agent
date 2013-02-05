@@ -55,7 +55,7 @@
 			
 			if ("pushNotification = " + JSON.stringify(pushNotification));
 			
-            pushNotification.getPendingNotifications(this.getPendingNotificationsCallback);
+            pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
 			
 			
 		},

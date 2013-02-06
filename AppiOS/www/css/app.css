@@ -53,3 +53,8 @@
 .dropdown {
 	text-align: left;
 }
+
+.authzList {
+	overflow: auto !important;
+	white-space: normal !important;
+}

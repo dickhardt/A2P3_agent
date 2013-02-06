@@ -216,8 +216,8 @@
      <!-- AuthZ Details Page Template -->
     <script type="text/template" id="authzDetail" >
             <div data-role="header">
-            	<a id="back" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l">Authorizations</a>
-                <h1>App Detail</h1>
+            	<a id="back" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l"><span style="font-size: 80%;">Authorizations</span></a>
+                <h1>Detail</h1>
                 <a id="delete" data-role="button" data-mini="true" data-inline="true" data-icon="delete">Delete</a>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
@@ -230,7 +230,7 @@
 						<ul data-role="listview" class="ui-listview">
 							<% _.each(this.app.resources, function(resource) { %>
 								<li class="ui-li ui-li-static ui-btn-up-c ui-first-child">
-									<p><%= ResourceDescriptions[resource] %></p>
+									<p class="authzList"><%= ResourceDescriptions[resource] %></p>
 								</li>
 							<% }); %>		
 						</ul>

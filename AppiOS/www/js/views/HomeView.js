@@ -32,6 +32,14 @@ $(function($) {
 			"tap a[id=logonScan]" : "scan",
 			"tap a[id=enrollScan]" : "scan",
 			"tap a[id=enrollDirect]" : "enrollDirect",
+			"tap a[id=demo]": "demoNav",
+	    },
+	    
+	    /*
+	     * When users click on the demo button
+	     */
+	    demoNav: function () {
+	    	window.location.href = settings.get("DemoAppsURL");
 	    },
 	    
 	    /*

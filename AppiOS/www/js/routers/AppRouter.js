@@ -12,7 +12,6 @@
             "home" : "home",
             "info" : "info",
 	        "settings" : "settings",
-	        "demo" : "demo",
 	        "authz" : "authz",
 	        "authzdetail/:id" : "authzDetail",
 	        "agentrequest/:id" : "agentrequest",
@@ -54,13 +53,6 @@
 		settings:function () {
 			
 	        this.changePage(new window.Agent.SettingsView({model: settings}));
-	    },
-
-	     /*
-	     * Demo page
-	     */
-	    demo:function () {
-	        this.changePage(new window.Agent.DemoView());
 	    },
 
 		 /*

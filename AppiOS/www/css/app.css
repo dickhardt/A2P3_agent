@@ -1,6 +1,6 @@
 /* Override jquery mobile defautls for special cases on a per element basis */
 .passcode {
-	width: 120px !important;
+	width: 110px !important;
 	font-weight: bolder;
 	padding: 10px !important;
 	margin: 0 auto !important;
@@ -57,4 +57,8 @@
 .authzList {
 	overflow: auto !important;
 	white-space: normal !important;
+}
+
+.ui-content {
+	padding-top: 15px;
 }

@@ -8,22 +8,24 @@ $(function($) {
 			// watch the authZ model for changes
 			this.model.on("change:Apps", this.render, this);
 			this.model.on("change:ErrorMessage", this.render, this);
+			this.model.on("change:ResourceServersTotal", this.render, this);
+			this.model.on("change:ResourceServersLoaded", this.render, this);
 		},
 		
 	    render:function (eventName) {
 	        $(this.el).html(this.template(this.model.toJSON()));
 	        
 	        // Init
-	        var loading = true;
 	       	this.$("#messageBar").hide();
 	        this.$("#messageBar").text("");
+	        this.$("#loadingBar").hide();
+	        this.$("#loadingBar").text("");
 	        this.$("#noAuthZContent").hide();
 	        
 	        // If the model has any errors, show them
 	   		if (this.model.get("ErrorMessage")) {
 	   			this.$("#messageBar").text(this.model.get("ErrorMessage"));
 	        	this.$("#messageBar").show();
-	        	loading = false;
 	   		}
 	   		
 	   		// If there are no authZ, show panel
@@ -31,27 +33,25 @@ $(function($) {
 	   			this.model.get("ResourceServerIds").length < 1) {
 	   				
 	   			this.$("#noAuthZContent").show();
-	   			loading = false;
 	   		}
+	   		else {
+	   			// We need to show how many to load cause this can take awhile
+		   		var resourceServerTotal = this.model.get("ResourceServersTotal");
+		   		
+		   		if (resourceServerTotal == undefined) {
+	   				this.$("#loadingBar").text("Calling registrar...");
+		   			this.$("#loadingBar").show();
+   				}
+		   		else {
+			   		var resourceServersLoaded = this.model.get("ResourceServersLoaded");
+			   		if (resourceServersLoaded < resourceServerTotal) {
+			   			this.$("#loadingBar").text("Loading " + resourceServersLoaded + " of " + resourceServerTotal + " resource servers.");
+			   			this.$("#loadingBar").show();
+	   				}
+	   			}
 	   		
-	   		// if I have at least one app, then dismiss spinnner
-	   		if (!_.isEmpty(this.model.get("Apps"))) {
-	   			loading = false;
 	   		}
-	   		
-	   		// Do loading message
-	   		if (loading == true) {
-		   		$.mobile.loading( 'show', {
-					text: 'Loading App Authorizations',
-					textVisible: true,
-					theme: 'a',
-					html: ""
-				});
-			}
-   			else {
-				$.mobile.loading('hide');
-			}
-	        
+	   	
 	        // force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
 	        

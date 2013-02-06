@@ -17,6 +17,8 @@
 			RegistrarURL: '',
 			RegistrarToken: '',
 			ResourceServerIds: [],
+			ResourceServersLoaded: 0,
+			ResourceServersTotal: null,
 			// “apps”: an array of the following object 
 			// “app”: App ID “name”: Display name for App 
 			// “lastAccess”: time of last access of App 
@@ -121,6 +123,9 @@
 				return;
 			}
 			
+			// Set our total
+			this.set("ResourceServersTotal", _.size(data.result));
+			
 			// Now we send many requests to resource servers
 			var i;
 			for (i in data.result) {
@@ -205,6 +210,11 @@
 					this.addApp(i, data.result[i], rsUrl);
 				}
 			}	
+			
+			// Increment the loaded
+			var resourceServersLoaded = this.get("ResourceServersLoaded");
+			resourceServersLoaded++;
+			this.set("ResourceServersLoaded", resourceServersLoaded);
 		},
 		
 		/*

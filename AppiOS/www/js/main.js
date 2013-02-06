@@ -47,6 +47,7 @@ function onDeviceReady() {
 	notification.processPendingNotifications();
 	
 	// Nothing to do... lets to default home page
+	console.log("loading default home page");
     Backbone.history.start();
 }
 

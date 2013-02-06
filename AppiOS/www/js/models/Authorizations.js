@@ -72,8 +72,7 @@
 		 * 	“token”: registrar token 
 		 * 
 		 */
-		getResourceServerTokens: function () {
-			
+		getResourceServerTokens: function () {		
 			// concat the resource server id into authorizations
 			var authorizations = this.get("ResourceServerIds");
 			var token = this.get("RegistrarToken");
@@ -241,6 +240,7 @@
 			}
 			
 			this.set("Apps", apps);
+			this.trigger("change:Apps");
 			
 			
 			// Get resource descriptions for each resources

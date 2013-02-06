@@ -286,8 +286,10 @@
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="mainContainer" data-role="content" class="fullarea">
-            	Device Name:
-            	<input type="text" id="name" value="<%= Name %>"> 
+            	<fieldset data-role="fieldcontain" data-type="horizontal">
+            		<label for="name">Device Name:</label>
+            		<input type="text" id="name" value="<%= Name %>"> 
+            	</fieldset>
             	<div id="container-passcode"></div>
            	</div>
     </script>

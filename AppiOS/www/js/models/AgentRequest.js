@@ -659,9 +659,6 @@
 			
 			console.log("Client App response URL: " + url1);
 			
-			// Move nav 
-			app.navigate("", true);
-			
 			window.location.href = url1;
 		},
 		

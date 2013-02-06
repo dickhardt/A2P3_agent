@@ -33,6 +33,7 @@ function onDeviceReady() {
 	
 	// attach more listeners to cordova
 	document.addEventListener("resume", onResume, false);
+	document.addEventListener("pause", onPause, false);
 	document.addEventListener("online", onOnline, false);
 	document.addEventListener("offline", onOffline, false);
 	
@@ -61,6 +62,16 @@ function onResume() {
 	if (settings.get("NotificationDeviceToken")) {
     	notification.processPendingNotifications();
     }
+}
+
+/*
+ * Event for when we become we are put into background
+ */
+function onPause() {
+	console.log("pause");
+	
+	// reset to home page
+	Backbone.history.start();
 }
 
 /*

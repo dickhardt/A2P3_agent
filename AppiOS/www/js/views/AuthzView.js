@@ -39,13 +39,13 @@ $(function($) {
 		   		var resourceServerTotal = this.model.get("ResourceServersTotal");
 		   		
 		   		if (resourceServerTotal == undefined) {
-	   				this.$("#loadingBar").text("Calling registrar...");
+	   				this.$("#loadingBar").text("Calling Registrar...");
 		   			this.$("#loadingBar").show();
    				}
 		   		else {
 			   		var resourceServersLoaded = this.model.get("ResourceServersLoaded");
 			   		if (resourceServersLoaded < resourceServerTotal) {
-			   			this.$("#loadingBar").text("Loading " + resourceServersLoaded + " of " + resourceServerTotal + " resource servers.");
+			   			this.$("#loadingBar").text("Loaded " + resourceServersLoaded + " of " + resourceServerTotal + " resource servers");
 			   			this.$("#loadingBar").show();
 	   				}
 	   			}

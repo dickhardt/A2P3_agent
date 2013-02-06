@@ -477,6 +477,8 @@
                 request.resources.length > 0) {
                 	
                 for (i = 0; i < request.resources.length; i++) {
+                	
+                	//TODO: do this but use the full URL to get the scope
 					// Parse URI
 					var parsedUrl = parseUri(request.resources[i]);
 					

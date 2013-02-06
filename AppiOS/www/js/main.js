@@ -13,13 +13,15 @@ $(document).ready(function() {
 	
 	// Start up backbone
     app = new window.Agent.AppRouter();
-    Backbone.history.start();
 	
     // Figure out if we are on phonegap/cordova
 	var isCordova = (document.location.protocol == "file:");
 
 	if (isCordova) {
 		document.addEventListener("deviceready", onDeviceReady, false);
+	}
+	else {
+		onDeviceReady();
 	}
 });
 
@@ -38,12 +40,14 @@ function onDeviceReady() {
 	if (!settings.get("NotificationDeviceToken")) {
 		notification.register();
 	}
-	
 	// bind push events - when our app is active and gets new notification
 	document.addEventListener("push-notification", notification.onPendingNotification, false);
 	
-    // Get new notifications
-    notification.processPendingNotifications();
+	 // Get new notifications
+	notification.processPendingNotifications();
+	
+	// Nothing to do... lets to default home page
+    Backbone.history.start();
 }
 
 /*

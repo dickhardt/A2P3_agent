@@ -545,6 +545,8 @@
 		 * “errorMessage”: a message about the error
 		 */
 		respondToClientApp: function () {
+			this.set({"StatusMessage": "Responding to " + this.AppDisplayName()});
+			
 			// Check for return 
 			var returnUrl = this.get("ReturnURL");
 			var callbackUrl = this.get("CallbackURL");

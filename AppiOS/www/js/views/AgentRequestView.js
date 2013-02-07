@@ -58,7 +58,7 @@ $(function($) {
 	        
 	        var statusMessage = this.model.get("StatusMessage");
 	        if (statusMessage) {
-	        	this.$("#loadingBar").hide();
+	        	this.$("#loadingBar").show();
 	        	this.$("#loadingBar").text(statusMessage);
 	        }
 	        

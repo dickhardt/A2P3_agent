@@ -98,6 +98,9 @@
 			// A flag to saw we've parsed the request
 			ParsedFlag: false,
 			
+			// A message to show the user of our progres
+			StatusMessage: '',
+			
 			// Backbone state management
 			IsSync: true,
 		},
@@ -237,7 +240,9 @@
 		 */
 		startGetIXToken: function (authorized) {
 			// Update status and reset error message
-			this.set({"Authorized": authorized});
+			this.set({"Authorized": authorized,
+				"StatusMessage": "Calling authentication server..."});
+			
 			
 			var notificationUrl = this.get("NotificationURLFlag");
 			
@@ -279,17 +284,18 @@
 		 */
 		getIXTokenError: function (jqXHR, textStatus, errorThrown, url) {
 			this.set({"ErrorMessage": "The authentication server is unavailable at: " + url,
-				"Abort": true});	
+				"Abort": true,
+				"StatusMessage": ""});	
 		},
 		
 		/*
 		 * Callback for getIXToken
 		 */
 		getIXTokenCallback: function (data, textStatus, jqXHR) {
+			this.set({"StatusMessage": ""});
 			
 			// success only means AS responsed
 			if (textStatus == "success") {
-				
 				// Look for logical errors
 				if (data.error) {
 					if (data.error.code == "INVALID_PASSCODE") {

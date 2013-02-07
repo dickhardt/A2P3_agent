@@ -17,6 +17,7 @@ $(function($) {
 			this.model.bind("change:Passcode", this.login, this);
 			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
 			this.model.bind("change:AppName", this.render, this);
+			this.model.bind("change:StatusMessage", this.render, this);
 			
 			this.NumberOfAuthZs = '';
 		},
@@ -34,21 +35,7 @@ $(function($) {
 	    		console.log("not parsed yet");
 	    		return;
 	    	}
-	    	
-	    	// if we're looking at the passcode 
-	    	// and we don't have an error
-	    	// and its not the first render
-	    	// then don't render (stops flickery focus on iPhone)
-	    	/*
-	    	if (!force) {
-		    	if (this.model.get("PasscodeFlag") == true &&
-		   			this.model.get("Passcode").length < 4 &&
-		   			this.model.get("ErrorMessage").length < 1 &&
-		   			this.firstRendered) {
-		   				//console.log("eating render");
-		   				return; // eat the event
-	   			}
-   			}*/
+	   
 	    	this.$el.html(this.template(this.model.toJSON()));
 	    	//console.log("model contents on render = " + JSON.stringify(this.model));
    			
@@ -56,7 +43,6 @@ $(function($) {
 	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
 	        this.passcodeView.bind("cancel", this.cancel);
 	        this.$("#container-passcode").append(this.passcodeView.render().el);
-	        
 	        
 	        // init 
 	        this.$("#passcodeBlock").hide();
@@ -67,6 +53,14 @@ $(function($) {
 	        this.$("#noAuthCopy").hide();
 	        this.$("#authCopy").hide();
 	        this.$("#messageBar").text("");
+	        this.$("#loadingBar").hide();
+	        this.$("#loadingBar").text("");
+	        
+	        var statusMessage = this.model.get("StatusMessage");
+	        if (statusMessage) {
+	        	this.$("#loadingBar").hide();
+	        	this.$("#loadingBar").text(statusMessage);
+	        }
 	        
 	        if (this.model.get("Abort") == true) {
 	        	console.log("Abort view");
@@ -105,9 +99,6 @@ $(function($) {
 	   		
 	     	// force jquery to restyle
 	    	$(this.el).trigger("pagecreate");
-
-			// mark first rendered
-			this.firstRendered = true;
 
 	        return this;
 	    },

@@ -757,7 +757,7 @@
 			// success only means RS responsed
 			if (textStatus == "success") {
 				// Move nav 
-				app.navigate("", true);
+				//app.navigate("", true);
 			}
 			else {
 				this.set({"ErrorMessage": "Client App callback failed with:  " + textStatus,

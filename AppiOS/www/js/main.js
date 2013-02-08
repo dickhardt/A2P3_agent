@@ -47,7 +47,7 @@ function onDeviceReady() {
 	 // Get new notifications
 	notification.processPendingNotifications();
 	
-	// Nothing to do... lets to default home page
+	// lets to default home page
 	console.log("loading default home page");
     Backbone.history.start();
 }
@@ -70,8 +70,8 @@ function onResume() {
 function onPause() {
 	console.log("pause");
 	
-	// reset to home page
-	Backbone.history.start();
+	// reset to splash
+	navigator.splashscreen.show();
 }
 
 /*

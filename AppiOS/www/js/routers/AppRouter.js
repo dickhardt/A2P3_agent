@@ -107,6 +107,9 @@
 	            this.firstPage = false;
 	        }
 	        $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
+	        
+	        // unhide splash
+	        navigator.splashscreen.hide();
 	    },
 	
 	

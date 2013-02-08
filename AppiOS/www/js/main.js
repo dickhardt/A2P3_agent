@@ -64,7 +64,7 @@ function onResume() {
     }
     
     // reset to splash
-	navigator.splashscreen.show();
+	navigator.splashscreen.hide();
 }
 
 /*

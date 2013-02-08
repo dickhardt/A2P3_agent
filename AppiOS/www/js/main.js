@@ -73,8 +73,9 @@ function onResume() {
 function onPause() {
 	console.log("pause");
 	
-	// reset to splash
+	// show splash and nav home
 	navigator.splashscreen.show();
+	app.navigate("", true);
 }
 
 /*

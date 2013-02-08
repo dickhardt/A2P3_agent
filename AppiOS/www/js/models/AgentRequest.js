@@ -603,7 +603,7 @@
 			console.log("Client App response URL: " + url1);
 			
 			// Move nav 
-			app.navigate("", true);
+			//app.navigate("", true);
 			
 			// call appropriate channel of response
 			if (returnUrl &&

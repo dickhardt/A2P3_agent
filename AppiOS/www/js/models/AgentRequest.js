@@ -602,9 +602,6 @@
 			
 			console.log("Client App response URL: " + url1);
 			
-			// Move nav 
-			//app.navigate("", true);
-			
 			// call appropriate channel of response
 			if (returnUrl &&
 				returnUrl.length > 0) {
@@ -757,7 +754,7 @@
 			// success only means RS responsed
 			if (textStatus == "success") {
 				// Move nav 
-				//app.navigate("", true);
+				app.navigate("", true);
 			}
 			else {
 				this.set({"ErrorMessage": "Client App callback failed with:  " + textStatus,

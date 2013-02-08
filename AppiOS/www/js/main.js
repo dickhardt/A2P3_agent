@@ -62,6 +62,9 @@ function onResume() {
 	if (settings.get("NotificationDeviceToken")) {
     	notification.processPendingNotifications();
     }
+    
+    // reset to splash
+	navigator.splashscreen.show();
 }
 
 /*

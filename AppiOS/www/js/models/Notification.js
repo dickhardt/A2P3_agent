@@ -54,10 +54,12 @@
 			var pushNotification = window.plugins.pushNotification;
 			if (pushNotification) {
             	//pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
-            	pushNotification.getPendingNotifications(function(notifications, model) {
-            		console.log('gpn: ' +  JSON.stringify(notifications));
-            		model.getPendingNotificationsCallback(notifications);
-            	});
+            	pushNotification.getPendingNotifications(function(model) {
+            		return function (notifications) {
+            			console.log('gpn: ' +  JSON.stringify(notifications));
+            			model.getPendingNotificationsCallback(notifications);
+            		}
+            	}(this));
            	}
 		},
 		

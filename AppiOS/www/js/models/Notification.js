@@ -42,69 +42,64 @@
 			}
 		},
 		
-		/*
-		 * Method for getting notification while we launch
-		 * 
-		 * We could have a pile up of notifications
-		 * use only the most recent
-		 */
-		processPendingNotifications: function () {
-			console.log("processing pending notifications");
-			// First get them
-			var pushNotification = window.plugins.pushNotification;
-			if (pushNotification) {
-            	//pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
-            	pushNotification.getPendingNotifications(function(model) {
-            		return function (notifications) {
-            			console.log('gpn: ' +  JSON.stringify(notifications));
-            			model.getPendingNotificationsCallback(notifications, model);
-            		}
-            	}(this));
-           	}
-		},
-		
-		getPendingNotificationError: function (err) {
-			console.log("getPendingNotificationError = ", err);
-		},
-		
-		getPendingNotificationsCallback: function (notifications, model) {
-			console.log("notifications = " + JSON.stringify(notifications));
-			
-            if (notifications &&
-                notification.length > 0) {
-                                                      
-                // Grab last one and process
-                var notification = notifications[notifications.length - 1];
-			
-			    // Call event
-			    model.onPendingNotification(notification);
-            }
-		},
-		
-		/*
-		 * Logic for processing the AN incoming notification
-		 * 
-		 * Sample payload 
-		 * {
-		 *   "aps" : {
-		 *       "alert" : “<insert app name> is requesting logon”,
-		 *       "sound" : "chime"
-		 *   },
-		 *   "url" : "<insert app small url>"
-		 *	}
-		 */
-		onPendingNotification: function (notification) {
-			
-			console.log("notification = " + JSON.stringify(notification));
-			
-			// use the home view processing this URL
-			if (notification.url) {
-				app.home(notification.url);
-			}
-			else {
-				UnhandledError("Expected url in notification not found for notfication: " + notification);
-			}
-		},
 	});
+	
+	/*
+	 * Method for getting notification while we launch
+	 * 
+	 * We could have a pile up of notifications
+	 * use only the most recent
+	 */
+	window.Agent.Notification.processPendingNotifications = function () {
+		console.log("processing pending notifications");
+		// First get them
+		var pushNotification = window.plugins.pushNotification;
+		if (pushNotification) {
+        	//pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
+        	pushNotification.getPendingNotifications(function (notifications) {
+        			console.log('gpn: ' +  JSON.stringify(notifications));
+        			window.Agent.Notification.getPendingNotificationsCallback(notifications);
+        		});
+       	}
+	}
+	
+	window.Agent.Notification.getPendingNotificationsCallback = function (notifications) {
+		console.log("notifications = " + JSON.stringify(notifications));
+		
+        if (notifications &&
+            notification.length > 0) {
+                                                  
+            // Grab last one and process
+            var notification = notifications[notifications.length - 1];
+		
+		    // Call event
+		    window.Agent.Notification.onPendingNotification(notification);
+        }
+	}
+		
+	/*
+	 * Logic for processing the AN incoming notification
+	 * 
+	 * Sample payload 
+	 * {
+	 *   "aps" : {
+	 *       "alert" : “<insert app name> is requesting logon”,
+	 *       "sound" : "chime"
+	 *   },
+	 *   "url" : "<insert app small url>"
+	 *	}
+	 */
+	window.Agent.Notification.onPendingNotification = function (notification) {
+		
+		console.log("notification = " + JSON.stringify(notification));
+		
+		// use the home view processing this URL
+		if (notification.url) {
+			app.home(notification.url);
+		}
+		else {
+			UnhandledError("Expected url in notification not found for notfication: " + notification);
+		}
+	}
 
 })();  

@@ -42,10 +42,10 @@ function onDeviceReady() {
 		notification.register();
 	}
 	// bind push events - when our app is active and gets new notification
-	document.addEventListener("push-notification", notification.onPendingNotification, false);
+	document.addEventListener("push-notification", window.Agent.Notification.onPendingNotification, false);
 	
 	 // Get new notifications
-	notification.processPendingNotifications();
+	window.Agent.Notification.processPendingNotifications();
 	
 	// lets to default home page
 	console.log("loading default home page");
@@ -60,7 +60,7 @@ function onResume() {
 	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
-    	notification.processPendingNotifications();
+    	window.Agent.Notification.processPendingNotifications();
     }
     
     // reset to splash

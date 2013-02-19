@@ -53,7 +53,10 @@
 			// First get them
 			var pushNotification = window.plugins.pushNotification;
 			if (pushNotification) {
-            	pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
+            	//pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
+            	pushNotification.getPendingNotifications(function(notifications) {
+            		console.log('gpn: %o', notifications);
+            	}
            	}
 		},
 		

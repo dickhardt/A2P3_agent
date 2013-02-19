@@ -67,7 +67,7 @@
 		console.log("notifications = " + JSON.stringify(notifications));
 		
         if (notifications &&
-            notification.length > 0) {
+            notifications.length > 0) {
                                                   
             // Grab last one and process
             var notification = notifications[notifications.length - 1];

@@ -500,8 +500,8 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CODE_SIGN_ENTITLEMENTS = Agent.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gregory Turner (NBVE8EG2HM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gregory Turner (NBVE8EG2HM)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gregory Turner";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gregory Turner";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -512,8 +512,8 @@
 				INFOPLIST_FILE = "AppiOS/Agent-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Agent;
-				PROVISIONING_PROFILE = "4B038D5C-0C0F-4846-91E6-6830A235A1AA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4B038D5C-0C0F-4846-91E6-6830A235A1AA";
+				PROVISIONING_PROFILE = "F5E7023E-C1F8-4A65-8360-C37E23575CC6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F5E7023E-C1F8-4A65-8360-C37E23575CC6";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -525,8 +525,8 @@
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CLANG_WARN_OBJCPP_ARC_ABI = YES;
 				CODE_SIGN_ENTITLEMENTS = Agent.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Gregory Turner (NBVE8EG2HM)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Gregory Turner (NBVE8EG2HM)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gregory Turner";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gregory Turner";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppiOS/Agent-Prefix.pch";
@@ -535,8 +535,8 @@
 				INFOPLIST_FILE = "AppiOS/Agent-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Agent;
-				PROVISIONING_PROFILE = "4B038D5C-0C0F-4846-91E6-6830A235A1AA";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4B038D5C-0C0F-4846-91E6-6830A235A1AA";
+				PROVISIONING_PROFILE = "F5E7023E-C1F8-4A65-8360-C37E23575CC6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F5E7023E-C1F8-4A65-8360-C37E23575CC6";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

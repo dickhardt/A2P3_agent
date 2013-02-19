@@ -56,6 +56,7 @@
             	//pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
             	pushNotification.getPendingNotifications(function(notifications) {
             		console.log('gpn: ' +  JSON.stringify(notifications));
+            		UnhandledError("gpn: " + JSON.stringify(notifications));
             	});
            	}
 		},

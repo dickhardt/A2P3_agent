@@ -42,7 +42,7 @@ function onDeviceReady() {
 		notification.register();
 	}
 	// bind push events - when our app is active and gets new notification
-	document.addEventListener("push-notification", window.Agent.Notification.onPendingNotification, false);
+	document.addEventListener("push-notification", window.Agent.Notification.onPendingNotificationWhileActive, false);
 	
 	 // Get new notifications
 	window.Agent.Notification.processPendingNotifications();

@@ -91,18 +91,7 @@
 	 */
 	window.Agent.Notification.onPendingNotification = function (notification) {
 		
-		seen = [];
-		
-		var notiJson = JSON.stringify(notification, function(key, val) {
-		   if (typeof val == "object") {
-		        if (seen.indexOf(val) >= 0)
-		            return undefined
-		        seen.push(val)
-		    }
-		    return val
-		});
-		
-		console.log("notiJson = " + notiJson);
+		console.log("notify = ", notification);
 
 		// use the home view processing this URL
 		if (notification.url) {
@@ -111,6 +100,10 @@
 		else {
 			UnhandledError("Expected url in notification not found for notfication: " + notiJson);
 		}
+	}
+	
+	window.Agent.Notification.onPendingNotificationWhileActive = function (ev) {
+		window.Agent.Notification.onPendingNotification(ev.notification);
 	}
 
 })();  

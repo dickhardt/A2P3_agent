@@ -64,13 +64,14 @@
 	}
 	
 	window.Agent.Notification.getPendingNotificationsCallback = function (notifications) {
-		console.log("notifications = " + JSON.stringify(notifications));
+		console.log("notifications = " + notifications); 
+		var notiData = JSON.parse(notifications);
 		
-        if (notifications &&
-            notifications.length > 0) {
+        if (notiData.notifications &&
+            notiData.notifications.length > 0) {
                                                   
             // Grab last one and process
-            var notification = notifications[notifications.length - 1];
+            var notification = notiData.notifications[notiData.notifications.length - 1];
 		
 		    // Call event
 		    window.Agent.Notification.onPendingNotification(notification);

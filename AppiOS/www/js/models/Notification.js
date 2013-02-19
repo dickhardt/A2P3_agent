@@ -57,7 +57,7 @@
             	pushNotification.getPendingNotifications(function(model) {
             		return function (notifications) {
             			console.log('gpn: ' +  JSON.stringify(notifications));
-            			model.getPendingNotificationsCallback(notifications);
+            			model.getPendingNotificationsCallback(notifications, model);
             		}
             	}(this));
            	}
@@ -67,7 +67,7 @@
 			console.log("getPendingNotificationError = ", err);
 		},
 		
-		getPendingNotificationsCallback: function (notifications) {
+		getPendingNotificationsCallback: function (notifications, model) {
 			console.log("notifications = " + JSON.stringify(notifications));
 			
             if (notifications &&
@@ -77,7 +77,7 @@
                 var notification = notifications[notifications.length - 1];
 			
 			    // Call event
-			    this.onPendingNotification(notification);
+			    model.onPendingNotification(notification);
             }
 		},
 		

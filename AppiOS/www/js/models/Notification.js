@@ -91,7 +91,7 @@
 	 */
 	window.Agent.Notification.onPendingNotification = function (notification) {
 		
-		console.log("notification = ", notification);
+		//console.log("notification = ", notification);
 		
 		// use the home view processing this URL
 		if (notification.url) {

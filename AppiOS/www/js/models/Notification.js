@@ -63,15 +63,14 @@
        	}
 	}
 	
-	window.Agent.Notification.getPendingNotificationsCallback = function (notifications) {
-		console.log("notifications = " + notifications); 
-		var notiData = JSON.parse(notifications);
+	window.Agent.Notification.getPendingNotificationsCallback = function (data) {
+		console.log("notifications = " + JSON.stringify(data)); 
 		
-        if (notiData.notifications &&
-            notiData.notifications.length > 0) {
+        if (data.notifications &&
+            data.notifications.length > 0) {
                                                   
             // Grab last one and process
-            var notification = notiData.notifications[notiData.notifications.length - 1];
+            var notification = data.notifications[data.notifications.length - 1];
 		
 		    // Call event
 		    window.Agent.Notification.onPendingNotification(notification);

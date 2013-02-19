@@ -83,6 +83,11 @@ function onPause() {
  */
 function onOnline () {
 	console.log("online");
+	
+	// Process new notifications
+	if (settings.get("NotificationDeviceToken")) {
+    	window.Agent.Notification.processPendingNotifications();
+    }
 }
 
 /*

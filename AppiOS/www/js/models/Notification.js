@@ -57,7 +57,7 @@
 		if (pushNotification) {
         	//pushNotification.getPendingNotifications(this.getPendingNotificationsCallback, this.getPendingNotificationError);
         	pushNotification.getPendingNotifications(function (notifications) {
-        			console.log('gpn: ' +  JSON.stringify(notifications));
+        			//console.log('gpn: ' +  JSON.stringify(notifications));
         			window.Agent.Notification.getPendingNotificationsCallback(notifications);
         		});
        	}
@@ -91,14 +91,14 @@
 	 */
 	window.Agent.Notification.onPendingNotification = function (notification) {
 		
-		console.log("notification = " + JSON.stringify(notification));
+		console.log("notification = ", notification);
 		
 		// use the home view processing this URL
 		if (notification.url) {
 			app.home(notification.url);
 		}
 		else {
-			UnhandledError("Expected url in notification not found for notfication: " + notification);
+			UnhandledError("Expected url in notification not found for notfication: " + JSON.stringify(notification));
 		}
 	}
 

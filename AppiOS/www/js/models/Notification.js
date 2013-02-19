@@ -2,7 +2,7 @@
 * Copyright (C) Province of British Columbia, 2013
 */
 (function() {
-	'use strict';
+	//'use strict';
 
 	// ----------
 	// Notification Model

@@ -245,11 +245,14 @@
 
     <!-- AR Template -->
     <script type="text/template" id="agentrequest" >
-            <div data-role="header">
-            	
-            	<a id="back" data-role="button" data-inline="true" data-mini="true">Back</a>
+            <div id="header" data-role="header">
+        		<a id="back" data-role="button" data-inline="true" data-mini="true">Back</a>
                 <h1>Agent</h1>
                 <a id="report" data-role="button" data-inline="true" data-mini="true">Report</a>
+            </div>
+            <div id="abortHeader" data-role="header">
+        		<a id="home" href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
+                <h1>Agent</h1>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="loadingBar" class="ui-bar ui-bar-c"></div>
@@ -263,12 +266,33 @@
 	           			<%= AppId %> requests:
 	           		</p>
 	           		<br>
-	            	<ul data-role="listview" data-theme="c">
+	            	<ul data-role="listview">
 		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
-		        			<li><%= resourceDescriptions %></li> 
+		        			<li style="font-weight: normal;"><%= resourceDescriptions %></li> 
 						<% }); %>
 					</ul>
 					<br>
+			    </div>
+			    
+			    <div id="reportContainer">
+			    	<p>You are sure you want to report <span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> 
+	           			<%= AppId %> to the Registrar?
+	           		</p>
+	           		<p>
+	           			What happens when I report this app?
+	           			<ul>
+	           				<li>This logon will be abandoned.</li>
+	           				<li>The Registrar may conduct an investigation which may result in the app being banned.</li>
+	           			</ul>
+	           		</p>
+			    </div>
+			    <div id="reportConfirmedContainer">
+			    	<p><span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> 
+	           			<%= AppId %> has been reported to the Registrar.
+	           		</p>
+			    </div>
+			    <div id="abort">
+			    	
 			    </div>
             </div>
           	<div id="authZFooter" data-role="footer">
@@ -281,7 +305,26 @@
 		      		</div>
 		      	</div>
 		    </div>
-		    <a id="home" href="#" data-role="button" data-inline="true">Home</a>
+		    <div id="reportFooter" data-role="footer">
+           		<div class="ui-grid-a">
+		      		<div class="ui-block-a">
+	      				<a class="footerButton" id="cancelReport" data-role="button" data-inline="true" data-icon="">Cancel</a>
+	      			</div>
+		      		<div class="ui-block-b" style="text-align: right">
+		      			<a class="footerButton" id="confirmReport" data-role="button" data-inline="true" data-icon="">Report</a>
+		      		</div>
+		      	</div>
+		    </div>
+		  	<div id="reportConfirmedFooter" data-role="footer">
+           		<div class="ui-grid-a">
+		      		<div class="ui-block-a">
+	      			
+	      			</div>
+		      		<div class="ui-block-b" style="text-align: right">
+		      			<a class="footerButton" href="#" data-role="button" data-inline="true" data-icon="">Home</a>
+		      		</div>
+		      	</div>
+		    </div>
     </script>
 
     <!-- Enrollment Page Template -->

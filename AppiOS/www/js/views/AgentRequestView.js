@@ -21,6 +21,9 @@ $(function($) {
 			this.model.bind("change:ResourceServersLoaded", this.render, this);
 			this.model.bind("change:AppId", this.render, this);
 			this.model.bind("change:Authorized", this.render, this);
+			this.model.bind("change:Report", this.render, this);
+			this.model.bind("change:ReportConfirmed", this.render, this);
+			
 		},
 		
 		events: {
@@ -28,6 +31,8 @@ $(function($) {
 	      "tap a[id=dontAllowButton]": "dontAllow",
 	      "tap a[id=report]": "report",
 	      "tap a[id=back]": "back",
+	      "tap a[id=cancelReport]": "cancelReport",
+	      "tap a[id=confirmReport]": "confirmReport",
 	    },
 
 	    
@@ -59,6 +64,16 @@ $(function($) {
 	        this.$("#loadingBar").text("");
 	        this.$("#home").hide();
 	        this.$("#back").hide();
+	        this.$("#reportContainer").hide();
+	        this.$("#reportFooter").hide();
+	   		this.$("#report").show();
+	   		this.$("#reportConfirmedContainer").hide();
+	   		this.$("#reportConfirmedFooter").hide();
+	   		
+	   		
+	   		// lttiel workaround for a jquery bug
+	   		this.$("#header").show();
+	   		this.$("#abortHeader").hide();
 	        
 	        var statusMessage = this.model.get("StatusMessage");
 	        if (statusMessage) {
@@ -67,7 +82,19 @@ $(function($) {
 	        }
 	        
 	        if (this.model.get("Abort") == true) {
-	        	 this.$("#home").show();
+	        	this.$("#home").show();
+	        	this.$("#header").hide();
+	   			this.$("#abortHeader").show();
+	        }
+	        else if (this.model.get("ReportConfirmed") == true) {
+	        	this.$("#reportConfirmedContainer").show();
+	        	this.$("#report").hide();
+	        	this.$("#reportConfirmedFooter").show();
+	        }
+	        else if (this.model.get("Report") == true) {
+	        	this.$("#reportContainer").show();
+	        	this.$("#report").hide();
+	        	this.$("#reportFooter").show();
 	        }
 	   		else if (this.model.get("AuthorizeFlag") == true &&
 	   			this.model.get("Authorized") == false &&
@@ -96,6 +123,7 @@ $(function($) {
 	   		if (this.model.get("ErrorMessage")) {
 	   			this.$("#messageBar").text(this.model.get("ErrorMessage"));
 	        	this.$("#messageBar").show();
+	        	this.$("#loadingBar").hide();
 	   		}
 	   		
 	     	// force jquery to restyle
@@ -131,7 +159,15 @@ $(function($) {
 	    },
 	    
 	    report: function () {
-	    	//TODO
+	    	this.model.set("Report", true);
+	    },
+	    
+	    cancelReport: function () {
+	    	this.model.set("Report", false);
+	    },
+	    
+	    confirmReport: function () {
+	    	this.model.report();
 	    },
 	});
 });

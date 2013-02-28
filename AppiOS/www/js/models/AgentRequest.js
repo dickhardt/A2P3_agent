@@ -107,6 +107,12 @@
 			// How many resources we've loaded thus far
 			ResourceServersTotal: null,
 			
+			// A flag to indicate the user has begon the report process
+			Report: false,
+			
+			// A flag to indicate the user has begon the report process
+			ReportConfirmed: false,
+			
 			// Backbone state management
 			IsSync: true,
 		},
@@ -776,6 +782,66 @@
 				this.set({"ErrorMessage": "Client App callback failed with:  " + textStatus,
 					"Abort": true});	
 			}
+		},
+		
+		/*
+		 * User wishes to report this app to the Registrar
+		 */
+		report: function () {
+			// Tell the user what is going on
+			this.set({"StatusMessage": "Reporting " + this.AppDisplayName() + " to registrar... "});
+			
+			// make url
+			var url = settings.getRegistrarURL() + "/report";
+			
+			// make data
+			var data = {"request": this.get("Request"),
+				"token": settings.get("RegistrarToken")};
+			
+			// Do some back channel call
+			$.ajax({url: url, 
+				type: "POST", 
+				dataType: "json",
+				contentType: "application/json;", 
+				data: JSON.stringify(data),
+				context: this,
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.reportFailed(jqXHR, textStatus, errorThrown, url);
+					}}(url),
+				success: function(url) {
+					return function(data, textStatus, jqXHR) {
+						this.reportCallback(data, textStatus, jqXHR, url);
+					}}(url),
+			});
+		},
+		
+		/*
+		 * When bad things happen with reporting a failure
+		 */
+		reportFailed: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The registrar is unavailable at: " + url,
+				"Abort": true});	
+		},
+		
+		/*
+		 * Registrar called back from report
+		 */
+		reportCallback: function (data, textStatus, jqXHR, url) {
+			// Clear status
+			this.set({"StatusMessage": ""});
+			
+			// success only means registrar responsed
+			if (textStatus == "success") {
+				if (data.result &&
+					data.result.success) {
+					this.set("ReportConfirmed", true);	
+					return;
+				}
+			}
+			
+			this.set({"ErrorMessage": "Registrar failed with: " + textStatus,
+				"Abort": true});	
 		},
 	});
 	

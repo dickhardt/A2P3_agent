@@ -58,7 +58,7 @@
 			{	    	
 				// Populate default properties
 				if (!window.device) {
-					this.set({"Name": "Dev Device Name", 
+					this.set({"Name": "My iPhone", 
     				"DeviceId": GUID()}); 	 
 				}
 				else {

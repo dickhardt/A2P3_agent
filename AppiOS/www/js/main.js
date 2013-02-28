@@ -3,16 +3,8 @@
 */
 // When jquery is ready
 $(document).ready(function() {
+	
 	console.log("jquery document ready");
-	
-	// Init our singltons
-	settings = new window.Agent.Settings();
-	enrollmentSessions = new window.Agent.EnrollmentSessions();
-	agentRequestSessions = new window.Agent.AgentRequestSessions();
-	notification = new window.Agent.Notification();
-	
-	// Start up backbone
-    app = new window.Agent.AppRouter();
 	
     // Figure out if we are on phonegap/cordova
 	var isCordova = (document.location.protocol == "file:");
@@ -30,6 +22,15 @@ $(document).ready(function() {
  */
 function onDeviceReady() {	
 	console.log("device ready");
+	
+	// Init our singltons
+	settings = new window.Agent.Settings();
+	enrollmentSessions = new window.Agent.EnrollmentSessions();
+	agentRequestSessions = new window.Agent.AgentRequestSessions();
+	notification = new window.Agent.Notification();
+	
+	// Start up backbone
+    app = new window.Agent.AppRouter();
 	
 	// attach more listeners to cordova
 	document.addEventListener("resume", onResume, false);

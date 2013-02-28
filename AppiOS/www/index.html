@@ -170,7 +170,7 @@
     		<div data-role="content" class="fullarea">
     			<h2>Personal Agent</h2>
     			<p style="font-style: italic">A2P3 Protocol Draft v0.9</p>
-    			<p>App Version - v0.10</p>
+    			<p>App Version - v0.11</p>
     			<p>More info at <a id="a2p3link">a2p3.net</a></p>
     		</div>
     </script>
@@ -246,26 +246,29 @@
     <!-- AR Template -->
     <script type="text/template" id="agentrequest" >
             <div data-role="header">
-            	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
-                <h1>Agent Request</h1>
-                <a id="cancel" data-role="button" data-inline="true" data-mini="true">Cancel</a>
+            	
+            	<a id="back" data-role="button" data-inline="true" data-mini="true">Back</a>
+                <h1>Agent</h1>
+                <a id="report" data-role="button" data-inline="true" data-mini="true">Report</a>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="loadingBar" class="ui-bar ui-bar-c"></div>
             <div data-role="content" class="fullarea">
             	<div id="passcodeBlock">
-            		<div id="noAuthCopy"><strong><%= this.model.AppDisplayName() %></strong> requests only logon</div>
-            		<div id="authCopy"><strong><%= this.model.AppDisplayName() %></strong> requests logon with <strong><%= this.NumberOfAuthZs %></strong> authorizations.</div>
             		<div id="container-passcode"></div> 
             	</div>
                 
 	           	<div id="authZContainer">
-	           		<p><span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> requests:</p>
-	            	<ul data-role="listview" data-theme="c" class="resourceList">
+	           		<p><span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> 
+	           			<%= AppId %> requests:
+	           		</p>
+	           		<br>
+	            	<ul data-role="listview" data-theme="c">
 		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
 		        			<li><%= resourceDescriptions %></li> 
 						<% }); %>
 					</ul>
+					<br>
 			    </div>
             </div>
           	<div id="authZFooter" data-role="footer">
@@ -278,6 +281,7 @@
 		      		</div>
 		      	</div>
 		    </div>
+		    <a id="home" href="#" data-role="button" data-inline="true">Home</a>
     </script>
 
     <!-- Enrollment Page Template -->

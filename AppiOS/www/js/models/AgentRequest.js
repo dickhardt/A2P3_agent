@@ -101,6 +101,12 @@
 			// A message to show the user of our progres
 			StatusMessage: '',
 			
+			// How many resources loaded
+			ResourceServersLoaded: 0,
+			
+			// How many resources we've loaded thus far
+			ResourceServersTotal: null,
+			
 			// Backbone state management
 			IsSync: true,
 		},
@@ -353,8 +359,11 @@
 			if (resourceUrls &&
 				resourceUrls.length > 0) {
 				this.set("ResourceDescriptions", new Object());
+				
+				// Set our total
+				this.set("ResourceServersTotal", resourceUrls.length);
 			}
-			
+		
 			var i;
 			for (i in resourceUrls) {
 				// Call RS 			
@@ -389,6 +398,8 @@
 		 */
 		fetchResourceDescriptionCallback:  function (data, textStatus, jqXHR, rsUrl) {
 			//console.log("rsUrl: " + rsUrl + "; data: " + JSON.stringify(data));
+			// Set status
+			
 			
 			// success only means RS responsed
 			if (textStatus == "success") {
@@ -403,7 +414,12 @@
 				
 				this.set(rsDescs);
 				
-				this.trigger("change");
+				// Increment the loaded
+				var resourceServersLoaded = this.get("ResourceServersLoaded");
+				resourceServersLoaded++;
+				this.set("ResourceServersLoaded", resourceServersLoaded);
+				
+				this.trigger("change:ResourceDescriptions");
 			}
 			else {
 				this.set({"ErrorMessage": "Fetching resource description failed with: " + textStatus,

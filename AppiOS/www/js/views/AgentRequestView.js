@@ -6,7 +6,6 @@ $(function($) {
 	'use strict';
 	
 	window.Agent.AgentRequestView = Backbone.View.extend({
-		NumberOfAuthZs: 0,
 	    template:_.template($('#agentrequest').html()),
 	
 		initialize: function() {
@@ -18,14 +17,17 @@ $(function($) {
 			this.model.bind("change:ClientAppErrorCode", this.cancel, this);
 			this.model.bind("change:AppName", this.render, this);
 			this.model.bind("change:StatusMessage", this.render, this);
-			
-			this.NumberOfAuthZs = '';
+			this.model.bind("change:ResourceServersTotal", this.render, this);
+			this.model.bind("change:ResourceServersLoaded", this.render, this);
+			this.model.bind("change:AppId", this.render, this);
+			this.model.bind("change:Authorized", this.render, this);
 		},
 		
 		events: {
 	      "tap a[id=allowButton]" : "allow",
 	      "tap a[id=dontAllowButton]": "dontAllow",
-	      "tap a[id=cancel]": "cancel",
+	      "tap a[id=report]": "report",
+	      "tap a[id=back]": "back",
 	    },
 
 	    
@@ -55,6 +57,8 @@ $(function($) {
 	        this.$("#messageBar").text("");
 	        this.$("#loadingBar").hide();
 	        this.$("#loadingBar").text("");
+	        this.$("#home").hide();
+	        this.$("#back").hide();
 	        
 	        var statusMessage = this.model.get("StatusMessage");
 	        if (statusMessage) {
@@ -63,32 +67,29 @@ $(function($) {
 	        }
 	        
 	        if (this.model.get("Abort") == true) {
-	        	console.log("Abort view");
+	        	 this.$("#home").show();
 	        }
+	   		else if (this.model.get("AuthorizeFlag") == true &&
+	   			this.model.get("Authorized") == false &&
+	   			this.model.get("ResourceIds").length > 0) { 
+	   			this.$("#authZContainer").show();
+	   			this.$("#authZFooter").show();
+	   			
+	   			
+	   			var resourceServersLoaded = this.model.get("ResourceServersLoaded");
+	   			var resourceServerTotal = this.model.get("ResourceServersTotal");
+		   		if (resourceServersLoaded < resourceServerTotal) {
+		   			this.$("#loadingBar").text("Loaded " + resourceServersLoaded + " of " + resourceServerTotal + " resource servers");
+		   			this.$("#loadingBar").show();
+		   		}
+	   		}
 	   		else if (this.model.get("PasscodeFlag") == true &&
 	   			this.model.get("Passcode").length < 4) {
                                                          
 	   			this.$("#container-passcode").show();
 	   			this.$("#passcodeBlock").show();
 	   			this.passcodeView.focus();
-	   			
-	   			// Which authZ message to show
-	   			var numberOfAuthZ = this.model.get("ResourceIds").length;
-	   			if (numberOfAuthZ &&
-	   				numberOfAuthZ > 0) {
-	   				this.$("#authCopy").show();	
-	   				this.NumberOfAuthZs = numberOfAuthZ;
-				}
-				else {
-					this.$("#noAuthCopy").show();
-				}
-	   				
-	   		}
-	   		else if (this.model.get("AuthorizeFlag") == true &&
-	   			this.model.get("Authorized") == false &&
-	   			this.model.get("ResourceIds").length > 0) { 
-	   			this.$("#authZContainer").show();
-	   			this.$("#authZFooter").show();
+	   			this.$("#back").show();
 	   		}
 	   		
 	   		// If the model has any errors, show them
@@ -118,15 +119,19 @@ $(function($) {
 	    
 	    allow: function () {
 	    	console.log("allow");
-	    	this.model.startGetIXToken(true);
+	    	this.model.set("Authorized", true);
+	    },
+	    
+	    back: function () {
+	    	this.model.set("Authorized", false);
 	    },
 	    
 	    dontAllow: function () {
 	    	this.model.cancel();
 	    },
 	    
-	    cancel: function () {
-	    	this.model.cancel();
+	    report: function () {
+	    	//TODO
 	    },
 	});
 });

@@ -62,7 +62,7 @@
 				
 			// Optional notification device token
 			var notificationDeviceToken = this.get("NotificationDeviceToken");
-			console.log("ndt = " + notificationDeviceToken);
+			//console.log("ndt = " + notificationDeviceToken);
 			if (notificationDeviceToken) {
 				jsData1.notificationDeviceToken = notificationDeviceToken;
 			}

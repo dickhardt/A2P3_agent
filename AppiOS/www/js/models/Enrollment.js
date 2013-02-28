@@ -19,6 +19,7 @@
 			Passcode: '', 
 			Name: '',
 			DeviceId: '',
+			NotificationDeviceToken: '',
 			Code: '',
 			SourceUrl: '',
 			Status: '',
@@ -37,7 +38,8 @@
 			this.set({"AuthenticationServerURL": settings.getAuthenticationServerURL(), 
 				"Name": settings.get("Name"),
 				"DeviceId": settings.get("DeviceId"),
-				"Code": enrollmentCode,});
+				"Code": enrollmentCode,
+				"NotificationDeviceToken": settings.get("NotificationDeviceToken")});
 		},
 		
 		
@@ -57,6 +59,12 @@
 				"name": this.get("Name"), 
 				"code": this.get("Code"),
 				"device": this.get("DeviceId")};
+				
+			// Optional notification device token
+			var notificationDeviceToken = this.get("NotificationDeviceToken");
+			if (notificationDeviceToken) {
+				jsData1.notificationDeviceToken = notificationDeviceToken;
+			}
 
 			// Convert to JSON
 			var data1 = JSON.stringify(jsData1);

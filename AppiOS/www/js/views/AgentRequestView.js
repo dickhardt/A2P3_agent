@@ -116,7 +116,10 @@ $(function($) {
 	   			this.$("#container-passcode").show();
 	   			this.$("#passcodeBlock").show();
 	   			this.passcodeView.focus();
-	   			this.$("#back").show();
+	   			
+	   			if (this.model.get("AuthorizeFlag") == true) {
+	   				this.$("#back").show();
+	   			}
 	   		}
 	   		
 	   		// If the model has any errors, show them

@@ -117,7 +117,8 @@ $(function($) {
 	   			this.$("#passcodeBlock").show();
 	   			this.passcodeView.focus();
 	   			
-	   			if (this.model.get("AuthorizeFlag") == true) {
+	   			if (this.model.get("AuthorizeFlag") == true &&
+	   				this.model.get("ResourceIds").length > 0) {
 	   				this.$("#back").show();
 	   			}
 	   		}

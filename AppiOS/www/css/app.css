@@ -42,8 +42,17 @@
 
 .homeButton .ui-btn-inner {
 	
-	padding-top: 48px;
-	padding-bottom: 48px;
+	padding-top: 30px;
+	padding-bottom: 18px;
+	text-align: left;
+	
+}
+
+.homeButton .ui-btn-text {
+	font-size: 28px;
+	white-space: normal;
+	float: left;
+	padding-left: 100px;
 }
 
 .footerButton .ui-btn-inner {
@@ -65,4 +74,32 @@
 
 .ui-li-desc {
 	white-space: normal !important;
+}
+
+.ui-icon-app-qrcode {
+	background-image: url("qr_code.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
+}
+
+.ui-icon-app-check {
+	background-image: url("check.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
+}
+
+.ui-icon-app-ball {
+	background-image: url("ball.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+	.ui-icon-myapp-email {
+		background-image: url("qr_code.png");
+		background-size: 18px 18px;
+	}
 }

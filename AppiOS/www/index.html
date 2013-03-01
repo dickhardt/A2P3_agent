@@ -6,6 +6,7 @@
     
     <!-- Stylesheets -->
     <link href="lib/jqm/jquery.mobile-1.2.0.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/themes/agent.min.css" rel="stylesheet" type="text/css" />
     <link href="css/app.css" rel="stylesheet" type="text/css" />
 
 	<!-- Scripts --> 
@@ -15,7 +16,7 @@
 
     <!-- Home Page Template -->
     <script type="text/template" id="home" >
-	        <div data-role="header">
+	        <div data-role="header" data-theme="f">
 	     		<a href="#info" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext">Info</a>	
 	            <h1>Agent Home</h1>
 	            <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
@@ -23,9 +24,9 @@
 	        <div id="messageBar" class="ui-bar ui-bar-e"></div>
 	      	<div id="enrolled" data-role="content" class="fullarea">
             
-                <a class="homeButton" id="logonScan" data-role="button" data-iconpos="right" data-icon="arrow-r">Scan Login QR Code</a>
-                <a class="homeButton" href="#authz" data-role="button" data-iconpos="right" data-icon="arrow-r">Review Authorizations</a>
-                <a class="homeButton" id="demo" data-role="button" data-iconpos="right" data-icon="arrow-r">Demo Apps</a>
+                <a class="homeButton" id="logonScan" data-role="button" data-iconpos="left" data-icon="app-qrcode">Scan Login<br>QR Code</a>
+                <a class="homeButton" href="#authz" data-role="button" data-iconpos="left" data-icon="app-check">Review<br>Authorizations</a>
+                <a class="homeButton" id="demo" data-role="button" data-iconpos="left" data-icon="app-ball">Demo<br>Apps</a>
         
 	      	</div>
 	      	<div id="unenrolled" data-role="content" class="fullarea">
@@ -47,7 +48,7 @@
     </script>
     <!-- Settings Page Template -->
     <script type="text/template" id="settings" >
-	        <div data-role="header">
+	        <div data-role="header" data-theme="f">
 	     		<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>	
 	            <h1>Settings</h1>
 	        </div>
@@ -135,7 +136,7 @@
 					</ul>
 				</div>
 	      	</div>
-	      	<div data-role="footer">
+	      	<div data-role="footer" data-theme="f">
 	      		<div class="ui-grid-a">
 		      		<div class="ui-block-a">
 	      				<a id="reset" data-rel="popup" data-role="button" data-inline="true">Reset</a>
@@ -163,14 +164,14 @@
     </script>
     <!-- info page template -->
     <script type="text/template" id="info" >
-            <div data-role="header">
+            <div data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
             	<h1>Info</h1>
     		</div>
     		<div data-role="content" class="fullarea">
     			<h2>Personal Agent</h2>
     			<p style="font-style: italic">A2P3 Protocol Draft v0.9</p>
-    			<p>App Version - v0.11</p>
+    			<p>App Version - v0.12</p>
     			<p>More info at <a id="a2p3link">a2p3.net</a></p>
     		</div>
     </script>
@@ -178,7 +179,7 @@
     <!-- Demo Page Template -->
     <script type="text/template" id="demo" >
     		
-            <div data-role="header">
+            <div data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
                 <h1>Demo</h1>
                 <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
@@ -192,7 +193,7 @@
     
     <!-- AuthZ Page Template -->
     <script type="text/template" id="authz" >
-            <div data-role="header">
+            <div data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
                 <h1>Authorizations</h1>
                 <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
@@ -216,7 +217,7 @@
     
      <!-- AuthZ Details Page Template -->
     <script type="text/template" id="authzDetail" >
-            <div data-role="header">
+            <div data-role="header" data-theme="f">
             	<a id="back" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l"><span style="font-size: 80%;">Authorizations</span></a>
                 <h1>Detail</h1>
                 <a id="delete" data-role="button" data-mini="true" data-inline="true" data-icon="delete">Delete</a>
@@ -245,12 +246,12 @@
 
     <!-- AR Template -->
     <script type="text/template" id="agentrequest" >
-            <div id="header" data-role="header">
+            <div id="header" data-role="header" data-theme="f">
         		<a id="back" data-role="button" data-inline="true" data-mini="true">Back</a>
                 <h1>Agent</h1>
                 <a id="report" data-role="button" data-inline="true" data-mini="true">Report</a>
             </div>
-            <div id="abortHeader" data-role="header">
+            <div id="abortHeader" data-role="header" data-theme="f">
         		<a id="home" href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
                 <h1>Agent</h1>
             </div>
@@ -295,7 +296,7 @@
 			    	
 			    </div>
             </div>
-          	<div id="authZFooter" data-role="footer">
+          	<div id="authZFooter" data-role="footer" data-theme="f">
            		<div class="ui-grid-a">
 		      		<div class="ui-block-a">
 	      				<a class="footerButton" id="dontAllowButton" data-role="button" data-inline="true" data-icon="">Deny</a>
@@ -305,7 +306,7 @@
 		      		</div>
 		      	</div>
 		    </div>
-		    <div id="reportFooter" data-role="footer">
+		    <div id="reportFooter" data-role="footer" data-theme="f">
            		<div class="ui-grid-a">
 		      		<div class="ui-block-a">
 	      				<a class="footerButton" id="cancelReport" data-role="button" data-inline="true" data-icon="">Cancel</a>
@@ -315,7 +316,7 @@
 		      		</div>
 		      	</div>
 		    </div>
-		  	<div id="reportConfirmedFooter" data-role="footer">
+		  	<div id="reportConfirmedFooter" data-role="footer" data-theme="f">
            		<div class="ui-grid-a">
 		      		<div class="ui-block-a">
 	      			
@@ -329,7 +330,7 @@
 
     <!-- Enrollment Page Template -->
     <script type="text/template" id="enroll" >
-            <div data-role="header">
+            <div data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
                 <h1>Enrollment</h1>
                 <a id="cancel" data-role="button" data-inline="true" data-mini="true">Cancel</a>

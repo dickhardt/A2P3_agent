@@ -94,9 +94,9 @@
 		 */
 	    changePage:function (page) {
 	    	if (page.pageClass)
-	    		$(page.el).attr({ 'data-role': 'page', 'data-theme': 'c', 'class': page.pageClass});
+	    		$(page.el).attr({ 'data-role': 'page', 'data-theme': 'f', 'class': page.pageClass});
 	    	else
-	    		$(page.el).attr({ 'data-role': 'page', 'data-theme': 'c'});
+	    		$(page.el).attr({ 'data-role': 'page', 'data-theme': 'f'});
 	        page.render();
 	        $('body').append($(page.el));
 	        var transition = $.mobile.defaultPageTransition;

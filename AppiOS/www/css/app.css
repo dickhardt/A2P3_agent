@@ -42,10 +42,9 @@
 
 .homeButton .ui-btn-inner {
 	
-	padding-top: 30px;
-	padding-bottom: 35px;
+	padding-top: 20px;
 	text-align: left;
-	
+	height: 90px;
 }
 
 .homeButton .ui-btn-text {

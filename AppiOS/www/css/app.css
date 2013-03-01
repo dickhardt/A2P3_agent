@@ -62,3 +62,7 @@
 .ui-content {
 	padding-top: 15px;
 }
+
+.ui-li-desc {
+	white-space: normal !important;
+}

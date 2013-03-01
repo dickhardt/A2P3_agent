@@ -38,6 +38,12 @@ function onDeviceReady() {
 	document.addEventListener("online", onOnline, false);
 	document.addEventListener("offline", onOffline, false);
 	
+	// Surpress shake gesture
+	document.addEventListener('devicemotion', function (e) {
+        // Stop the default behavior from triggering the undo dialog (hopefully)
+    	e.preventDefault();
+	});
+	
 	// try to register if we haven't
 	if (!settings.get("NotificationDeviceToken")) {
 		notification.register();

@@ -41,7 +41,7 @@
     
     <!-- Passcode Dialogue Template -->
     <script type="text/template" id="passcode">
-			Enter your passcode
+			<%=  this.displayPromptText() %>
 			<div data-role="content">
 				<input type="password" id="passcode1" class="passcode" pattern="\d*" maxlength="4">
 			</div>
@@ -201,7 +201,7 @@
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="loadingBar" class="ui-bar ui-bar-c"></div>
             <div id="noAuthZContent" data-role="content" class="fullarea">
-        		<p>This Personal Agent does not have any authorizations yet.</p>
+        		<p>This Personal Agent does not have any <b>anytime</b> authorizations yet.</p>
             </div>
             <div id="authZContent" data-role="content" class="fullarea">
             	<ul data-role="controlgroup">

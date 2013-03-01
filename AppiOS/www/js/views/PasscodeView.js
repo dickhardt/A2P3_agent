@@ -54,5 +54,13 @@ $(function($) {
 	    	// nav home
 	    	this.trigger("cancel");
 	    },
+	    
+	    displayPromptText: function () {
+	    	if (this.model.PromptText) {
+	    		return this.model.PromptText;
+	    	}
+	    	
+	    	return "Enter your passcode";
+	    },
 	});
 });

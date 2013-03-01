@@ -31,6 +31,7 @@ $(function($) {
 	    	this.$el.html(this.template(this.model.toJSON()));
 	        
 	        // Add in passcode view
+	        this.model.PromptText = "Re-enter your passcode";
 	        this.passcodeView = new window.Agent.PasscodeView({model: this.model});
 	        this.passcodeView.bind("cancel", this.cancel);
 	        this.$("#container-passcode").append(this.passcodeView.render().el);

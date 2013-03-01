@@ -43,16 +43,16 @@
 .homeButton .ui-btn-inner {
 	
 	padding-top: 30px;
-	padding-bottom: 18px;
+	padding-bottom: 30px;
 	text-align: left;
 	
 }
 
 .homeButton .ui-btn-text {
-	font-size: 28px;
+	font-size: 24px;
 	white-space: normal;
 	float: left;
-	padding-left: 100px;
+	padding-left: 80px;
 }
 
 .footerButton .ui-btn-inner {

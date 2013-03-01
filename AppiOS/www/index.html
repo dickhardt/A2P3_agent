@@ -122,7 +122,7 @@
 	      		<div id="resourceServerIdContainer" data-role="content" class="fullarea">
 	      			<ul data-role="listview" data-theme="c">
 		        		<% _.each(ResourceServerIds, function(resourceServerId) { %>  
-		        			<li><%= resourceServerId %></li> 
+		        			<li><%= _.escape(resourceServerId) %></li> 
 						<% }); %>
 					</ul>
 				</div>
@@ -130,7 +130,7 @@
 				<div id="appsContainer" data-role="content" class="fullarea">
 	      			<ul data-role="listview" data-theme="c">
 		        		<% _.each(AppNameCache, function(app) { %>  
-		        			<li><%= app.appId %>: <%= app.name %></li> 
+		        			<li><%= _.escape(app.appId) %>: <%= _.escape(app.name) %></li> 
 						<% }); %>
 					</ul>
 				</div>
@@ -206,8 +206,8 @@
             	<ul data-role="controlgroup">
 	            	<% _.each(Apps, function(app, key) { %>  
 	            		<a id="detail" data-appid="<%= key %>" data-role="button" data-iconpos="right" data-icon="arrow-r">
-	            			<h3><%= app.name %></h3>
-	            			<p>Last Access: <%= app.lastAccess %></p>
+	            			<h3><%= _.escape(app.name) %></h3>
+	            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
 	            		</a>
 	               	<% }); %>
 	            </ul>
@@ -223,10 +223,10 @@
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="authZContent" data-role="content" class="fullarea">
-        		<h3><%= this.app.name %></h3>
+        		<h3><%= _.escape(this.app.name) %></h3>
         		<div class="ui-grid-a">
   					<div class="ui-block-a" style="width: 90%;">
-						<p>Last Access: <%= this.app.lastAccess %></p>
+						<p>Last Access: <%= _.escape(this.app.lastAccess) %></p>
 						<p>Accesses:</p>
 						<ul data-role="listview" class="ui-listview">
 							<% _.each(this.app.resources, function(resource) { %>
@@ -262,8 +262,8 @@
             	</div>
                 
 	           	<div id="authZContainer">
-	           		<p><span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> 
-	           			<%= AppId %> requests:
+	           		<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
+	           			<%= _.escape(AppId) %> requests:
 	           		</p>
 	           		<br>
 	            	<ul data-role="listview">
@@ -275,8 +275,8 @@
 			    </div>
 			    
 			    <div id="reportContainer">
-			    	<p>You are sure you want to report <span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> 
-	           			<%= AppId %> to the Registrar?
+			    	<p>You are sure you want to report <span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
+	           			<%= _.escape(AppId) %> to the Registrar?
 	           		</p>
 	           		<p>
 	           			What happens when I report this app?
@@ -287,8 +287,8 @@
 	           		</p>
 			    </div>
 			    <div id="reportConfirmedContainer">
-			    	<p><span style="font-size: 18px; font-weight: bold"><%= this.model.AppDisplayName() %></span> 
-	           			<%= AppId %> has been reported to the Registrar.
+			    	<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
+	           			<%= _.escape(AppId) %> has been reported to the Registrar.
 	           		</p>
 			    </div>
 			    <div id="abort">
@@ -361,6 +361,7 @@
     <script src="lib/pushnotification/PushNotification.js"></script>
     <script src="lib/uri/parseuri.js"></script>
     <script src="lib/fastclick/fastclick.js"></script>
+    <script src="lib/showdown/showdown.js"></script>
     <script src="js/models/Settings.js"></script>
     <script src="js/models/Enrollment.js"></script>
     <script src="js/models/AgentRequest.js"></script>

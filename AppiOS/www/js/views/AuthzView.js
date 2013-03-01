@@ -10,6 +10,7 @@ $(function($) {
 			this.model.on("change:ErrorMessage", this.render, this);
 			this.model.on("change:ResourceServersTotal", this.render, this);
 			this.model.on("change:ResourceServersLoaded", this.render, this);
+			this.model.on("change:ResourceDescriptions", this.render, this);
 		},
 		
 	    render:function (eventName) {

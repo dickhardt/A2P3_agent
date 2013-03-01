@@ -323,10 +323,14 @@
 				// init
 				var rsDescs = this.get("ResourceDescriptions");
 				
-				// add description, only EN supported for now.  
-				rsDescs[rsUrl] = data["en"];
+				// Convert MD to HTML
+				var converter = new Showdown.converter();
+				var resourceDescription = converter.makeHtml(_.escape(data["en"]));
 				
-				this.trigger("change");
+				// add description, only EN supported for now.  
+				rsDescs[rsUrl] = resourceDescription;
+				
+				this.trigger("change:ResourceDescriptions");
 			}
 		},
 		

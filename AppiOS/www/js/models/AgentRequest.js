@@ -415,8 +415,12 @@
 					
 				}
 				
+				// Convert MD to HTML
+				var converter = new Showdown.converter();
+				var resourceDescription = converter.makeHtml(_.escape(data["en"]));
+				
 				// add description, only EN supported for now.  TODO: make language a setting
-				rsDescs[rsUrl] = data["en"];
+				rsDescs[rsUrl] = resourceDescription;
 				
 				this.set(rsDescs);
 				
@@ -837,6 +841,10 @@
 					data.result.success) {
 					this.set("ReportConfirmed", true);	
 					return;
+				}
+				else {
+					this.set({"ErrorMessage": "Registrar failed with: " + data.error.message,
+					"Abort": true});	
 				}
 			}
 			

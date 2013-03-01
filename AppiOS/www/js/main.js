@@ -39,7 +39,7 @@ function onDeviceReady() {
 	document.addEventListener("offline", onOffline, false);
 	
 	// Surpress shake gesture
-	document.addEventListener('devicemotion', function (e) {
+	window.addEventListener('devicemotion', function (e) {
         // Stop the default behavior from triggering the undo dialog (hopefully)
     	e.preventDefault();
 	});

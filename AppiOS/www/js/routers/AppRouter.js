@@ -33,7 +33,7 @@
 		 */
 		home:function (url) {
 	        var homeView = new window.Agent.HomeView();
-	        this.changePage(homeView);
+	        this.changePage(homeView, "slide");
 	        
 	        if (url) {
 	        	homeView.followQRCodeAgentRequestUrl(url);
@@ -52,7 +52,7 @@
 		 */
 		settings:function () {
 			
-	        this.changePage(new window.Agent.SettingsView({model: settings}));
+	        this.changePage(new window.Agent.SettingsView({model: settings}), "slide");
 	    },
 
 		 /*
@@ -62,14 +62,14 @@
 	    	if (!authorizations) {
 	    	 	authorizations = new window.Agent.Authorizations();
 	    	}
-	        this.changePage(new window.Agent.AuthzView({model: authorizations}));
+	        this.changePage(new window.Agent.AuthzView({model: authorizations}), "slide");
 	    },
 	    
 	    /* 
 	     * AuthZ detail page
 	     */
 		authzDetail: function (appId, authorizations) {
-			this.changePage(new window.Agent.AuthzDetailView({"id" : appId, "model" : authorizations}));
+			this.changePage(new window.Agent.AuthzDetailView({"id" : appId, "model" : authorizations}), "slide");
 		},
 		
 		/* 
@@ -92,21 +92,22 @@
 		/*
 		 * Common function to load page
 		 */
-	    changePage:function (page) {
+	    changePage:function (page, transition) {
 	    	if (page.pageClass)
 	    		$(page.el).attr({ 'data-role': 'page', 'data-theme': 'f', 'class': page.pageClass});
 	    	else
 	    		$(page.el).attr({ 'data-role': 'page', 'data-theme': 'f'});
 	        page.render();
 	        $('body').append($(page.el));
-	        var transition = $.mobile.defaultPageTransition;
-	        
+	        if (!transition) {
+	        	transition = $.mobile.defaultPageTransition;
+	        }
 	        // We don't want to slide the first page
 	        if (this.firstPage) {
 	            transition = 'none';
 	            this.firstPage = false;
 	        }
-	        $.mobile.changePage($(page.el), {changeHash:false, transition: transition});
+	        $.mobile.changePage($(page.el), {changeHash:false, transition: "none"});
 	        
 	        // unhide splash
 	        if (navigator.splashscreen) {

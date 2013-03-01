@@ -103,3 +103,9 @@
 	height: 100px;
 	top: 14% !important;
 }
+
+.ui-page {
+	background-image: url("app_icon.png");
+	background-repeat: no-repeat;
+	background-position: bottom right;
+}

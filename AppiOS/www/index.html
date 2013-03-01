@@ -25,7 +25,7 @@
 	      	<div id="enrolled" data-role="content" class="fullarea">
             
                 <a class="homeButton" id="logonScan" data-role="button" data-iconpos="left" data-icon="app-qrcode">Scan Login<br>QR Code</a>
-                <a class="homeButton" href="#authz" data-role="button" data-iconpos="left" data-icon="app-check">Review Anytime<br>Authorizations</a>
+                <a class="homeButton" href="#authz" data-role="button" data-iconpos="left" data-icon="app-check" data-transition="fade">Review Anytime<br>Authorizations</a>
                 <a class="homeButton" id="demo" data-role="button" data-iconpos="left" data-icon="app-ball">Demo<br>Apps</a>
         
 	      	</div>
@@ -206,7 +206,7 @@
             <div id="authZContent" data-role="content" class="fullarea">
             	<ul data-role="controlgroup">
 	            	<% _.each(Apps, function(app, key) { %>  
-	            		<a id="detail" data-appid="<%= key %>" data-role="button" data-iconpos="right" data-icon="arrow-r">
+	            		<a id="detail" data-appid="<%= key %>" data-role="button" data-iconpos="right" data-icon="arrow-r"  data-transition="slide">
 	            			<h3><%= _.escape(app.name) %></h3>
 	            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
 	            		</a>
@@ -332,7 +332,7 @@
     <script type="text/template" id="enroll" >
             <div data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
-                <h1>Enrollment</h1>
+                <h1>Agent Enrollment</h1>
                 <a id="cancel" data-role="button" data-inline="true" data-mini="true">Cancel</a>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>

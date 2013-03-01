@@ -25,16 +25,16 @@
 	      	<div id="enrolled" data-role="content" class="fullarea">
             
                 <a class="homeButton" id="logonScan" data-role="button" data-iconpos="left" data-icon="app-qrcode">Scan Login<br>QR Code</a>
-                <a class="homeButton" href="#authz" data-role="button" data-iconpos="left" data-icon="app-check">Review Anytime Authorizations</a>
+                <a class="homeButton" href="#authz" data-role="button" data-iconpos="left" data-icon="app-check">Review Anytime<br>Authorizations</a>
                 <a class="homeButton" id="demo" data-role="button" data-iconpos="left" data-icon="app-ball">Demo<br>Apps</a>
         
 	      	</div>
 	      	<div id="unenrolled" data-role="content" class="fullarea">
-	      		Welcome to your Personal Agent.  This Agent must be enrolled with the Authentication Server before you may use it.  
+	      		Welcome to your Personal Agent.<br><BR>This Agent must be enrolled before you may use it.  
 	     
                
-                	<a class="homeButton" id="enrollDirect" data-role="button" data-iconpos="right" data-icon="arrow-r">Enroll Agent Directly</a>
-                    <a class="homeButton" id="enrollScan" data-role="button" data-iconpos="right" data-icon="arrow-r">Scan Enrollment QR Code</a>
+                	<a class="homeButton" id="enrollDirect" data-role="button" data-iconpos="left" data-icon="app-safari">Enroll Agent<br>Directly</a>
+                    <a class="homeButton" id="enrollScan" data-role="button" data-iconpos="left" data-icon="app-qrcode">Scan Enrollment<br>QR Code</a>
              
 	      	</div>
     </script>
@@ -267,9 +267,9 @@
 	           			<%= _.escape(AppId) %> requests:
 	           		</p>
 	           		<br>
-	            	<ul data-role="listview">
+	            	<ul data-role="listview" data-theme="c">
 		        		<% _.each(ResourceDescriptions, function(resourceDescriptions) { %>  
-		        			<li style="font-weight: normal;"><%= resourceDescriptions %></li> 
+		        			<li><%= resourceDescriptions %></li> 
 						<% }); %>
 					</ul>
 					<br>

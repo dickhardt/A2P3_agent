@@ -43,13 +43,13 @@
 .homeButton .ui-btn-inner {
 	
 	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-bottom: 35px;
 	text-align: left;
 	
 }
 
 .homeButton .ui-btn-text {
-	font-size: 22px;
+	font-size: 20px;
 	white-space: normal;
 	float: left;
 	padding-left: 80px;
@@ -74,6 +74,7 @@
 
 .ui-li-desc {
 	white-space: normal !important;
+	font-size: 14px;
 }
 
 .ui-icon-app-qrcode {
@@ -97,9 +98,9 @@
 	top: 14% !important;
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2) {
-	.ui-icon-myapp-email {
-		background-image: url("qr_code.png");
-		background-size: 18px 18px;
-	}
+.ui-icon-app-safari {
+	background-image: url("safari.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
 }

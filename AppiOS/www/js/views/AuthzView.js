@@ -11,6 +11,9 @@ $(function($) {
 			this.model.on("change:ResourceServersTotal", this.render, this);
 			this.model.on("change:ResourceServersLoaded", this.render, this);
 			this.model.on("change:ResourceDescriptions", this.render, this);
+			
+			// Set default mode
+			this.editMode = false;
 		},
 		
 	    render:function (eventName) {
@@ -22,6 +25,19 @@ $(function($) {
 	        this.$("#loadingBar").hide();
 	        this.$("#loadingBar").text("");
 	        this.$("#noAuthZContent").hide();
+	        this.$("#viewList").hide();
+	        this.$("#editList").hide();
+	        this.$("#edit-cancel").hide();
+	        
+	        // Toggle text and icons
+	        if (this.editMode) {
+	        	this.$("#edit-cancel").text("Cancel");
+	        	this.$("#editList").show();
+	        }
+	        else {
+	        	this.$("#edit-cancel").text("Edit");
+	        	this.$("#viewList").show();
+	        }
 	        
 	        // If the model has any errors, show them
 	   		if (this.model.get("ErrorMessage")) {
@@ -31,9 +47,13 @@ $(function($) {
 	   		
 	   		// If there are no authZ, show panel
 	   		if (!this.model.get("ResourceServerIds") ||
-	   			this.model.get("ResourceServerIds").length < 1) {
+	   			this.model.get("ResourceServerIds").length < 1 ||
+	   			this.model.get("ResourceServersTotal") == 0 ||
+	   			(this.model.get("ResourceServersTotal") == this.model.get("ResourceServersLoaded") &&
+	   			_.isEmpty(this.model.get("Apps"))) ) {
 	   				
 	   			this.$("#noAuthZContent").show();
+	   			
 	   		}
 	   		else {
 	   			// We need to show how many to load cause this can take awhile
@@ -51,6 +71,10 @@ $(function($) {
 	   				}
 	   			}
 	   		
+	   		}	   		
+	   		
+	   		if (!_.isEmpty(this.model.get("Apps"))) {
+	   			this.$("#edit-cancel").show();
 	   		}
 	   	
 	        // force jquery to restyle
@@ -61,7 +85,10 @@ $(function($) {
 	    },
 	
 		events: {
-			"click a[id=detail]": "detail"
+			"tap a[id=detail]": "detail",
+			"tap a[id=edit-cancel]": "toggleEditMode",
+			"tap a[id=delete]": "deleteApp",
+			"tap a[id=deleteConfirm]": "deleteAppConfirm",
 	    },
 	    
 	    detail: function (ev) {
@@ -72,5 +99,34 @@ $(function($) {
 			app.authzDetail(appId, this.model);
 	    	
 	    },
+	    
+	    /*
+	     * Toggle between edit and view modes
+	     */
+	    toggleEditMode: function () {
+	    	this.editMode = !this.editMode;
+	    	this.render();
+	    },
+	    
+	    deleteApp: function (ev) {
+	    	// Get the app we're talking about
+	    	this.confirmAppId = $(ev.currentTarget).data('appid');
+	    	this.confirmAppName = $(ev.currentTarget).data('appname');
+	    	this.render();
+	    	
+			this.$("#deleteDialogue").popup("open", 
+				{transition: "pop",
+				 shadow: true});
+		},
+	      /*
+	     * Event for the delete authorization button
+	     */
+	    deleteAppConfirm: function () {    	
+	    	// Call authZ to delete/revoke authZ
+	    	this.model.deleteAppAuthorizations(this.confirmAppId);
+	    	
+	    	this.$("#deleteDialogue").popup("close");
+	    },
+	    
 	});
 });

@@ -395,7 +395,7 @@
 				this.set({"Apps": apps});
 		
 				// Fire event explicity
-				this.trigger("change");
+				this.trigger("change:Apps");
 			}
 		}
 	});

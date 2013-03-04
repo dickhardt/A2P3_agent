@@ -1,10 +1,10 @@
 # A2P3_agent #
 
-This is a Personal Agent for a2p3.net demonstration  environment (link TBD). It is compliant with the specification of the [A2P3 protocol version 8](http://www.a2p3.ca/PDFs/A2P3%20Protocol%20draft%208.pdf "A2P3 protocol version 8").
+This is a Personal Agent for a2p3.net demonstration  environment (link TBD). It is compliant with the specification of the [A2P3 protocol version 8](http://www.a2p3.ca/PDFs/A2P3%20Protocol%20draft%209.pdf "A2P3 protocol version v0.9").
 
 See also: [A2P3](https://github.com/dickhardt/A2P3 "A2P3")
 
-This Agent is target and tested on the iPhone 4-5 iOS 6.*.   
+This Agent is target and tested on the iPhone 4-5 iOS 5-6.   
 
 ## For Developers: ##
 
@@ -53,16 +53,9 @@ Design guidelines:
 
 ## Tips and Tricks:
 
-Brand new agents do not start with any resource server ids for authorizations. To give the agent them all in the PoC environment run this on the java console:
+The global function handleOpenUrl(url) can be used to trigger the enrollment direct and login direct.
 
-	settings.addResourceIds(["email.local.a2p3.net",
-		"si.local.a2p3.net",
-		"health.local.a2p3.net",
-		"health.bc.local.a2p3.net",
-		"health.ab.local.a2p3.net",
-		"people.local.a2p3.net",
-		"people.bc.local.a2p3.net",
-		"people.ab.local.a2p3.net",]);
+For debugging on mobile, [jsconsole](http://jsconsole.com) can be very handy especially where you have to run a deployment signed application (which can't be debugged in XCode).
 
 ## Related
 

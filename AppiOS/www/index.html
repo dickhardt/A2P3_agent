@@ -195,23 +195,49 @@
     <script type="text/template" id="authz" >
             <div data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
-                <h1>Authorizations</h1>
-                <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
+                <h1>Anytime Authorizations</h1>
+                <a id="edit-cancel" data-role="button" data-inline="true">Edit</a>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="loadingBar" class="ui-bar ui-bar-c"></div>
             <div id="noAuthZContent" data-role="content" class="fullarea">
-        		<p>This Personal Agent does not have any <b>anytime</b> authorizations yet.</p>
+        		<p>This Personal Agent does not have any <b>anytime</b> authorizations.</p>
             </div>
             <div id="authZContent" data-role="content" class="fullarea">
-            	<ul data-role="controlgroup">
-	            	<% _.each(Apps, function(app, key) { %>  
-	            		<a id="detail" data-appid="<%= key %>" data-role="button" data-iconpos="right" data-icon="arrow-r"  data-transition="slide">
-	            			<h3><%= _.escape(app.name) %></h3>
-	            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
-	            		</a>
-	               	<% }); %>
+            	<br>
+            	<ul id="viewList" data-role="listview" data-theme="f">    
+            		<% _.each(Apps, function(app, key) { %> 
+			      		<li data-icon="arrow-r">            	
+	            			<a id="detail" data-appid="<%= key %>">
+		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> <%= _.escape(key) %></p>
+		            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
+		            			<span class="ui-li-count"><%= app.resources.length %></span>
+		            		</a>
+		            	</li>
+		            <% }); %>
 	            </ul>
+	            <ul id="editList" data-role="listview" data-theme="f">    
+            		<% _.each(Apps, function(app, key) { %> 
+			      		<li data-icon="delete">            	
+	            			<a id="delete" data-rel="popup" data-appid="<%= key %>" data-appname="<%= app.name %>">
+		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> <%= _.escape(key) %></p>
+		            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
+		            			<span class="ui-li-count"><%= app.resources.length %></span>
+		            		</a>
+		            	</li>
+		            <% }); %>
+	            </ul>
+	            <div data-role="popup" id="deleteDialogue">
+  					<div data-role="header" data-theme="e">
+						<h1>Confirm Remove</h1>
+					</div>
+					<div data-shadow="true" data-role="content" data-theme="d">
+						<h3 class="ui-title">Are you sure you want to remove all access for '<%= _.escape(this.confirmAppName) %>' '<%= _.escape(this.confirmAppId) %>'?</h3>
+						<p>This action cannot be undone.</p>
+							<a id="cancel" data-role="button" data-rel="back">Cancel</a>    
+							<a id="deleteConfirm" data-role="button" data-transition="flow" data-theme="f">Remove</a>
+					</div>
+  				</div>
             </div>
     </script>
     
@@ -220,27 +246,20 @@
             <div data-role="header" data-theme="f">
             	<a id="back" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l"><span style="font-size: 80%;">Authorizations</span></a>
                 <h1>Detail</h1>
-                <a id="delete" data-role="button" data-mini="true" data-inline="true" data-icon="delete">Delete</a>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="authZContent" data-role="content" class="fullarea">
-        		<h3><%= _.escape(this.app.name) %></h3>
-        		<div class="ui-grid-a">
-  					<div class="ui-block-a" style="width: 90%;">
-						<p>Last Access: <%= _.escape(this.app.lastAccess) %></p>
-						<p>Accesses:</p>
-						<ul data-role="listview" class="ui-listview">
-							<% _.each(this.app.resources, function(resource) { %>
-								<li class="ui-li ui-li-static ui-btn-up-c ui-first-child">
-									<p class="authzList"><%= ResourceDescriptions[resource] %></p>
-								</li>
-							<% }); %>		
-						</ul>
-					</div>
-					<div class="ui-block-b" style="width: 10%; text-align: right;">
-						
-					</div>		
-				</div>
+        		<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.app.name) %></span>
+        			 <%= _.escape(this.id) %></p>
+				<p>Last Access: <%= _.escape(this.app.lastAccess) %></p>
+				<p>Anytime Authorizations:</p>
+				<ul data-role="listview" data-theme="c">
+					<% _.each(this.app.resources, function(resource) { %>
+						<li>
+							<p class="authzList"><%= ResourceDescriptions[resource] %></p>
+						</li>
+					<% }); %>		
+				</ul>
             </div>
     </script>
 

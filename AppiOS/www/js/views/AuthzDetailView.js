@@ -33,21 +33,10 @@ $(function($) {
 	    },
 	
 		events: {
-			"click a[id=delete]": "deleteApp",
 			"click a[id=back]": "back",
 	    },
 	    
-	    /*
-	     * Event for the delete authorization button
-	     */
-	    deleteApp: function () {
-	    	// Call authZ to delete/revoke authZ
-	    	this.model.deleteAppAuthorizations(this.id);
-	    	
-	    	// go back
-	    	app.authz(this.model)
-	    },
-	    
+	  
 	    /*
 	     * Event for Authorization buttons
 	     */

@@ -11,11 +11,29 @@ $(function($) {
 	
 		initialize: function(Opts) {
 			this.model.on("change", this.render, this);
+			this.editMode = false;
 		},
 		
 	    render:function (eventName) {
 	    	console.log("rendering = " + JSON.stringify(this.model));
 	       	this.$el.html(this.template(this.model.toJSON()));
+	        
+	        // init
+	        this.$("#viewContainer").hide();
+	        this.$("#editContainer").hide();
+	        this.$("#viewHeader").hide();
+	        this.$("#editHeader").hide();
+	        
+	        // switch containers based on mode
+	        if (this.editMode) {
+	        	this.$("#editContainer").show();
+	        	this.$("#editHeader").show();
+	        	
+	        }
+	        else {
+	        	this.$("#viewContainer").show();
+	        	this.$("#viewHeader").show();
+	        }
 	        
 	    	// Select our drop down lists
 	    	this.$("#authenticationServerProtocolList").val(this.model.get("AuthenticationServerProtocol"));
@@ -33,10 +51,13 @@ $(function($) {
 	    },
 	
 		events: {
-			"click a[id=save]": "save",
-			"click a[id=reset]": "reset",
-			"click a[id=cancel]": "cancel",
-			"click a[id=confirm]": "confirm",
+			"tap a[id=reset]": "reset",
+			"tap a[id=cancel]": "cancel",
+			"tap a[id=confirm]": "confirm",
+			"tap a[id=edit]": "toggleMode",
+			"tap a[id=back]": "toggleMode",
+			"change input": "save",
+			"change select": "save",
 		},
 		
 		cancel: function () {
@@ -47,6 +68,11 @@ $(function($) {
 			this.$("#resetDialogue").popup("open", 
 				{transition: "pop",
 				 shadow: true});
+		},
+		
+		toggleMode: function () {
+			this.editMode = !this.editMode;
+			this.render();
 		},
 		
 		confirm: function(ev) {
@@ -66,6 +92,7 @@ $(function($) {
 		 * Save the model and go back home
 		 */
 		save: function () {
+			var savedScrollTop = $(document).scrollTop();
 			this.model.set({"Name" : $("#name").val(), 
 				"DeviceId" : $("#id").val(),
 				"AuthenticationServerProtocol": $("#authenticationServerProtocolList").val(),
@@ -84,7 +111,7 @@ $(function($) {
 				"NotificationDeviceToken": $("#notificationDeviceToken").val(),
 				})
 			this.model.save();
-			app.navigate("", true);
+			$(document).scrollTop(savedScrollTop);
 		},
 	    
 	});

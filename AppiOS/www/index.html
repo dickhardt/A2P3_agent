@@ -17,9 +17,9 @@
     <!-- Home Page Template -->
     <script type="text/template" id="home" >
 	        <div data-role="header" data-theme="f">
-	     		<a href="#info" data-role="button" data-inline="true" data-icon="info" data-iconpos="notext">Info</a>	
+	        	<a id="empty"></a>
 	            <h1>Agent Home</h1>
-	            <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
+	            <a href="#settings" data-role="button" data-inline="true" data-icon="grid" data-iconpos="notext">Settings</a>
 	        </div>
 	        <div id="messageBar" class="ui-bar ui-bar-e"></div>
 	      	<div id="enrolled" data-role="content" class="fullarea">
@@ -48,17 +48,131 @@
     </script>
     <!-- Settings Page Template -->
     <script type="text/template" id="settings" >
-	        <div data-role="header" data-theme="f">
+	        <div id="viewHeader" data-role="header" data-theme="f">
 	     		<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>	
-	            <h1>Settings</h1>
+	            <h1>Agent Info</h1>
+	            <a id="edit" data-role="button" data-inline="true">Edit</a>	
 	        </div>
-	        <div data-role="content">
+	        <div id="editHeader" data-role="header" data-theme="f">
+	     		<a id="back" data-role="button" data-inline="true">Back</a>	
+	            <h1>Edit Settings</h1>
+	            <a id="reset" data-rel="popup" data-role="button" data-inline="true">Reset</a>	
+	        </div>
+	        <div id="viewContainer" data-role="content">
+	        	<h2>Personal Agent</h2>
+    			<p style="font-style: italic">A2P3 Protocol Draft v0.9</p>
+    			<p>App Version - v0.12</p>
+    			<p>More info at <a id="a2p3link">a2p3.net</a></p>
+    			
+		        <h3>Device</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        	<li>
+		        		<label>Name:</label><br><br>
+		        		<p><%= _.escape(Name) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Id:</label><br><br>
+		        		<p><%= _.escape(DeviceId) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Notification Token:</label><br><br>
+		        		<p><%= _.escape(NotificationDeviceToken) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Registrar Token:</label><br><br>
+		        		<p><%= _.escape(RegistrarToken) %></p>
+		        	</li>
+		        </ul>
+		        <h3>Authentication Server</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        	<li>
+		        		<label>Protocol:</label><br><br>
+		        		<p><%= _.escape(AuthenticationServerProtocol) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Host:</label><br><br>
+		        		<p><%= _.escape(AuthenticationServerHost) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Port:</label><br><br>
+		        		<p><%= _.escape(AuthenticationServerPort) %></p>
+		        	</li>
+		        </ul>
+		        <h3>Registrar Server</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        	<li>
+		        		<label>Protocol:</label><br><br>
+		        		<p><%= _.escape(RegistrarProtocol) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Host:</label><br><br>
+		        		<p><%= _.escape(RegistrarHost) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Port:</label><br><br>
+		        		<p><%= _.escape(RegistrarPort) %></p>
+		        	</li>
+		        </ul>
+		        <h3>Setup Server</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        	<li>
+		        		<label>Protocol:</label><br><br>
+		        		<p><%= _.escape(SetupProtocol) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Host:</label><br><br>
+		        		<p><%= _.escape(SetupHost) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Port:</label><br><br>
+		        		<p><%= _.escape(SetupPort) %></p>
+		        	</li>
+		        </ul>
+		        <h3>Resource Servers</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        	<li>
+		        		<label>Protocol:</label><br><br>
+		        		<p><%= _.escape(ResourceServerProtocol) %></p>
+		        	</li>
+		        	<li>
+		        		<label>Port:</label><br><br>
+		        		<p><%= _.escape(ResourceServerPort) %></p>
+		        	</li>
+		        </ul>
+		        <h3>Demostration Site</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        	<li>
+		        		<label>URL:</label><br><br>
+		        		<p><%= _.escape(DemoAppsURL) %></p>
+		        	</li>
+		        </ul>
+		        <h3>Resource Server Cache</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        	<% _.each(ResourceServerIds, function(resourceServerId) { %>  
+	        			<li><p><%= _.escape(resourceServerId) %></p></li> 
+					<% }); %>
+		        </ul>
+		         <h3>App Name Cache</h3>
+		        <ul data-role="listview" data-inset="true" data-theme="c">
+	        		<% _.each(AppNameCache, function(app) { %>  
+	        			<li><p><%= _.escape(app.appId) %>: <%= _.escape(app.name) %></p></li> 
+					<% }); %>	
+		        </ul>
+	        </div>
+	        <div id="editContainer" data-role="content">
+	        	<h2>WARNING!</h2>
+	        	<p>
+	        		End-users should never have to modify settings of this Agent.  Modification of settings are for development purposes only.  If the Agent becomes unstable, Reset the 
+	        		Agent.
+	        	</p>
 	      		Device Name:
 	      		<input type="text" id="name" name="name" value="<%= Name %>" />
 	      		Device Id:
 	      		<input type="text" id="id" value="<%= DeviceId %>" />
 	      		Notification Device token:
 	      		<input type="text" id="notificationDeviceToken" value="<%= NotificationDeviceToken %>" />
+	      		Registrar Token:
+	      		<input type="text" id="registrarToken" value="<%= RegistrarToken %>" />
 	      		Authentication Server Protocol:
 	      		<select id="authenticationServerProtocolList" data-mini="true">
 	      			<option value="http">
@@ -108,8 +222,7 @@
 	      		<input type="url" id="setupPort" value="<%= SetupPort %>" />
 	      		Demonstration Apps URL:
 	      		<input type="url" id="demoAppsURL" value="<%= DemoAppsURL %>" />
-	      		Registrar Token:
-	      		<input type="text" id="registrarToken" value="<%= RegistrarToken %>" />
+
 	      		Resource Server Protocol:
 	      		<select id="resourceServerProtocolList" data-mini="true">
 	      			<option value="http">
@@ -119,48 +232,20 @@
 	      		</select>
 	      		Resource Server Port (Optional):
 	      		<input pattern="\d*" type="text" id="resourceServerPort" value="<%= ResourceServerPort %>" />
-	      		Resource Server Ids:
-	      		<div id="resourceServerIdContainer" data-role="content" class="fullarea">
-	      			<ul data-role="listview" data-theme="c">
-		        		<% _.each(ResourceServerIds, function(resourceServerId) { %>  
-		        			<li><%= _.escape(resourceServerId) %></li> 
-						<% }); %>
-					</ul>
-				</div>
-				App Names Cache:
-				<div id="appsContainer" data-role="content" class="fullarea">
-	      			<ul data-role="listview" data-theme="c">
-		        		<% _.each(AppNameCache, function(app) { %>  
-		        			<li><%= _.escape(app.appId) %>: <%= _.escape(app.name) %></li> 
-						<% }); %>
-					</ul>
-				</div>
 	      	</div>
-	      	<div data-role="footer" data-theme="f">
-	      		<div class="ui-grid-a">
-		      		<div class="ui-block-a">
-	      				<a id="reset" data-rel="popup" data-role="button" data-inline="true">Reset</a>
-	      				<div data-role="popup" id="resetDialogue">
-	      					<div data-role="header" data-theme="e">
-								<h1>Confirm Reset</h1>
-							</div>
-							<div data-shadow="true" data-role="content" data-theme="d">
-								<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
-								<p>This action cannot be undone.</p>
-								<div data-role="controlgroup">
-									<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
-									<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="a" >Reset to *.local.a2p3.net</a> 
-									<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="a" >Reset to *.dev.a2p3.net</a> 
-									<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="a" >Reset to *.a2p3.net (Prod)</a>
-								</div>  
-							</div>
-	      				</div>
-	      			</div>
-		      		<div class="ui-block-b" style="text-align: right">
-		      			<a id="save" data-role="button" data-inline="true" data-icon="check">Save</a>
-		      		</div>
-		      	</div>
-	      	</div>
+			<div data-role="popup" id="resetDialogue">
+				<div data-role="header" data-theme="e">
+					<h1>Confirm Reset</h1>
+				</div>
+				<div data-shadow="true" data-role="content" data-theme="d">
+					<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
+					<p>This action cannot be undone.</p>
+					<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
+					<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="f" >Reset to *.local.a2p3.net</a> 
+					<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="f" >Reset to *.dev.a2p3.net</a> 
+					<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="f" >Reset to *.a2p3.net (Default)</a>
+				</div>
+			</div>
     </script>
     <!-- info page template -->
     <script type="text/template" id="info" >

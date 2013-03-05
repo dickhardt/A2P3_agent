@@ -16,6 +16,8 @@ $(function($) {
 	        this.$("#enrolled").hide();
 	        this.$("#unenrolled").hide();
 	        this.$("#messageBar").hide();
+	        this.$("#empty").hide();
+	        
 	        
 	        // Switch on enrollment state
 	        if (settings.isEnrolled()) {

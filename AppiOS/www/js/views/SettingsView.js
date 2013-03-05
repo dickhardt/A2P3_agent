@@ -15,7 +15,6 @@ $(function($) {
 		},
 		
 	    render:function (eventName) {
-	    	console.log("rendering = " + JSON.stringify(this.model));
 	       	this.$el.html(this.template(this.model.toJSON()));
 	        
 	        // init

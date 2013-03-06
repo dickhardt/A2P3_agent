@@ -10,7 +10,6 @@
 	    routes:{
 	        "" : "home",
             "home" : "home",
-            "info" : "info",
 	        "settings" : "settings",
 	        "authz" : "authz",
 	        "authzdetail/:id" : "authzDetail",
@@ -38,13 +37,6 @@
 	        if (url) {
 	        	homeView.followQRCodeAgentRequestUrl(url);
 	        }
-	    },
-		
-		/*
-		 * Info page
-		 */
-		info:function () {
-	        this.changePage(new window.Agent.InfoView());
 	    },
 
 		/*

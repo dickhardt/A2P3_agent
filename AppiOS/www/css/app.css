@@ -67,6 +67,7 @@
 	
 	padding-top: 15px;
 	text-align: left;
+	
 	height: 90px;
 }
 
@@ -74,6 +75,7 @@
 	font-size: 24px;
 	white-space: normal;
 	float: left;
+	vertical-align: middle;
 	padding-left: 80px;
 }
 

@@ -30,6 +30,7 @@
 	        "" : "home",
             "home" : "home",
 	        "settings" : "settings",
+	        "dev": "dev",
 	        "authz" : "authz",
 	        "authzdetail/:id" : "authzDetail",
 	        "agentrequest/:id" : "agentrequest",
@@ -51,7 +52,7 @@
 		 */
 		home:function (url) {
 	        var homeView = new window.Agent.HomeView();
-	        this.changePage(homeView, "slide");
+	        this.changePage(homeView, "slide", true);
 	        
 	        if (url) {
 	        	homeView.followQRCodeAgentRequestUrl(url);
@@ -61,19 +62,27 @@
 		/*
 		 * Settings page, send in the global instance of settings
 		 */
-		settings:function () {
+		settings:function (reverse) {
 			
-	        this.changePage(new window.Agent.SettingsView({model: settings}), "slide");
+	        this.changePage(new window.Agent.SettingsView({model: settings}), "slide", reverse);
+	    },
+	    
+	    /*
+		 * Dev page, send in the global instance of settings
+		 */
+		dev:function () {
+			
+	        this.changePage(new window.Agent.DevView({model: settings}), "slide");
 	    },
 
 		 /*
 	     * Authz page
 	     */
-	    authz:function (authorizations) {
+	    authz:function (authorizations, reverse) {
 	    	if (!authorizations) {
 	    	 	authorizations = new window.Agent.Authorizations();
 	    	}
-	        this.changePage(new window.Agent.AuthzView({model: authorizations}), "slide");
+	        this.changePage(new window.Agent.AuthzView({model: authorizations}), "slide", reverse);
 	    },
 	    
 	    /* 
@@ -103,7 +112,7 @@
 		/*
 		 * Common function to load page
 		 */
-	    changePage:function (page, transition) {
+	    changePage:function (page, transition, reverse) {
 	    	if (page.pageClass)
 	    		$(page.el).attr({ 'data-role': 'page', 'data-theme': 'f', 'class': page.pageClass});
 	    	else
@@ -118,7 +127,7 @@
 	            transition = 'none';
 	            this.firstPage = false;
 	        }
-	        $.mobile.changePage($(page.el), {changeHash:false, transition: "none"});
+	        $.mobile.changePage($(page.el), {changeHash:false, transition: transition,  reverse:  reverse});
 	        
 	        // unhide splash
 	        if (navigator.splashscreen) {
@@ -126,6 +135,12 @@
 	        }
 	    },
 	
+		/*
+		 * General purpose back navigate
+		 */
+		back: function () {
+			$.mobile.back();
+		},
 	
 		/*
 		 * Handles incoming URL from mobile device invoke

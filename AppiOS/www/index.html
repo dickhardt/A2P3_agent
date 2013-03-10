@@ -19,7 +19,7 @@
 	        <div data-role="header" data-theme="f">
 	        	<a id="empty"></a>
 	            <h1>Agent Home</h1>
-	            <a href="#settings" data-role="button" data-inline="true" data-icon="grid" data-iconpos="notext">Settings</a>
+	            <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
 	        </div>
 	        <div id="messageBar" class="ui-bar ui-bar-e"></div>
 	      	<div id="enrolled" data-role="content" class="fullarea">
@@ -49,21 +49,16 @@
     <!-- Settings Page Template -->
     <script type="text/template" id="settings" >
 	        <div id="viewHeader" data-role="header" data-theme="f">
-	     		<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>	
+	     		<a href="#home" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>	
 	            <h1>Agent Info</h1>
-	            <a id="edit" data-role="button" data-inline="true">Edit</a>	
-	        </div>
-	        <div id="editHeader" data-role="header" data-theme="f">
-	     		<a id="back" data-role="button" data-inline="true">Back</a>	
-	            <h1>Edit Settings</h1>
-	            <a id="reset" data-rel="popup" data-role="button" data-inline="true">Reset</a>	
+	            <a href="#dev" data-role="button" data-inline="true">Developer</a>	
 	        </div>
 	        <div id="viewContainer" data-role="content">
 	        	<h2>Personal Agent</h2>
     			<p style="font-style: italic">A2P3 Protocol Draft v0.9</p>
-    			<p>App Version - v1.1</p>
+    			<p>App Version - v1.2</p>
     			<p>More info at <a id="a2p3link">a2p3.net</a></p>
-    			
+    			<a id="reset" data-rel="popup" data-role="button">Reset</a>
 		        <h3>Device</h3>
 		        <ul data-role="listview" data-inset="true" data-theme="c">
 		        	<li>
@@ -83,66 +78,30 @@
 		        		<p><%= _.escape(RegistrarToken) %></p>
 		        	</li>
 		        </ul>
-		        <h3>Authentication Server</h3>
+		        <h3>Servers</h3>
 		        <ul data-role="listview" data-inset="true" data-theme="c">
 		        	<li>
-		        		<label>Protocol:</label><br><br>
-		        		<p><%= _.escape(AuthenticationServerProtocol) %></p>
+		        		<label>Authentication Server URL:</label><br><br>
+		        		<p><%= _.escape(this.model.getAuthenticationServerURL()) %></p>
 		        	</li>
 		        	<li>
-		        		<label>Host:</label><br><br>
-		        		<p><%= _.escape(AuthenticationServerHost) %></p>
+		        		<label>Register Server URL:</label><br><br>
+		        		<p><%= _.escape(this.model.getRegistrarURL()) %></p>
 		        	</li>
 		        	<li>
-		        		<label>Port:</label><br><br>
-		        		<p><%= _.escape(AuthenticationServerPort) %></p>
-		        	</li>
-		        </ul>
-		        <h3>Registrar Server</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
-		        	<li>
-		        		<label>Protocol:</label><br><br>
-		        		<p><%= _.escape(RegistrarProtocol) %></p>
+		        		<label>Setup Server URL:</label><br><br>
+		        		<p><%= _.escape(this.model.getSetupURL()) %></p>
 		        	</li>
 		        	<li>
-		        		<label>Host:</label><br><br>
-		        		<p><%= _.escape(RegistrarHost) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Port:</label><br><br>
-		        		<p><%= _.escape(RegistrarPort) %></p>
-		        	</li>
-		        </ul>
-		        <h3>Setup Server</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
-		        	<li>
-		        		<label>Protocol:</label><br><br>
-		        		<p><%= _.escape(SetupProtocol) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Host:</label><br><br>
-		        		<p><%= _.escape(SetupHost) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Port:</label><br><br>
-		        		<p><%= _.escape(SetupPort) %></p>
-		        	</li>
-		        </ul>
-		        <h3>Resource Servers</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
-		        	<li>
-		        		<label>Protocol:</label><br><br>
+		        		<label>Resource Servers Protocol:</label><br><br>
 		        		<p><%= _.escape(ResourceServerProtocol) %></p>
 		        	</li>
 		        	<li>
-		        		<label>Port:</label><br><br>
+		        		<label>Resource Servers Port:</label><br><br>
 		        		<p><%= _.escape(ResourceServerPort) %></p>
 		        	</li>
-		        </ul>
-		        <h3>Demostration Site</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
 		        	<li>
-		        		<label>URL:</label><br><br>
+		        		<label>Demostration Site URL:</label><br><br>
 		        		<p><%= _.escape(DemoAppsURL) %></p>
 		        	</li>
 		        </ul>
@@ -159,11 +118,32 @@
 					<% }); %>	
 		        </ul>
 	        </div>
+			<div data-role="popup" id="resetDialogue">
+				<div data-role="header" data-theme="e">
+					<h1>Confirm Reset</h1>
+				</div>
+				<div data-shadow="true" data-role="content" data-theme="d">
+					<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
+					<p>This action cannot be undone.</p>
+					<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
+					<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="f" >Reset to *.local.a2p3.net</a> 
+					<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="f" >Reset to *.dev.a2p3.net</a> 
+					<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="f" >Reset to *.a2p3.net (Default)</a>
+				</div>
+			</div>
+    </script>
+    
+	<!-- Dev Page Template -->
+    <script type="text/template" id="dev" >
+	        
+	        <div id="editHeader" data-role="header" data-theme="f">
+	     		<a id="back" data-role="button" data-inline="true">Back</a>	
+	            <h1>Developer</h1>	
+	        </div>
 	        <div id="editContainer" data-role="content">
 	        	<h2>WARNING!</h2>
 	        	<p>
-	        		End-users should never have to modify settings of this Agent.  Modification of settings are for development purposes only.  If the Agent becomes unstable, Reset the 
-	        		Agent.
+	        		Changing settings are for <b>developers only</b>.
 	        	</p>
 	      		Device Name:
 	      		<input type="text" id="name" name="name" value="<%= Name %>" />
@@ -233,19 +213,6 @@
 	      		Resource Server Port (Optional):
 	      		<input pattern="\d*" type="text" id="resourceServerPort" value="<%= ResourceServerPort %>" />
 	      	</div>
-			<div data-role="popup" id="resetDialogue">
-				<div data-role="header" data-theme="e">
-					<h1>Confirm Reset</h1>
-				</div>
-				<div data-shadow="true" data-role="content" data-theme="d">
-					<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
-					<p>This action cannot be undone.</p>
-					<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
-					<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="f" >Reset to *.local.a2p3.net</a> 
-					<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="f" >Reset to *.dev.a2p3.net</a> 
-					<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="f" >Reset to *.a2p3.net (Default)</a>
-				</div>
-			</div>
     </script>
     
     <!-- Demo Page Template -->
@@ -465,6 +432,7 @@
     <script src="js/views/AuthzDetailView.js"></script>
     <script src="js/views/HomeView.js"></script>
     <script src="js/views/SettingsView.js"></script>
+    <script src="js/views/DevView.js"</script>
     <script src="js/views/EnrollmentView.js"></script>
     <script src="js/views/AgentRequestView.js"></script>
     <script src="js/views/PasscodeView.js"></script>

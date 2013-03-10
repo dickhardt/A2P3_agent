@@ -88,6 +88,7 @@ $(function($) {
 	   		this.$("#report").show();
 	   		this.$("#reportConfirmedContainer").hide();
 	   		this.$("#reportConfirmedFooter").hide();
+	   		this.$("#allowButton").show();
 	   		
 	   		
 	   		// lttiel workaround for a jquery bug
@@ -127,6 +128,9 @@ $(function($) {
 		   		if (resourceServersLoaded < resourceServerTotal) {
 		   			this.$("#loadingBar").text("Loaded " + resourceServersLoaded + " of " + resourceServerTotal + " resource servers");
 		   			this.$("#loadingBar").show();
+		   			
+		   			// also hide the authorize button
+		   			this.$("#allowButton").hide();
 		   		}
 	   		}
 	   		else if (this.model.get("PasscodeFlag") == true &&

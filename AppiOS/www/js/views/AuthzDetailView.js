@@ -56,7 +56,7 @@ $(function($) {
 	    },
 	
 		events: {
-			"click a[id=back]": "back",
+			"tap a[id=back]": "back",
 	    },
 	    
 	  
@@ -65,7 +65,7 @@ $(function($) {
 	     */
 	    back: function () {
 	    	// go back
-	    	app.authz(this.model)
+	    	app.authz(this.model, true)
 	    }
 	    
 	});

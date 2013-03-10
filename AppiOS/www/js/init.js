@@ -27,14 +27,14 @@ $(document).on("mobileinit", function () {
     $.mobile.linkBindingEnabled = false;
     $.mobile.hashListeningEnabled = false;
     $.mobile.pushStateEnabled = false;
-
+	
 	/*
 	 * It will decrease the time between the touch event and 
 	 * the application of the relevant class but will also result 
 	 * in a higher chance that the same class will be applied 
 	 * even when the user is scrolling (eg, over a long list of links).
 	 */
-	$.mobile.buttonMarkup.hoverDelay = 0;
+	$.mobile.buttonMarkup.hoverDelay = 25;
 
     // Set default page transitions
     $.mobile.defaultPageTransition = "none";

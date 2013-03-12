@@ -24,9 +24,9 @@
 	        <div id="messageBar" class="ui-bar ui-bar-e"></div>
 	      	<div id="enrolled" data-role="content" class="fullarea">
             
-                <a class="homeButton" id="logonScan" data-role="button" data-iconpos="left" data-icon="app-qrcode">Scan Login<br>QR Code</a>
+                <a class="homeButton twoLine" id="logonScan" data-role="button" data-iconpos="left" data-icon="app-qrcode">Scan Login<br>QR Code</a>
                 <a class="homeButton" href="#authz" data-role="button" data-iconpos="left" data-icon="app-check" data-transition="fade">Review<br>Anytime<br>Authorizations</a>
-                <a class="homeButton" id="demo" data-role="button" data-iconpos="left" data-icon="app-safari">Demo<br>Apps</a>
+                <a class="homeButton twoLine" id="demo" data-role="button" data-iconpos="left" data-icon="app-safari">Demo<br>Apps</a>
         
 	      	</div>
 	      	<div id="unenrolled" data-role="content" class="fullarea">
@@ -338,7 +338,7 @@
 			    </div>
 			    <div id="reportConfirmedContainer">
 			    	<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
-	           			(<%= _.escape(AppId) %>) has been reported to the Registrar.
+	           			(<%= _.escape(AppId) %>) has been reported.
 	           		</p>
 			    </div>
 			    <div id="abort">

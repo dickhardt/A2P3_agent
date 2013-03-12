@@ -67,16 +67,18 @@
 	
 	padding-top: 15px;
 	text-align: left;
-	
 	height: 90px;
 }
 
 .homeButton .ui-btn-text {
-	font-size: 24px;
+	font-size: 22px;
 	white-space: normal;
 	float: left;
-	vertical-align: middle;
 	padding-left: 80px;
+}
+
+.twoLine .ui-btn-text {
+	padding-top: 15px;
 }
 
 .footerButton .ui-btn-inner {

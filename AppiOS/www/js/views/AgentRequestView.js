@@ -52,6 +52,7 @@ $(function($) {
 	      "tap a[id=back]": "back",
 	      "tap a[id=cancelReport]": "cancelReport",
 	      "tap a[id=confirmReport]": "confirmReport",
+	      "tap a[id=done]": "done"
 	    },
 
 	    
@@ -195,6 +196,10 @@ $(function($) {
 	    
 	    confirmReport: function () {
 	    	this.model.report();
+	    },
+	    
+	    done: function() {
+	    	this.model.cancel();
 	    },
 	});
 });

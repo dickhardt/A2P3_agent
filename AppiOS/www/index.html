@@ -26,7 +26,7 @@
             
                 <a class="homeButton" id="logonScan" data-role="button" data-iconpos="left" data-icon="app-qrcode">Scan Login<br>QR Code</a>
                 <a class="homeButton" href="#authz" data-role="button" data-iconpos="left" data-icon="app-check" data-transition="fade">Review<br>Anytime<br>Authorizations</a>
-                <a class="homeButton" id="demo" data-role="button" data-iconpos="left" data-icon="app-ball">Demo<br>Apps</a>
+                <a class="homeButton" id="demo" data-role="button" data-iconpos="left" data-icon="app-safari">Demo<br>Apps</a>
         
 	      	</div>
 	      	<div id="unenrolled" data-role="content" class="fullarea">
@@ -234,7 +234,7 @@
     <script type="text/template" id="authz" >
             <div data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
-                <h1>Anytime Authorizations</h1>
+                <h1 style="font-size: 90%;">Anytime Authorizations</h1>
                 <a id="edit-cancel" data-role="button" data-inline="true">Edit</a>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
@@ -248,20 +248,18 @@
             		<% _.each(Apps, function(app, key) { %> 
 			      		<li data-icon="arrow-r">            	
 	            			<a id="detail" data-appid="<%= key %>">
-		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> <%= _.escape(key) %></p>
+		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> (<%= _.escape(key) %>)</p>
 		            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
-		            			<span class="ui-li-count"><%= app.resources.length %></span>
 		            		</a>
 		            	</li>
 		            <% }); %>
 	            </ul>
-	            <ul id="editList" data-role="listview" data-theme="f">    
+	            <ul id="editList" data-role="listview" data-theme="f" data-iconpos="left">    
             		<% _.each(Apps, function(app, key) { %> 
-			      		<li data-icon="delete">            	
-	            			<a id="delete" data-rel="popup" data-appid="<%= key %>" data-appname="<%= app.name %>">
-		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> <%= _.escape(key) %></p>
+			      		<li data-icon="delete"  data-iconpos="left" class="ui-btn-icon-left">            	
+		            		<a style="padding-left: 40px;"  id="delete" data-rel="popup" data-appid="<%= key %>" data-appname="<%= app.name %>">
+		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> (<%= _.escape(key) %>)</p>
 		            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
-		            			<span class="ui-li-count"><%= app.resources.length %></span>
 		            		</a>
 		            	</li>
 		            <% }); %>
@@ -271,7 +269,7 @@
 						<h1>Confirm Remove</h1>
 					</div>
 					<div data-shadow="true" data-role="content" data-theme="d">
-						<h3 class="ui-title">Are you sure you want to remove all access for '<%= _.escape(this.confirmAppName) %>' '<%= _.escape(this.confirmAppId) %>'?</h3>
+						<h3 class="ui-title">Are you sure you want to remove all access for <%= _.escape(this.confirmAppName) %> (<%= _.escape(this.confirmAppId) %>)?</h3>
 						<p>This action cannot be undone.</p>
 							<a id="cancel" data-role="button" data-rel="back">Cancel</a>    
 							<a id="deleteConfirm" data-role="button" data-transition="flow" data-theme="f">Remove</a>
@@ -283,13 +281,13 @@
      <!-- AuthZ Details Page Template -->
     <script type="text/template" id="authzDetail" >
             <div data-role="header" data-theme="f">
-            	<a id="back" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l"><span style="font-size: 80%;">Authorizations</span></a>
+            	<a id="back" data-role="button" data-mini="true" data-inline="true" data-icon="arrow-l">Back</a>
                 <h1>Detail</h1>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="authZContent" data-role="content" class="fullarea">
         		<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.app.name) %></span>
-        			 <%= _.escape(this.id) %></p>
+        			 (<%= _.escape(this.id) %>)</p>
 				<p>Last Access: <%= _.escape(this.app.lastAccess) %></p>
 				<p>Anytime Authorizations:</p>
 				<ul data-role="listview" data-theme="c">
@@ -322,7 +320,7 @@
                 
 	           	<div id="authZContainer">
 	           		<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
-	           			<%= _.escape(AppId) %> requests:
+	           			(<%= _.escape(AppId) %>) requests:
 	           		</p>
 	           		<br>
 	            	<ul data-role="listview" data-theme="c">
@@ -334,20 +332,13 @@
 			    </div>
 			    
 			    <div id="reportContainer">
-			    	<p>You are sure you want to report <span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
-	           			<%= _.escape(AppId) %> to the Registrar?
-	           		</p>
-	           		<p>
-	           			What happens when I report this app?
-	           			<ul>
-	           				<li>This logon will be abandoned.</li>
-	           				<li>The Registrar may conduct an investigation which may result in the app being banned.</li>
-	           			</ul>
+			    	<p>Confirm you want to report <span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
+	           			(<%= _.escape(AppId) %>) for making an inappropriate request.
 	           		</p>
 			    </div>
 			    <div id="reportConfirmedContainer">
 			    	<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.model.AppDisplayName()) %></span> 
-	           			<%= _.escape(AppId) %> has been reported to the Registrar.
+	           			(<%= _.escape(AppId) %>) has been reported to the Registrar.
 	           		</p>
 			    </div>
 			    <div id="abort">
@@ -380,7 +371,7 @@
 	      			
 	      			</div>
 		      		<div class="ui-block-b" style="text-align: right">
-		      			<a class="footerButton" href="#" data-role="button" data-inline="true" data-icon="">Home</a>
+		      			<a id="done" class="footerButton" data-role="button" data-inline="true" data-icon="">Done</a>
 		      		</div>
 		      	</div>
 		    </div>
@@ -428,14 +419,14 @@
     <script src="js/models/Notification.js"></script>
     <script src="js/collections/EnrollmentSessions.js"></script>
     <script src="js/collections/AgentRequestSessions.js"></script>
+    <script src="js/views/EnrollmentView.js"></script>
     <script src="js/views/AuthzView.js"></script>
     <script src="js/views/AuthzDetailView.js"></script>
     <script src="js/views/HomeView.js"></script>
     <script src="js/views/SettingsView.js"></script>
-    <script src="js/views/DevView.js"</script>
-    <script src="js/views/EnrollmentView.js"></script>
     <script src="js/views/AgentRequestView.js"></script>
     <script src="js/views/PasscodeView.js"></script>
+    <script src="js/views/DevView.js"></script>
 	<script src="js/routers/AppRouter.js"></script>
 	
     <script src="js/main.js"></script>

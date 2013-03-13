@@ -61,4 +61,11 @@ function UnhandledError (message) {
 	window.Agent.Notify(message);
 }
 
-
+/*
+ * Get last access from unix integer
+ * 
+ */
+function getLastAccess (unixInt) {
+	var day = moment(unixInt);
+	return day.fromNow();
+}

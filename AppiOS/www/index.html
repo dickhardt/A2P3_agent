@@ -16,7 +16,7 @@
 
     <!-- Home Page Template -->
     <script type="text/template" id="home" >
-	        <div data-role="header" data-theme="f">
+	        <div class="homeHeader" data-role="header" data-theme="f">
 	        	<a id="empty"></a>
 	            <h1>Agent Home</h1>
 	            <a href="#settings" data-role="button" data-inline="true" data-icon="gear" data-iconpos="notext">Settings</a>
@@ -249,7 +249,7 @@
 			      		<li data-icon="arrow-r">            	
 	            			<a id="detail" data-appid="<%= key %>">
 		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> (<%= _.escape(key) %>)</p>
-		            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
+		            			<p>Last Access: <%= getLastAccess(app.lastAccess) %></p>
 		            		</a>
 		            	</li>
 		            <% }); %>
@@ -259,7 +259,7 @@
 			      		<li data-icon="delete"  data-iconpos="left" class="ui-btn-icon-left">            	
 		            		<a style="padding-left: 40px;"  id="delete" data-rel="popup" data-appid="<%= key %>" data-appname="<%= app.name %>">
 		            			<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(app.name) %></span> (<%= _.escape(key) %>)</p>
-		            			<p>Last Access: <%= _.escape(app.lastAccess) %></p>
+		            			<p>Last Access: <%= getLastAccess(app.lastAccess) %></p>
 		            		</a>
 		            	</li>
 		            <% }); %>
@@ -288,7 +288,7 @@
             <div id="authZContent" data-role="content" class="fullarea">
         		<p><span style="font-size: 18px; font-weight: bold"><%= _.escape(this.app.name) %></span>
         			 (<%= _.escape(this.id) %>)</p>
-				<p>Last Access: <%= _.escape(this.app.lastAccess) %></p>
+				<p>Last Access: <%= getLastAccess(this.app.lastAccess) %></p>
 				<p>Anytime Authorizations:</p>
 				<ul data-role="listview" data-theme="c">
 					<% _.each(this.app.resources, function(resource) { %>
@@ -412,6 +412,7 @@
     <script src="lib/uri/parseuri.js"></script>
     <script src="lib/fastclick/fastclick.js"></script>
     <script src="lib/showdown/showdown.js"></script>
+    <script src="lib/moment/moment.min.js"></script>
     <script src="js/models/Settings.js"></script>
     <script src="js/models/Enrollment.js"></script>
     <script src="js/models/AgentRequest.js"></script>

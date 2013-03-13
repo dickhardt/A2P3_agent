@@ -131,6 +131,12 @@
 	top: 14% !important;
 }
 
+.homeHeader {
+	background-image: url("app_icon_embossed.png");
+	background-repeat: no-repeat;
+	background-position-x: 10px;
+}
+
 /*
 .ui-page {
 	background-image: url("app_icon.png");

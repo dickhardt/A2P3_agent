@@ -28,6 +28,7 @@ $(function($) {
 	    template:_.template($('#authz').html()),
 	
 		initialize: function() {
+			
 			// watch the authZ model for changes
 			this.model.on("change:Apps", this.render, this);
 			this.model.on("change:ErrorMessage", this.render, this);
@@ -37,6 +38,7 @@ $(function($) {
 			
 			// Set default mode
 			this.editMode = false;
+			
 		},
 		
 	    render:function (eventName) {
@@ -111,8 +113,8 @@ $(function($) {
 	
 		events: {
 			"tap a[id=detail]": "detail",
-			"tap a[id=edit]": "edit",
-			"tap a[id=cancel]": "cancel",
+			"click a[id=edit]": "edit",
+			"click a[id=cancel]": "cancel",
 			"tap a[id=delete]": "deleteApp",
 			"tap a[id=deleteConfirm]": "deleteAppConfirm",
 	    },

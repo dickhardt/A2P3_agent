@@ -77,7 +77,8 @@ $(function($) {
 	   			_.isEmpty(this.model.get("Apps"))) ) {
 	   				
 	   			this.$("#noAuthZContent").show();
-	   			
+	   			this.$("#edit").hide();
+	   			this.$("#cancel").hide();
 	   		}
 	   		else {
 	   			// We need to show how many to load cause this can take awhile

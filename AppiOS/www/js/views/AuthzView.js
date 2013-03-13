@@ -50,15 +50,16 @@ $(function($) {
 	        this.$("#noAuthZContent").hide();
 	        this.$("#viewList").hide();
 	        this.$("#editList").hide();
-	        this.$("#edit-cancel").hide();
+	        this.$("#viewHeader").hide();
+	        this.$("#editHeader").hide();
 	        
 	        // Toggle text and icons
 	        if (this.editMode) {
-	        	this.$("#edit-cancel").text("Cancel");
+	        	this.$("#editHeader").show();
 	        	this.$("#editList").show();
 	        }
 	        else {
-	        	this.$("#edit-cancel").text("Edit");
+	        	this.$("#viewHeader").show();
 	        	this.$("#viewList").show();
 	        }
 	        
@@ -109,7 +110,8 @@ $(function($) {
 	
 		events: {
 			"tap a[id=detail]": "detail",
-			"tap a[id=edit-cancel]": "toggleEditMode",
+			"tap a[id=edit]": "edit",
+			"tap a[id=cancel]": "cancel",
 			"tap a[id=delete]": "deleteApp",
 			"tap a[id=deleteConfirm]": "deleteAppConfirm",
 	    },
@@ -126,9 +128,14 @@ $(function($) {
 	    /*
 	     * Toggle between edit and view modes
 	     */
-	    toggleEditMode: function () {
-	    	this.editMode = !this.editMode;
+	    edit: function () {
+	    	this.editMode = true;
 	    	this.render();
+	    },
+	    
+	    cancel: function () {
+	    	this.editMode = false;
+	    	this.render();	
 	    },
 	    
 	    deleteApp: function (ev) {

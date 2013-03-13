@@ -232,10 +232,15 @@
     
     <!-- AuthZ Page Template -->
     <script type="text/template" id="authz" >
-            <div data-role="header" data-theme="f">
+            <div id="viewHeader" data-role="header" data-theme="f">
             	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
                 <h1 style="font-size: 90%;">Anytime Authorizations</h1>
-                <a id="edit-cancel" data-role="button" data-inline="true">Edit</a>
+                <a id="edit" data-role="button" data-inline="true">Edit</a>
+            </div>
+            <div id="editHeader" data-role="header" data-theme="f">
+            	<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>
+                <h1 style="font-size: 90%;">Anytime Authorizations</h1>
+                <a id="cancel" data-role="button" data-inline="true">Cancel</a>
             </div>
             <div id="messageBar" class="ui-bar ui-bar-e"></div>
             <div id="loadingBar" class="ui-bar ui-bar-c"></div>

@@ -69,7 +69,7 @@ $(function($) {
 		},
 		
 		edit: function () {
-			app.navigate("dev", true);
+			app.dev();
 		},
 		
 		confirm: function(ev) {

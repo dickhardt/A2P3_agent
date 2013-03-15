@@ -112,13 +112,18 @@ $(function($) {
 	    },
 	
 		events: {
-			"tap a[id=detail]": "detail",
+			"click a[id=detail]": "detail",
 			"click a[id=edit]": "edit",
 			"click a[id=cancel]": "cancel",
-			"tap a[id=delete]": "deleteApp",
-			"tap a[id=deleteConfirm]": "deleteAppConfirm",
-	    },
-	    
+			"click a[id=delete]": "deleteApp",
+			"click a[id=deleteConfirm]": "deleteAppConfirm",
+			"popupbeforeposition div[id=deleteDialogue]": "stopTouchOutOfPop"
+		},
+	
+		stopTouchOutOfPop: function () {
+        	$('.ui-popup-screen').off();
+       	},
+       	
 	    detail: function (ev) {
 	    	// Get the app we're talking about
 	    	var appId = $(ev.currentTarget).data('appid');

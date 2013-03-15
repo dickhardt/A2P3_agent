@@ -46,9 +46,14 @@ $(function($) {
 			"tap a[id=cancel]": "cancel",
 			"tap a[id=confirm]": "confirm",
 			"tap a[id=edit]": "edit",
-			"tap a[id=a2p3link]": "a2p3netNav"
+			"tap a[id=a2p3link]": "a2p3netNav",
+			"popupbeforeposition div[id=resetDialogue]": "stopTouchOutOfPop"
 		},
-		
+	
+		stopTouchOutOfPop: function () {
+        	$('.ui-popup-screen').off();
+       	},
+    	
 		a2p3netNav: function () {
 			window.location.href = "http://a2p3.net";
 		},

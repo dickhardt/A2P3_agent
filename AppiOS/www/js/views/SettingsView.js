@@ -42,10 +42,10 @@ $(function($) {
 	    },
 	
 		events: {
-			"tap a[id=reset]": "reset",
-			"tap a[id=cancel]": "cancel",
-			"tap a[id=confirm]": "confirm",
-			"tap a[id=edit]": "edit",
+			"click a[id=reset]": "reset",
+			"click a[id=cancel]": "cancel",
+			"click a[id=confirm]": "confirm",
+			"click a[id=edit]": "edit",
 			"tap a[id=a2p3link]": "a2p3netNav",
 			"popupbeforeposition div[id=resetDialogue]": "stopTouchOutOfPop"
 		},

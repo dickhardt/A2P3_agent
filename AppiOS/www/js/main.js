@@ -84,12 +84,12 @@ function onDeviceReady() {
  * URL.
  */
 function onDefaultEvent () {
+	// reset to splash
+	navigator.splashscreen.hide();
+	
 	// lets to default home page
 	console.log("loading default home page");
     Backbone.history.start();
-    
-    // reset to splash
-	navigator.splashscreen.hide();
 }
 
 /*
@@ -97,9 +97,6 @@ function onDefaultEvent () {
  */
 function onResume() {
 	console.log("resume");
-	
-	    // reset to splash
-	navigator.splashscreen.hide();
 	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {

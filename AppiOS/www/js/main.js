@@ -87,6 +87,7 @@ function onDefaultEvent () {
 	// lets to default home page
 	console.log("loading default home page");
     Backbone.history.start();
+    app.navigate("", true);
     
     // reset to splash
 	//navigator.splashscreen.hide();

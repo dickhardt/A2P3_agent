@@ -98,7 +98,7 @@ function onDefaultEvent () {
 function onResume() {
 	console.log("resume");
 	
-	if (window.Agent.HandlingOpenUrl) {
+	if (window.Agent.HandlingOpenUrl == true) {
 		console.log("handling");
 		return;
 	} 

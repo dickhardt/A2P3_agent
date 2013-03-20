@@ -88,8 +88,8 @@ function onDefaultEvent () {
 	console.log("loading default home page");
     Backbone.history.start();
     
-    // Hide splash
-	navigator.splashscreen.hide();
+    // reset to splash
+	//navigator.splashscreen.hide();
 }
 
 /*

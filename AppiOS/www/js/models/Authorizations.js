@@ -255,7 +255,7 @@
 					
 				// Use the most recent last access - although should be the same
 				if (app.lastAccess &&
-					app.lastAccess > app[appid].lastAccess) {
+					app.lastAccess > app[appId].lastAccess) {
 					apps[appId].lastAccess = app.lastAccess;		
 				}
 			}

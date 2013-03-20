@@ -89,7 +89,7 @@ function onDefaultEvent () {
     Backbone.history.start();
     
     // reset to splash
-	//navigator.splashscreen.hide();
+	navigator.splashscreen.hide();
 }
 
 /*

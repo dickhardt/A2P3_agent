@@ -87,7 +87,6 @@ function onDefaultEvent () {
 	// lets to default home page
 	console.log("loading default home page");
     Backbone.history.start();
-    //app.navigate("", true);
     
     // Hide splash
 	navigator.splashscreen.hide();
@@ -120,7 +119,7 @@ function onPause() {
 	
 	// show splash and nav home
 	navigator.splashscreen.show();
-	//app.navigate("", true);
+	app.navigate("", true);
 }
 
 /*

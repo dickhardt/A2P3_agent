@@ -89,7 +89,7 @@ function onDefaultEvent () {
     Backbone.history.start();
     
     // reset to splash
-	navigator.splashscreen.hide();
+	//navigator.splashscreen.hide();
 }
 
 /*
@@ -130,7 +130,7 @@ function onOnline () {
 	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
-    	window.Agent.Notification.processPendingNotifications(onDefaultEvent);
+    	window.Agent.Notification.processPendingNotifications();
     }
 }
 

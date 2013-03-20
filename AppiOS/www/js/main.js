@@ -87,8 +87,9 @@ function onDefaultEvent () {
 	}
 	
 	// lets to default home page
-	console.log("loading default home page");
+	console.log("loading default home page, invoke string = " + invokeString);
 
+	//if (typeof invokeString != 'undefined') { //get parameters }
     //app.homeScan();
 }
 

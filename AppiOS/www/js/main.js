@@ -99,7 +99,7 @@ function onDefaultEvent () {
 function onResume() {
 	console.log("resume");
 	
-	if (handlingOpenUrl) {
+	if (window.Agent.HandlingOpenUrl) {
 		return;
 	} 
 	// Process new notifications

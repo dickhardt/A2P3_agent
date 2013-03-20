@@ -71,15 +71,16 @@ window.Agent.Notify = function(message, title, button, callback) {
  * if you do, your app will hang. Similarly, you should not call any Cordova APIs in 
  * there, unless you wrap it first in a setTimeout call, with a timeout value of zero
  *  */
-var handlingOpenUrl = false;
+window.Agent.HandlingOpenUrl = false;
 function handleOpenURL(url) {
 	console.log("url from iOS = " + url);
-	handlingOpenUrl = true;
+	window.Agent.HandlingOpenUrl = true;
 	setTimeout(function() {
 		app.mobileUrlInvokeHandler(url);
-		handlingOpenUrl = false;
 	}, 0);
-	
+	setTimeout(function() {
+		window.Agent.HandlingOpenUrl = false;
+	}, 1);
 }
 
 /*

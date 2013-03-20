@@ -55,6 +55,11 @@
 	        this.changePage(homeView, "slide", true);
 	    },
 	    
+	    homeRefresh:function () {
+	        var homeView = new window.Agent.HomeView();
+	        this.changePage(homeView);
+	    },
+	    
 	    homeFollow: function (url) {
 	    	var homeView = new window.Agent.HomeView(url);
 	    },

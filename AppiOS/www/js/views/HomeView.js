@@ -89,7 +89,7 @@ $(function($) {
 		scanSuccess: function (result) {
 			
             if (result.cancelled) {
-                app.home();
+                app.homeRefresh();
             }
             else {
             	// Two flavours, enroll QR and logon QR

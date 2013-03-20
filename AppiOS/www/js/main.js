@@ -72,7 +72,11 @@ function onDeviceReady() {
 	document.addEventListener("push-notification", window.Agent.Notification.onPendingNotificationWhileActive, false);
 	
 	 // Get new notifications
+	var startTime = new Date().getTime();
 	window.Agent.Notification.processPendingNotifications();
+	var endTime = new Date().getTime();
+	var timeSpan = endTime - startTime;
+	UnhandledError("Time taken = " + timeSpan);
 	
 	// lets to default home page
 	console.log("loading default home page");

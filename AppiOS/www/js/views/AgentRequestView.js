@@ -46,13 +46,13 @@ $(function($) {
 		},
 		
 		events: {
-	      "tap a[id=allowButton]" : "allow",
-	      "tap a[id=dontAllowButton]": "dontAllow",
-	      "tap a[id=report]": "report",
-	      "tap a[id=back]": "back",
-	      "tap a[id=cancelReport]": "cancelReport",
-	      "tap a[id=confirmReport]": "confirmReport",
-	      "tap a[id=done]": "done"
+	      "click a[id=allowButton]" : "allow",
+	      "click a[id=dontAllowButton]": "dontAllow",
+	      "click a[id=report]": "report",
+	      "click a[id=back]": "back",
+	      "click a[id=cancelReport]": "cancelReport",
+	      "click a[id=confirmReport]": "confirmReport",
+	      "click a[id=done]": "done"
 	    },
 
 	    

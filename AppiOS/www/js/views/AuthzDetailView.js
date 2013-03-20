@@ -56,7 +56,7 @@ $(function($) {
 	    },
 	
 		events: {
-			"tap a[id=back]": "back",
+			"click a[id=back]": "back",
 	    },
 	    
 	  

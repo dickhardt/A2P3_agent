@@ -46,7 +46,7 @@ $(function($) {
 			"click a[id=cancel]": "cancel",
 			"click a[id=confirm]": "confirm",
 			"click a[id=edit]": "edit",
-			"tap a[id=a2p3link]": "a2p3netNav",
+			"click a[id=a2p3link]": "a2p3netNav",
 			"popupbeforeposition div[id=resetDialogue]": "stopTouchOutOfPop"
 		},
 	

@@ -89,7 +89,7 @@ function onDefaultEvent () {
 	// lets to default home page
 	console.log("loading default home page");
 
-    app.homeScan();
+    //app.homeScan();
 }
 
 /*

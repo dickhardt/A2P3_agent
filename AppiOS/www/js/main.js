@@ -97,9 +97,10 @@ function onDefaultEvent () {
  */
 function onResume() {
 	console.log("resume");
+	console.log("handling = " = window.Agent.HandlingOpenUrl);
 	
 	if (window.Agent.HandlingOpenUrl == true) {
-		console.log("handling");
+		
 		return;
 	} 
 	// Process new notifications

@@ -54,6 +54,10 @@
 	        var homeView = new window.Agent.HomeView(url);
 	        this.changePage(homeView, "slide", true);
 	    },
+	    
+	    homeFollow: function (url) {
+	    	var homeView = new window.Agent.HomeView(url);
+	    },
 
 		/*
 		 * Settings page, send in the global instance of settings

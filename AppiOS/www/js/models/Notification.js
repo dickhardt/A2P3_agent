@@ -119,7 +119,7 @@
 
 		// use the home view processing this URL
 		if (notification.url) {
-			app.home(notification.url);
+			app.homeFollow(notification.url);
 		}
 		else {
 			onDefaultEvent();

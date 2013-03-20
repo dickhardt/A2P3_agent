@@ -269,9 +269,11 @@
 					"request": app.request});
 			}
 			
+			
 			this.set("Apps", apps);
 			this.trigger("change:Apps");
 			
+			console.log("app =" + apps[appId]);
 			
 			// Get resource descriptions for each resources
 			var i;

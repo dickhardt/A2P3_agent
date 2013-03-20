@@ -91,7 +91,11 @@ function onResume() {
 	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
+		var startTime = new Date().getTime();
     	window.Agent.Notification.processPendingNotifications();
+    	var endTime = new Date().getTime();
+		var timeSpan = endTime - startTime;
+		UnhandledError("Time taken = " + timeSpan);
     }
     
     // reset to splash

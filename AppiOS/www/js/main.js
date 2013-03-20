@@ -72,11 +72,7 @@ function onDeviceReady() {
 	document.addEventListener("push-notification", window.Agent.Notification.onPendingNotificationWhileActive, false);
 	
 	 // Get new notifications
-	var startTime = new Date().getTime();
 	window.Agent.Notification.processPendingNotifications(onDefaultEvent);
-	var endTime = new Date().getTime();
-	var timeSpan = endTime - startTime;
-	//UnhandledError("Time taken = " + timeSpan);
 }
 
 /*
@@ -84,12 +80,15 @@ function onDeviceReady() {
  * URL.
  */
 function onDefaultEvent () {
-	// reset to splash
-	navigator.splashscreen.hide();
+	// reset to splash - THIS MUST BE BEFORE Backbone history starts
+	if (navigator.splashscreen) {
+		navigator.splashscreen.hide();
+	}
 	
 	// lets to default home page
 	console.log("loading default home page");
     Backbone.history.start();
+    app.homeScan();
 }
 
 /*
@@ -100,11 +99,7 @@ function onResume() {
 	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
-		var startTime = new Date().getTime();
     	window.Agent.Notification.processPendingNotifications(onDefaultEvent);
-    	var endTime = new Date().getTime();
-		var timeSpan = endTime - startTime;
-		//UnhandledError("Time taken = " + timeSpan);
     }
     else {
     	onDefaultEvent();
@@ -130,7 +125,7 @@ function onOnline () {
 	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
-    	window.Agent.Notification.processPendingNotifications();
+    	window.Agent.Notification.processPendingNotifications(onDefaultEvent);
     }
 }
 

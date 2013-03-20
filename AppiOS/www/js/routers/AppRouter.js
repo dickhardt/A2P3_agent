@@ -50,13 +50,19 @@
 		/*
 		 * Home page, default router
 		 */
-		home:function (url) {
-	        var homeView = new window.Agent.HomeView(url);
+		home:function () {
+	        var homeView = new window.Agent.HomeView();
 	        this.changePage(homeView, "slide", true);
 	    },
 	    
 	    homeFollow: function (url) {
 	    	var homeView = new window.Agent.HomeView(url);
+	    },
+	    
+	    homeScan: function () {
+	    	var homeView = new window.Agent.HomeView();
+	    	this.changePage(homeView);
+	    	homeView.scan();
 	    },
 
 		/*

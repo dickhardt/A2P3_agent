@@ -98,6 +98,9 @@ function onDefaultEvent () {
 function onResume() {
 	console.log("resume");
 	
+	    // reset to splash
+	navigator.splashscreen.hide();
+	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
 		var startTime = new Date().getTime();

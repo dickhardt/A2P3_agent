@@ -79,8 +79,8 @@ function handleOpenURL(url) {
 		app.mobileUrlInvokeHandler(url);
 	}, 0);
 	setTimeout(function() {
-		//window.Agent.HandlingOpenUrl = false;
-	}, 1);
+		window.Agent.HandlingOpenUrl = false;
+	}, 3000);
 }
 
 /*

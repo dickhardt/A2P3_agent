@@ -65,7 +65,8 @@ function UnhandledError (message) {
  * Get last access from unix integer
  * 
  */
-function getLastAccess (unixInt) {
-	var day = moment(unixInt);
+function getLastAccess (timeString) {
+	var timeInt = parseInt(timeString);
+	var day = moment(timeInt);
 	return day.fromNow();
 }

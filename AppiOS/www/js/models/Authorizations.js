@@ -273,7 +273,7 @@
 			this.set("Apps", apps);
 			this.trigger("change:Apps");
 			
-			console.log("app =", apps[appId]);
+			console.log("app =", apps);
 			
 			// Get resource descriptions for each resources
 			var i;

@@ -89,7 +89,7 @@ $(function($) {
 		scanSuccess: function (result) {
 			
             if (result.cancelled) {
-                //navigator.notification.alert("Scan Cancelled");
+                this.render();
             }
             else {
             	// Two flavours, enroll QR and logon QR
@@ -107,6 +107,7 @@ $(function($) {
             		this.displayError("Agent does not know how to handle the scanned QR: " + result.text);
             	}
             }
+            
 		},
 		
 		scanFailed: function(error) {

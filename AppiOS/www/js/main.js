@@ -87,10 +87,10 @@ function onDefaultEvent () {
 	// lets to default home page
 	console.log("loading default home page");
     Backbone.history.start();
-    app.navigate("", true);
+    //app.navigate("", true);
     
-    // reset to splash
-	//navigator.splashscreen.hide();
+    // Hide splash
+	navigator.splashscreen.hide();
 }
 
 /*
@@ -131,7 +131,7 @@ function onOnline () {
 	
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
-    	window.Agent.Notification.processPendingNotifications();
+    	window.Agent.Notification.processPendingNotifications(onDefaultEvent);
     }
 }
 

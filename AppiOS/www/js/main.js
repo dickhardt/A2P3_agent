@@ -51,6 +51,7 @@ function onDeviceReady() {
 	
 	// Start up backbone
     app = new window.Agent.AppRouter();
+    Backbone.history.start();
 	
 	// attach more listeners to cordova
 	document.addEventListener("resume", onResume, false);
@@ -87,7 +88,7 @@ function onDefaultEvent () {
 	
 	// lets to default home page
 	console.log("loading default home page");
-    Backbone.history.start();
+
     app.homeScan();
 }
 

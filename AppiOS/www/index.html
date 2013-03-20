@@ -125,10 +125,10 @@
 				<div data-shadow="true" data-role="content" data-theme="d">
 					<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
 					<p>This action cannot be undone.</p>
-					<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
-					<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="f" >Reset to *.local.a2p3.net</a> 
-					<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="f" >Reset to *.dev.a2p3.net</a> 
 					<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="f" >Reset to *.a2p3.net (Default)</a>
+					<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="f" >Reset to *.dev.a2p3.net</a> 
+					<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="f" >Reset to *.local.a2p3.net</a> 
+					<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
 				</div>
 			</div>
     </script>
@@ -276,8 +276,8 @@
 					<div data-shadow="true" data-role="content" data-theme="d">
 						<h3 class="ui-title">Are you sure you want to remove all access for <%= _.escape(this.confirmAppName) %> (<%= _.escape(this.confirmAppId) %>)?</h3>
 						<p>This action cannot be undone.</p>
-							<a id="cancel" data-role="button" data-rel="back">Cancel</a>    
 							<a id="deleteConfirm" data-role="button" data-transition="flow" data-theme="f">Remove</a>
+							<a id="cancel" data-role="button" data-rel="back">Cancel</a>    
 					</div>
   				</div>
             </div>

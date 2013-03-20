@@ -87,10 +87,9 @@ function onDefaultEvent () {
 	}
 	
 	// lets to default home page
-	console.log("loading default home page, invoke string = " + window.invokeString);
+	console.log("loading default home page");
 
-	//if (typeof invokeString != 'undefined') { //get parameters }
-    app.homeScan();
+    //app.homeScan();
 }
 
 /*
@@ -100,6 +99,7 @@ function onResume() {
 	console.log("resume");
 	
 	if (window.Agent.HandlingOpenUrl) {
+		console.log("handling");
 		return;
 	} 
 	// Process new notifications

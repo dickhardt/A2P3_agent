@@ -119,7 +119,7 @@ function onPause() {
 	
 	// show splash and nav home
 	navigator.splashscreen.show();
-	app.navigate("", true);
+	//app.navigate("", true);
 }
 
 /*

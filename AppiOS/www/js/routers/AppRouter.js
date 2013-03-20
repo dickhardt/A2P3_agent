@@ -51,12 +51,8 @@
 		 * Home page, default router
 		 */
 		home:function (url) {
-	        var homeView = new window.Agent.HomeView();
+	        var homeView = new window.Agent.HomeView(url);
 	        this.changePage(homeView, "slide", true);
-	        
-	        if (url) {
-	        	homeView.followQRCodeAgentRequestUrl(url);
-	        }
 	    },
 
 		/*

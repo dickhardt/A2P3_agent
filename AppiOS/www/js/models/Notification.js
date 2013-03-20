@@ -70,18 +70,21 @@
 	 * We could have a pile up of notifications
 	 * use only the most recent
 	 */
-	window.Agent.Notification.processPendingNotifications = function () {
+	window.Agent.Notification.processPendingNotifications = function (onDefaultEvent) {
 		console.log("processing pending notifications");
 		// First get them
 		var pushNotification = window.plugins.pushNotification;
 		if (pushNotification) {
         	pushNotification.getPendingNotifications(function (notifications) {
-        			window.Agent.Notification.getPendingNotificationsCallback(notifications);
+        			window.Agent.Notification.getPendingNotificationsCallback(notifications, onDefaultEvent);
         		});
+       	}
+       	else {
+       		onDefaultEvent();
        	}
 	}
 	
-	window.Agent.Notification.getPendingNotificationsCallback = function (data) {
+	window.Agent.Notification.getPendingNotificationsCallback = function (data, onDefaultEvent) {
 		console.log("notifications = " + JSON.stringify(data)); 
 		
         if (data.notifications &&
@@ -91,7 +94,10 @@
             var notification = data.notifications[data.notifications.length - 1];
 		
 		    // Call event
-		    window.Agent.Notification.onPendingNotification(notification);
+		    window.Agent.Notification.onPendingNotification(notification, onDefaultEvent);
+        }
+        else {
+        	onDefaultEvent();
         }
 	}
 		
@@ -107,7 +113,7 @@
 	 *   "url" : "<insert app small url>"
 	 *	}
 	 */
-	window.Agent.Notification.onPendingNotification = function (notification) {
+	window.Agent.Notification.onPendingNotification = function (notification, onDefaultEvent) {
 		
 		console.log("notify = ", notification);
 
@@ -116,6 +122,7 @@
 			app.home(notification.url);
 		}
 		else {
+			onDefaultEvent();
 			UnhandledError("Expected url in notification not found for notfication: " + notiJson);
 		}
 	}

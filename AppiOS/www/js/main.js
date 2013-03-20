@@ -73,14 +73,23 @@ function onDeviceReady() {
 	
 	 // Get new notifications
 	var startTime = new Date().getTime();
-	window.Agent.Notification.processPendingNotifications();
+	window.Agent.Notification.processPendingNotifications(onDefaultEvent);
 	var endTime = new Date().getTime();
 	var timeSpan = endTime - startTime;
-	UnhandledError("Time taken = " + timeSpan);
-	
+	//UnhandledError("Time taken = " + timeSpan);
+}
+
+/*
+ * Event for when we don't have pending notifications or incoming 
+ * URL.
+ */
+function onDefaultEvent () {
 	// lets to default home page
 	console.log("loading default home page");
     Backbone.history.start();
+    
+    // reset to splash
+	//navigator.splashscreen.hide();
 }
 
 /*
@@ -92,14 +101,14 @@ function onResume() {
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
 		var startTime = new Date().getTime();
-    	window.Agent.Notification.processPendingNotifications();
+    	window.Agent.Notification.processPendingNotifications(onDefaultEvent);
     	var endTime = new Date().getTime();
 		var timeSpan = endTime - startTime;
-		UnhandledError("Time taken = " + timeSpan);
+		//UnhandledError("Time taken = " + timeSpan);
     }
-    
-    // reset to splash
-	navigator.splashscreen.hide();
+    else {
+    	onDefaultEvent();
+    }
 }
 
 /*

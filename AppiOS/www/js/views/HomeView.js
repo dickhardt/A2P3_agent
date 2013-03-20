@@ -29,7 +29,9 @@ $(function($) {
 	    template:_.template($('#home').html()),
 	
 		initialize: function(url) {
-			
+			if (url) {
+				this.followQRCodeAgentRequestUrl(url);
+			}
 		},
 		
 	    render:function () {

@@ -87,10 +87,10 @@ function onDefaultEvent () {
 	}
 	
 	// lets to default home page
-	console.log("loading default home page, invoke string = " + invokeString);
+	console.log("loading default home page, invoke string = " + window.invokeString);
 
 	//if (typeof invokeString != 'undefined') { //get parameters }
-    //app.homeScan();
+    app.homeScan();
 }
 
 /*
@@ -99,6 +99,9 @@ function onDefaultEvent () {
 function onResume() {
 	console.log("resume");
 	
+	if (handlingOpenUrl) {
+		return;
+	} 
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {
     	window.Agent.Notification.processPendingNotifications(onDefaultEvent);

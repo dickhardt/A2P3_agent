@@ -89,7 +89,9 @@ function onDefaultEvent () {
 	// lets to default home page
 	console.log("loading default home page");
 
-    app.homeScan();
+	if (settings.isEnrolled()) {
+    	app.homeScan();
+   	}
 }
 
 /*

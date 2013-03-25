@@ -594,6 +594,8 @@
 			// Check for return 
 			var returnUrl = this.get("ReturnURL");
 			var callbackUrl = this.get("CallbackURL");
+			console.log("returnUrl = " + returnUrl);
+			console.log("callbackUrl = " + callbackUrl);
 			
 			var url1;
 			if (returnUrl &&

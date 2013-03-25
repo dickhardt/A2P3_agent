@@ -666,6 +666,8 @@
 		 * Client Apps wants a browser invoke to URL
 		 */
 		respondToClientAppReturn: function () {
+			console.log("return path");
+			
 			// Check for return 
 			var returnUrl = this.get("ReturnURL");
 			
@@ -719,6 +721,8 @@
 		 * tbd
 		 */
 		respondToClientAppCallback: function () {
+			console.log("callback path");
+			
 			// Check for return 
 			var callbackUrl = this.get("CallbackURL");
 			

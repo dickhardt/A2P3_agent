@@ -21,6 +21,7 @@
 		200E4407167BDE33007A24C9 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 200E4406167BDE33007A24C9 /* libiconv.dylib */; };
 		204F971216E7C7EE00FCBD1B /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 204F971116E7C7EE00FCBD1B /* icon-72@2x.png */; };
 		209E859F16D3E0CA00FBA68A /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 209E859E16D3E0CA00FBA68A /* PushNotification.m */; };
+		20A5E07116FA6F3C0001BBAC /* BarcodeOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20A5E07016FA6F3C0001BBAC /* BarcodeOverlay.xib */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
 		301BF570109A69640062928A /* www in Resources */ = {isa = PBXBuildFile; fileRef = 301BF56E109A69640062928A /* www */; };
@@ -88,6 +89,7 @@
 		204F971116E7C7EE00FCBD1B /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
 		209E859D16D3E0CA00FBA68A /* PushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotification.h; sourceTree = "<group>"; };
 		209E859E16D3E0CA00FBA68A /* PushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotification.m; sourceTree = "<group>"; };
+		20A5E07016FA6F3C0001BBAC /* BarcodeOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BarcodeOverlay.xib; sourceTree = "<group>"; };
 		20F32B931681325B0029022F /* Agent.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Agent.entitlements; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				20A5E07016FA6F3C0001BBAC /* BarcodeOverlay.xib */,
 				30A0434214DC770100060A13 /* de.lproj */,
 				30A0434514DC770100060A13 /* se.lproj */,
 				1F766FDB13BBADB100FB74C0 /* en.lproj */,
@@ -415,6 +418,7 @@
 				D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */,
 				200E4400167BDCE6007A24C9 /* README in Resources */,
 				204F971216E7C7EE00FCBD1B /* icon-72@2x.png in Resources */,
+				20A5E07116FA6F3C0001BBAC /* BarcodeOverlay.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

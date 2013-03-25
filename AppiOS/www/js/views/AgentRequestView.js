@@ -48,6 +48,7 @@ $(function($) {
 		events: {
 	      "click a[id=allowButton]" : "allow",
 	      "click a[id=dontAllowButton]": "dontAllow",
+	      "click a[id=cancel]": "dontAllow",
 	      "click a[id=report]": "report",
 	      "click a[id=back]": "back",
 	      "click a[id=cancelReport]": "cancelReport",
@@ -92,9 +93,11 @@ $(function($) {
 	   		this.$("#allowButton").show();
 	   		
 	   		
+	   		
 	   		// lttiel workaround for a jquery bug
-	   		this.$("#header").show();
+	   		this.$("#header").hide();
 	   		this.$("#abortHeader").hide();
+	   		this.$("#passcodeHeader").hide();
 	        
 	        var statusMessage = this.model.get("StatusMessage");
 	        if (statusMessage) {
@@ -111,18 +114,20 @@ $(function($) {
 	        	this.$("#reportConfirmedContainer").show();
 	        	this.$("#report").hide();
 	        	this.$("#reportConfirmedFooter").show();
+	        	this.$("#header").show();
 	        }
 	        else if (this.model.get("Report") == true) {
 	        	this.$("#reportContainer").show();
 	        	this.$("#report").hide();
 	        	this.$("#reportFooter").show();
+	        	this.$("#header").show();
 	        }
 	   		else if (this.model.get("AuthorizeFlag") == true &&
 	   			this.model.get("Authorized") == false &&
 	   			this.model.get("ResourceIds").length > 0) { 
 	   			this.$("#authZContainer").show();
 	   			this.$("#authZFooter").show();
-	   			
+	   			this.$("#header").show();
 	   			
 	   			var resourceServersLoaded = this.model.get("ResourceServersLoaded");
 	   			var resourceServerTotal = this.model.get("ResourceServersTotal");
@@ -139,11 +144,16 @@ $(function($) {
                                                          
 	   			this.$("#container-passcode").show();
 	   			this.$("#passcodeBlock").show();
+	   			
 	   			this.passcodeView.focus();
 	   			
 	   			if (this.model.get("AuthorizeFlag") == true &&
 	   				this.model.get("ResourceIds").length > 0) {
+	   				this.$("#header").show();
 	   				this.$("#back").show();
+	   			}
+	   			else {
+	   				this.$("#passcodeHeader").show();
 	   			}
 	   		}
 	   		

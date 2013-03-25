@@ -760,12 +760,12 @@
 			var error = this.get("ClientAppErrorCode");
 			if (error) {
 				data.error = error;
-			}
-			
-			// Make optional part errorMessage
-			var errorMessage = this.get("ClientAppErrorMessage");
-			if (errorMessage) {
-				data.error.message = errorMessage;
+				
+				// Make optional part errorMessage
+				var errorMessage = this.get("ClientAppErrorMessage");
+				if (errorMessage) {
+					data.errorMessage = errorMessage;
+				}
 			}
 			
 			console.log("Client app callback URL = " + callbackUrl);

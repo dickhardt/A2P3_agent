@@ -137,9 +137,13 @@ $(function($) {
 	   				this.$("#passcodeHeader").show();
 	   			}
 	   		}
+	   		else {
+	   			this.$("#header").show();
+	   		}
 	   		
 	   		// If the model has any errors, show them
 	   		if (this.model.get("ErrorMessage")) {
+	   			
 	   			this.$("#messageBar").text(this.model.get("ErrorMessage"));
 	        	this.$("#messageBar").show();
 	        	this.$("#loadingBar").hide();

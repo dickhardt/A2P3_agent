@@ -113,7 +113,7 @@ $(function($) {
 	   			var resourceServersLoaded = this.model.get("ResourceServersLoaded");
 	   			var resourceServerTotal = this.model.get("ResourceServersTotal");
 		   		if (resourceServersLoaded < resourceServerTotal) {
-		   			this.$("#loadingBar").text("Retrieving authorization <br>requests " + resourceServersLoaded + " of " + resourceServerTotal + "...");
+		   			this.$("#loadingBar").html("Retrieving authorization requests <br>" + resourceServersLoaded + " of " + resourceServerTotal + "...");
 		   			this.$("#loadingBar").show();
 		   			
 		   			// also hide the authorize button

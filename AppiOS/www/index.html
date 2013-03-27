@@ -59,62 +59,18 @@
     			<p>App Version - v1.6</p>
     			<p>More info at <a id="a2p3link">a2p3.net</a></p>
     			<a id="reset" data-rel="popup" data-role="button">Reset</a>
-		        <h3>Device</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
-		        	<li>
-		        		<label>Name:</label><br><br>
-		        		<p><%= _.escape(Name) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Id:</label><br><br>
-		        		<p><%= _.escape(DeviceId) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Notification Token:</label><br><br>
-		        		<p><%= _.escape(NotificationDeviceToken) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Registrar Token:</label><br><br>
-		        		<p><%= _.escape(RegistrarToken) %></p>
-		        	</li>
-		        </ul>
-		        <h3>Servers</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
-		        	<li>
-		        		<label>Authentication Server URL:</label><br><br>
-		        		<p><%= _.escape(this.model.getAuthenticationServerURL()) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Register Server URL:</label><br><br>
-		        		<p><%= _.escape(this.model.getRegistrarURL()) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Setup Server URL:</label><br><br>
-		        		<p><%= _.escape(this.model.getSetupURL()) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Resource Servers Protocol:</label><br><br>
-		        		<p><%= _.escape(ResourceServerProtocol) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Resource Servers Port:</label><br><br>
-		        		<p><%= _.escape(ResourceServerPort) %></p>
-		        	</li>
-		        	<li>
-		        		<label>Demostration Site URL:</label><br><br>
-		        		<p><%= _.escape(DemoAppsURL) %></p>
-		        	</li>
-		        </ul>
+		        <h3>Device Name</h3>
+		        <ul><li><p class="authzList"><%= _.escape(Name) %></p></li></ul>
 		        <h3>Resource Server Cache</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        <ul>
 		        	<% _.each(ResourceServerIds, function(resourceServerId) { %>  
-	        			<li><p><%= _.escape(resourceServerId) %></p></li> 
+	        			<li><p class="authzList"><%= _.escape(resourceServerId) %></p></li> 
 					<% }); %>
 		        </ul>
 		         <h3>App Name Cache</h3>
-		        <ul data-role="listview" data-inset="true" data-theme="c">
+		        <ul>
 	        		<% _.each(AppNameCache, function(app) { %>  
-	        			<li><p><%= _.escape(app.appId) %>: <%= _.escape(app.name) %></p></li> 
+	        			<li><p class="authzList"><%= _.escape(app.appId) %>: <%= _.escape(app.name) %></p></li> 
 					<% }); %>	
 		        </ul>
 	        </div>
@@ -125,9 +81,7 @@
 				<div data-shadow="true" data-role="content" data-theme="d">
 					<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
 					<p>This action cannot be undone.</p>
-					<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="f" >Reset to *.a2p3.net (Default)</a>
-					<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="f" >Reset to *.dev.a2p3.net</a> 
-					<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="f" >Reset to *.local.a2p3.net</a> 
+					<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="f" >Reset</a>
 					<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
 				</div>
 			</div>
@@ -145,6 +99,8 @@
 	        	<p>
 	        		Changing settings are for <b>developers only</b>.
 	        	</p>
+	        	<a id="reset" data-rel="popup" data-role="button">Advanced Reset</a>
+	        	<br>
 	      		Device Name:
 	      		<input type="text" id="name" name="name" value="<%= Name %>" />
 	      		Device Id:
@@ -213,6 +169,19 @@
 	      		Resource Server Port (Optional):
 	      		<input pattern="\d*" type="text" id="resourceServerPort" value="<%= ResourceServerPort %>" />
 	      	</div>
+	      	<div data-role="popup" id="resetDialogue">
+				<div data-role="header" data-theme="e">
+					<h1>Confirm Reset</h1>
+				</div>
+				<div data-shadow="true" data-role="content" data-theme="d">
+					<h3 class="ui-title">Are you sure you want to reset your setting to the installation defaults?</h3>
+					<p>This action cannot be undone.</p>
+					<a id="confirm" data-resetto="prod" data-role="button" data-transition="flow" data-theme="f" >Reset to *.a2p3.net (Default)</a>
+					<a id="confirm" data-resetto="dev" data-role="button" data-transition="flow" data-theme="f" >Reset to *.dev.a2p3.net</a> 
+					<a id="confirm" data-resetto="local" data-role="button" data-transition="flow" data-theme="f" >Reset to *.local.a2p3.net</a> 
+					<a id="cancel" data-role="button"  data-rel="back" data-theme="c" >Cancel</a>    
+				</div>
+			</div>
     </script>
     
     <!-- Demo Page Template -->

@@ -32,6 +32,9 @@ $(function($) {
 	    },
 	
 		events: {
+			"click a[id=reset]": "reset",
+			"click a[id=cancel]": "cancel",
+			"click a[id=confirm]": "confirm",
 			"click a[id=back]": "back",
 			"change input": "save",
 			"change select": "save",
@@ -40,6 +43,32 @@ $(function($) {
 		back: function () {
 			app.settings(true);
 		},
+		
+		cancel: function () {
+			this.$("#resetDialogue").popup("close");
+		},
+		
+		reset: function () {
+			this.$("#resetDialogue").popup("open", 
+				{transition: "pop",
+				 shadow: true});
+		},
+		
+		confirm: function(ev) {
+			var resetto = $(ev.currentTarget).data('resetto');
+			
+			console.log("Resetting to " + resetto);
+			
+		   // Reset model
+		   this.model.reset(resetto);
+		   
+		   // Redo notificaitons
+		   notification.register();
+		  
+		   // go home
+		   app.navigate("#home", true);
+		}, 
+
 		
 		/*
 		 * Save the model and go back home

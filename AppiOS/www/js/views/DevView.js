@@ -38,7 +38,12 @@ $(function($) {
 			"click a[id=back]": "back",
 			"change input": "save",
 			"change select": "save",
+			"popupbeforeposition div[id=resetDialogue]": "stopTouchOutOfPop"
 		},
+		
+		stopTouchOutOfPop: function () {
+        	$('.ui-popup-screen').off();
+       	},
 		
 		back: function () {
 			app.settings(true);

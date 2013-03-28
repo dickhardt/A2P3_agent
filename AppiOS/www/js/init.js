@@ -61,7 +61,7 @@ function handleOpenURL(url) {
 	}, 0);
 	setTimeout(function() {
 		window.Agent.HandlingOpenUrl = false;
-	}, 3000);
+	}, 10000);
 }
 
 /*

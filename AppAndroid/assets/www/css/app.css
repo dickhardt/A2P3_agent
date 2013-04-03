@@ -1,0 +1,119 @@
+/* 
+* Copyright (C) Province of British Columbia, 2013
+*/
+
+/* Override jquery mobile defautls for special cases on a per element basis */
+.passcode {
+	width: 110px !important;
+	font-weight: bolder;
+	padding: 10px !important;
+	margin: 0 auto !important;
+	text-align: left;
+	letter-spacing: 10px;
+}
+
+.keypad {
+	margin: 1px !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+.keypadLetters {
+	font-size: 10px;
+}
+
+.keypadBox {
+	width: 300px; 
+}
+
+.passcodeBoxes {
+	width: 240px; 
+}
+
+.center {
+	margin: 0 auto;
+}
+
+/* Override jquery mobile style to allow breaking words to wrap */
+.ui-bar {
+	word-wrap: break-word;
+}
+
+/* Stop the title from being truncated */
+.ui-title {
+	margin-right: auto !important;
+	margin-left: auto !important;
+}
+
+.homeButton .ui-btn-inner {
+	
+	padding-top: 15px;
+	text-align: left;
+	height: 90px;
+}
+
+.homeButton .ui-btn-text {
+	font-size: 22px;
+	white-space: normal;
+	float: left;
+	padding-left: 80px;
+}
+
+.twoLine .ui-btn-text {
+	padding-top: 15px;
+}
+
+.footerButton .ui-btn-inner {
+	font-size: 16px;
+}
+
+.dropdown {
+	text-align: left;
+}
+
+.authzList {
+	overflow: auto !important;
+	white-space: normal !important;
+}
+
+.ui-content {
+	padding-top: 15px;
+}
+
+.ui-li-desc {
+	white-space: normal !important;
+	font-size: 14px;
+}
+
+.ui-icon-app-qrcode {
+	background-image: url("qr_code.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
+}
+
+.ui-icon-app-check {
+	background-image: url("check.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
+}
+
+.ui-icon-app-ball {
+	background-image: url("ball.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
+}
+
+.ui-icon-app-safari {
+	background-image: url("safari.png");
+	width: 100px;
+	height: 100px;
+	top: 14% !important;
+}
+
+.homeHeader {
+	background-image: url("app_icon_embossed.png");
+	background-repeat: no-repeat;
+	background-position-x: 10px;
+}

@@ -71,7 +71,7 @@ function onDefaultEvent () {
 	console.log("loading default home page");
 
 	if (settings.isEnrolled()) {
-    	app.homeScan();
+    	//app.homeScan();
    	}
 }
 
@@ -84,7 +84,7 @@ function onResume() {
 	
 	if (window.Agent.HandlingOpenUrl == true) {
 		
-		return;
+		//return;
 	} 
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {

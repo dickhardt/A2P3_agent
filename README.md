@@ -17,7 +17,7 @@ This application makes use of the following libs/frameworks, most notably:
 - jstorage
 - various phonegap plugins
 
-The iOS version is located in the AppiOS folder and the Android verion is located in the AppAndroid folder.  The www folder was copied from the AppiOS and put into the Android folder.  An upcoming archiectural challenge will be to figure out how to keep the two www folders logically in-sync while accomodating platform specific modifications. 
+The iOS version is located in the AppiOS folder and the Android verion is located in the AppAndroid folder.  The www folder was copied from the AppiOS and put into the Android folder at version 1.7 for port PoC purposes only.  An upcoming archiectural challenge will be to figure out how to keep the two www folders logically in-sync while accomodating platform specific modifications. 
 
 To run Agent locally in a web browser:
 

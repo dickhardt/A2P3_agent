@@ -84,7 +84,7 @@ function onResume() {
 	
 	if (window.Agent.HandlingOpenUrl == true) {
 		
-		return;
+		//return;
 	} 
 	// Process new notifications
 	if (settings.get("NotificationDeviceToken")) {

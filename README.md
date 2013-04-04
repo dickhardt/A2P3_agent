@@ -2,7 +2,7 @@
 
 This is a Personal Agent for [a2p3.net demonstration  environment](http://www.a2p3.net/). It is compliant with the specification of the [A2P3 protocol version 9](http://www.a2p3.ca/PDFs/A2P3%20Protocol%20draft%209.pdf "A2P3 protocol version v0.9").
 
-The Agent targets iOS 4.3-6 for the iPhone and iPad.
+The Agent targets iOS 4.3-6 for the iPhone and iPad.   The beginnings of an Android port are in progress.  
 
 The Agent has been tested on the iPhone 4-5 iOS 5-6 and iPad iOS 5-6.   
 
@@ -16,6 +16,8 @@ This application makes use of the following libs/frameworks, most notably:
 - jquery mobile
 - jstorage
 - various phonegap plugins
+
+The iOS version is located in the AppiOS folder and the Android verion is located in the AppAndroid folder.  The www folder was copied from the AppiOS and put into the Android folder.  An upcoming archiectural challenge will be to figure out how to keep the two www folders logically in-sync while accomodating platform specific modifications. 
 
 To run Agent locally in a web browser:
 
@@ -55,7 +57,7 @@ Design guidelines:
 
 The global function handleOpenUrl(url) can be used to trigger the enrollment direct and login direct.
 
-For debugging on mobile, [jsconsole](http://jsconsole.com) can be very handy especially where you have to run a deployment signed application (which can't be debugged in XCode).
+For debugging on mobile, [jsconsole](http://jsconsole.com) can be very handy especially where you have to run a deployment signed application such as testing Apple push notifications (which can't be debugged in XCode).
 
 ## Related
 

@@ -15,7 +15,7 @@ $(document).on("mobileinit", function () {
 	 * in a higher chance that the same class will be applied 
 	 * even when the user is scrolling (eg, over a long list of links).
 	 */
-	$.mobile.buttonMarkup.hoverDelay = 0;
+	//$.mobile.buttonMarkup.hoverDelay = 0;
 
     // Set default page transitions
     $.mobile.defaultPageTransition = "none";

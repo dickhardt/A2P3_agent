@@ -1,6 +1,6 @@
 # A2P3_agent #
 
-This is a Personal Agent for [a2p3.net demonstration  environment](http://www.a2p3.net/). It is compliant with the specification of the [A2P3 protocol version 9](http://www.a2p3.ca/PDFs/A2P3%20Protocol%20draft%209.pdf "A2P3 protocol version v0.9").
+This is a PersonalAgent for [a2p3.net demonstration  environment](http://www.a2p3.net/). It is compliant with the specification of the [A2P3 protocol version 9](http://www.a2p3.ca/PDFs/A2P3%20Protocol%20draft%209.pdf "A2P3 protocol version v0.9").
 
 The Agent targets iOS 4.3-6 for the iPhone and iPad.   The beginnings of an Android port are in progress.  
 

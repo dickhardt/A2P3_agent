@@ -216,7 +216,9 @@
 	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
 	[self writeJavascript:[pluginResult toSuccessCallbackString:[self.callbackIds valueForKey:@"cancelAllLocalNotifications"]]];
 }
-
+/* Use of UIDevice uniqueIdentifier banned by Apple store
+ * Commenting out this method as we don't use it anyways
+ 
 - (void)getDeviceUniqueIdentifier:(CDVInvokedUrlCommand *)command {
 	DLog(@"getDeviceUniqueIdentifier:%@", command);
 
@@ -229,5 +231,5 @@
 	CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:uuid];
 	[self writeJavascript:[pluginResult toSuccessCallbackString:[self.callbackIds valueForKey:@"getDeviceUniqueIdentifier"]]];
 }
-
+*/
 @end
